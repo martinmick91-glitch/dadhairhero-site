@@ -1,8 +1,8 @@
 {
   "locale": "en-GB",
-  "contentVersion": "0f33fb879cdba541",
+  "contentVersion": "2af64a00aab1d487",
   "appVersion": "1.2.0",
-  "appCommit": "a03202a",
+  "appCommit": "6c3ca39",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -2464,8 +2464,8 @@
     },
     {
       "id": "making-a-part",
-      "slug": "making-a-part",
-      "title": "Making a part",
+      "slug": "making-a-parting",
+      "title": "Making a parting",
       "description": "Follow the bone, not your eye",
       "image": {
         "base": "/images/styles/two-even-bunches-step-2",
@@ -2483,11 +2483,11 @@
         "If the line wanders, wet the comb and run it back along the same seam once."
       ],
       "howToCheck": [
-        "Running a fingertip along the part from front to back, it sits on the seam the whole way.",
+        "Running a fingertip along the parting from front to back, it sits on the seam the whole way.",
         "A part that wanders half a centimetre, which is invisible to everyone but you."
       ],
       "commonMistakes": [
-        "Judging the line by eye instead of feeling for the seam first. This is the single biggest reason a part drifts off-centre.",
+        "Judging the line by eye instead of feeling for the seam first. This is the single biggest reason a parting drifts off-centre.",
         "Going over it more than once. One re-run with a wet comb is normal; chasing a perfectly straight line after that usually makes it worse, not better."
       ],
       "usedInAllStyles": false,
