@@ -1,0 +1,72 @@
+---
+// About: who makes Dad Hair Hero and how it treats what it is told. The
+// facts are the app's own (CLAUDE.md and docs in its repository) and what
+// Martin has said about its origins. One paragraph is his to write; it is
+// marked, and the site's checks warn until it is replaced.
+import Base from '../../layouts/Base.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import { LOCALES, SITE, AUTHOR, EMAIL, langParam, localeFromParam, path, breadcrumbs, campaign, t, ORGANIZATION, PERSON } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'About', path: path(locale, 'about') },
+];
+const title = 'About Dad Hair Hero: made by a dad in Dublin';
+const description = t(locale, "Made by a dad in Dublin who couldn't do his daughter's hair. The first twelve styles were reviewed by a professional hairdresser. Nothing is sent anywhere.");
+const jsonld = [
+  breadcrumbs(trail),
+  { '@context': 'https://schema.org', ...ORGANIZATION, founder: { '@id': PERSON['@id'] } },
+  { '@context': 'https://schema.org', ...PERSON, homeLocation: { '@type': 'Place', name: 'Dublin, Ireland' } },
+];
+---
+<Base locale={locale} kind="about" title={title} description={description} trail={trail} jsonld={jsonld}>
+  <h1>{t(locale, 'About Dad Hair Hero')}</h1>
+  <p class="lede">{t(locale, "Made by a dad in Dublin who couldn't do his daughter's hair, for every other dad in the same spot.")}</p>
+  <StoreBadges campaignName={campaign(locale, 'about')} />
+
+  <h2>{t(locale, 'Where it came from')}</h2>
+  <p class="placeholder">
+    [PLACEHOLDER: a short personal paragraph from {AUTHOR.name} goes here. Who you are, the morning that started it, what you wanted the app to be. Three or four sentences.]
+  </p>
+  <p>
+    {t(locale, 'The first twelve styles were reviewed by a professional hairdresser before the app was released. Every step since has been written to the same standard: positioned against things a dad can feel with his hands, with one action per step and a check at the end of it.')}
+  </p>
+
+  <h2>{t(locale, 'How the steps are written')}</h2>
+  <p>{t(locale, 'Every step in the app follows five rules, and the free styles on this site are those steps word for word.')}</p>
+  <ul>
+    <li>{t(locale, 'The hand is named only when it matters: when both hands are doing different jobs, or left and right change the result.')}</li>
+    <li>{t(locale, 'Everything is positioned against landmarks he can feel: ears, crown, nape, hairline. Never against an imagined picture.')}</li>
+    <li>{t(locale, 'Every step ends with something he can see or feel to know it is done: a comb that passes in one stroke, a bundle with no loose strands in front of the ears.')}</li>
+    <li>{t(locale, 'One action per step. A repeated cycle, like crossing right then left, is described once with how many times to repeat it.')}</li>
+    <li>{t(locale, 'What to do when it goes wrong lives in Fix It, not in the step, so the steps describe the right path only.')}</li>
+  </ul>
+
+  <h2>{t(locale, 'What the app does with what you tell it')}</h2>
+  <p>
+    {t(locale, 'Nothing leaves it for Dad Hair Hero. There is no account, no sign-up, no analytics, no advertising and no crash reporting, and no code in the app that reports what you do. Her name, hair type and age, your progress, and the photos and notes in the diary are stored on your phone. Your phone\'s own backup (iCloud, or Android backup) includes them, like any other app\'s data, in your own Apple or Google account.')}
+  </p>
+  <p>
+    {t(locale, 'The Kit is the one place anything can be bought. Its Buy links are affiliate links and say so before you tap. The screen a child uses to pick her own style has no links, no shop and no record of what she tapped beyond the one style she chose. Beyond the Ponytail is a one-time purchase through the App Store or Google Play; the app asks the store for the price and whether you own it, and nothing more.')}
+  </p>
+  <p>
+    {t(locale, 'The app is for adults and is listed that way. It will never be submitted to a children\'s category.')}
+    {' '}<a href="/privacy/">{t(locale, 'The privacy policy')}</a> {t(locale, 'says the same in full.')}
+  </p>
+
+  <h2>{t(locale, 'Who it is for')}</h2>
+  <p>
+    {t(locale, 'Dads, and anyone else who does a girl\'s hair in the morning without having been taught. The tone is plain and direct: no jokes at your expense, and no congratulations for turning up. The app is in UK or US English, whichever you choose, and this site is in both.')}
+  </p>
+
+  <h2>{t(locale, 'Get in touch')}</h2>
+  <p>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'A step that didn\'t work, a style you want, a photo that is wrong: all of it is read.')}
+  </p>
+  <p class="small">{t(locale, 'This page is')} <a href={`${SITE}${path(locale, 'about')}`.replace(SITE, '')}>{t(locale, 'the About page')}</a> {t(locale, 'of dadhairhero.com. Guides on this site are by')} {AUTHOR.name}, {t(locale, 'and the steps in them are the ones in the app.')}</p>
+</Base>

@@ -1,0 +1,36 @@
+---
+// The slim bar at the foot of a phone screen: the app icon, "Get the free
+// app", and a store button. Without JavaScript it shows both stores. With
+// it, a phone sees only its own store, and a dismissal is remembered in the
+// browser's sessionStorage, which nobody but the browser reads: the site
+// records nothing. CSS hides the bar on anything wider than a phone.
+import { appStoreUrl, playUrl } from '../lib/site.js';
+const { campaignName } = Astro.props;
+---
+<div class="app-bar" id="app-bar">
+  <img src="/assets/icon-192.png" alt="" width="40" height="40" />
+  <p>Get the free app<span>Step by step, on your phone</span></p>
+  <a class="store ios" href={appStoreUrl(campaignName)}>App Store</a>
+  <a class="store android" href={playUrl(campaignName)}>Google Play</a>
+  <button type="button" id="app-bar-close" aria-label="Dismiss">×</button>
+</div>
+<script is:inline>
+  (function () {
+    var bar = document.getElementById('app-bar');
+    var key = 'dhh-app-bar-dismissed';
+    var hide = function () {
+      bar.hidden = true;
+      document.body.classList.remove('has-app-bar');
+    };
+    var dismissed = false;
+    try { dismissed = sessionStorage.getItem(key) === '1'; } catch (e) {}
+    if (dismissed) { hide(); return; }
+    var ua = navigator.userAgent || '';
+    if (/iPhone|iPad|iPod/.test(ua)) bar.classList.add('ios-only');
+    if (/Android/.test(ua)) bar.classList.add('android-only');
+    document.getElementById('app-bar-close').addEventListener('click', function () {
+      hide();
+      try { sessionStorage.setItem(key, '1'); } catch (e) {}
+    });
+  })();
+</script>

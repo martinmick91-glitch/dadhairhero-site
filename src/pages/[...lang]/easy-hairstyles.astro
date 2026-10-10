@@ -4,9 +4,11 @@
 // lists come from each style's own time, ages and occasions.
 import Base from '../../layouts/Base.astro';
 import StyleCards from '../../components/StyleCards.astro';
-import AppCta from '../../components/AppCta.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
 import {
-  LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, minutes, ages, techniqueById, sentence,
+  LOCALES, HUBS, langParam, localeFromParam, path, breadcrumbs, itemList, minutes, ages, techniqueById,
+  sentence, campaign, t,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -24,17 +26,15 @@ if (basics.some((entry) => !entry)) {
   throw new Error('easy-hairstyles: a technique named on this page is no longer in the export');
 }
 
-const bunches = w(locale, 'bunches', 'pigtails');
-const plaits = w(locale, 'plaits', 'braids');
 const quickest = free[0];
 const slowest = free[free.length - 1];
 
 const trail = [
   { name: 'Home', path: path(locale, 'home') },
-  { name: 'Easy hairstyles', path: path(locale, 'easy') },
+  { name: t(locale, 'Easy hairstyles'), path: path(locale, 'easy') },
 ];
 const title = 'Easy hairstyles for girls, step by step | Dad Hair Hero';
-const description = `Six easy hairstyles for girls that a dad can do before school, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a photo. No experience needed.`;
+const description = t(locale, `Six easy hairstyles for girls that a dad can do before school, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a photo. No experience needed.`);
 const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
 ---
 <Base
@@ -45,39 +45,40 @@ const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.i
   trail={trail}
   jsonld={[breadcrumbs(trail), itemList('Easy hairstyles for girls', entries)]}
 >
-  <h1>Easy hairstyles for girls</h1>
-  <p class="lede">
-    Six styles a dad can do on a school morning, quickest first. No experience needed.
-  </p>
+  <h1>{t(locale, 'Easy hairstyles for girls')}</h1>
+  <p class="lede">{t(locale, 'Six styles a dad can do on a school morning, quickest first. No experience needed.')}</p>
+  <p class="summary-cta">{t(locale, 'All six are free in the app, with a check before every step.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'easy')} />
   <p>
-    Each guide takes you through one action at a time, with a photo of what your hands should be doing and
-    what it should look and feel like before you move on. Ponytails and {bunches} are where most dads
-    start.
+    {t(locale, 'Each guide takes you through one action at a time, with a photo of what your hands should be doing and what it should look and feel like before you move on. Ponytails and bunches are where most dads start.')}
   </p>
 
-  <h2>Quickest first</h2>
+  <h2>{t(locale, 'Quickest first')}</h2>
   <ul class="rows">
     {free.map((style) => (
       <li>
         <a href={path(locale, 'style', style.id)}>{style.name}</a>
-        <span>About {minutes(style.targetMinutes)}. {style.steps.length} steps. {ages(style)}.</span>
+        <span>{t(locale, `About ${minutes(style.targetMinutes)}. ${style.steps.length} steps. ${ages(style)}.`)}</span>
         <span>{style.description}</span>
       </li>
     ))}
   </ul>
 
-  <h2>Easy hairstyles for toddlers</h2>
+  <h2>{t(locale, 'Easy hairstyles for toddlers')}</h2>
   <p>
-    Short, fine hair and a child who won't sit for long. These are the ones written for babies and
-    toddlers.
+    {t(locale, "Short, fine hair and a child who won't sit for long. These are the ones written for babies and toddlers; the")}{' '}
+    <a href={path(locale, 'toddler')}>{t(locale, 'toddler page')}</a> {t(locale, 'has the rest.')}
   </p>
   <StyleCards locale={locale} styles={toddler} />
 
-  <h2>Easy hairstyles for school</h2>
-  <p>The everyday styles that suit a school day, each one {minutes(Math.max(...school.map((s) => s.targetMinutes)))} or less.</p>
+  <h2>{t(locale, 'Easy hairstyles for school')}</h2>
+  <p>
+    {t(locale, `The everyday styles that suit a school day, each one ${minutes(Math.max(...school.map((s) => s.targetMinutes)))} or less. The`)}{' '}
+    <a href={path(locale, 'school')}>{t(locale, 'school page')}</a> {t(locale, 'lists every style tagged for it.')}
+  </p>
   <StyleCards locale={locale} styles={school} />
 
-  <h2>The basics behind every style</h2>
+  <h2>{t(locale, 'The basics behind every style')}</h2>
   <ul class="rows">
     {basics.map((technique) => (
       <li>
@@ -89,20 +90,22 @@ const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.i
 
   {nextUp.length > 0 && (
     <>
-      <h2>When these are easy</h2>
+      <h2>{t(locale, 'When these are easy')}</h2>
       <p>
-        The next step is Beyond the Ponytail, an optional one-time pack of twelve styles in the app, from
-        {' '}{plaits} and buns to puffs and twists. These are the easy ones in it.
-        {' '}<a href={path(locale, 'styles')}>See all eighteen styles</a>.
+        {t(locale, 'The next step is Beyond the Ponytail, an optional one-time pack of twelve styles in the app, from plaits and buns to puffs and twists. These are the easy ones in it.')}
+        {' '}<a href={path(locale, 'styles')}>{t(locale, 'See all eighteen styles')}</a>.
       </p>
       <StyleCards locale={locale} styles={nextUp} />
     </>
   )}
 
-  <AppCta locale={locale} kind="easy" heading="Six free styles, on your phone">
-    <p>
-      Tell Dad Hair Hero how long you have and what her hair is like today, and it picks a style that fits.
-      The app is free, with no account and no tracking.
-    </p>
-  </AppCta>
+  <AppBlock locale={locale} kind="easy" heading="Six free styles, on your phone">
+    <p>{t(locale, 'Tell Dad Hair Hero how long you have and what her hair is like today, and it picks a style that fits. Then:')}</p>
+  </AppBlock>
+
+  <p class="small">
+    {t(locale, 'Also:')}{' '}
+    {HUBS.map((h, i) => <>{i > 0 && ', '}<a href={path(locale, h.kind)}>{t(locale, h.name).toLowerCase()}</a></>)}
+    {' '}{t(locale, 'and')} <a href={path(locale, 'curly')}>{t(locale, 'curly and coily hair')}</a>.
+  </p>
 </Base>

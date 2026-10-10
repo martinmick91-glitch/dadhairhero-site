@@ -10,8 +10,12 @@
 //                length, and no two pages share a title or description
 //   hreflang     every paired page names itself and its twin, the twin
 //                names it back, and the canonical is the page's own address
-//   structured   every JSON-LD block parses and has what its type needs
-//   data
+//   structured   every JSON-LD block parses and has what its type needs; a
+//   data         free style page carries HowTo, FAQPage and (with a video)
+//                VideoObject, a technique HowTo and FAQPage, About Person
+//                and Organization
+//   orphans      every indexed page is linked from the body of at least one
+//                other page, not only from the header or footer
 // and four rules of this site's own:
 //   - Amazon links are rel="sponsored", only on the Kit page, on the right
 //     country's store, and after the disclosure;
@@ -107,12 +111,25 @@ function checkImages(page, doc) {
   for (const img of doc.querySelectorAll('img')) {
     const src = img.getAttribute('src') ?? '';
     const alt = img.getAttribute('alt');
-    if (alt === null || alt === undefined || alt.trim().length < 4) fail(page, `image ${src} has no alt text`);
+    const decorative = alt === '' && img.closest('.app-bar');
+    if (!decorative && (alt === null || alt === undefined || alt.trim().length < 4)) fail(page, `image ${src} has no alt text`);
+    if (!decorative && alt && /^(image|photo|picture)$/i.test(alt.trim())) fail(page, `image ${src} has alt text that says nothing: "${alt}"`);
     if (!img.getAttribute('width') || !img.getAttribute('height')) fail(page, `image ${src} has no width and height`);
     checkInternal(page, src, 'image');
     for (const candidate of (img.getAttribute('srcset') ?? '').split(',').map((s) => s.trim()).filter(Boolean)) {
       checkInternal(page, candidate.split(/\s+/)[0], 'srcset image');
     }
+  }
+  for (const video of doc.querySelectorAll('video')) {
+    const poster = video.getAttribute('poster');
+    const source = video.querySelector('source')?.getAttribute('src');
+    if (!poster) fail(page, 'a video has no poster');
+    else checkInternal(page, poster, 'video poster');
+    if (!source) fail(page, 'a video has no source');
+    else checkInternal(page, source, 'video source');
+    if (video.getAttribute('preload') !== 'none') fail(page, 'a video must not preload');
+    if (!video.getAttribute('width') || !video.getAttribute('height')) fail(page, 'a video has no width and height');
+    if (!doc.toString().includes('"VideoObject"')) fail(page, 'a video without VideoObject structured data');
   }
   const og = meta(doc, 'meta[property="og:image"]');
   if (!og) fail(page, 'no og:image');
@@ -208,15 +225,28 @@ function checkHreflang(page, doc, indexed) {
 
 const REQUIRED = {
   MobileApplication: ['name', 'operatingSystem', 'applicationCategory', 'offers', 'url'],
-  HowTo: ['name', 'step'],
+  HowTo: ['name', 'step', 'author'],
   BreadcrumbList: ['itemListElement'],
   ItemList: ['itemListElement'],
   WebPage: ['name', 'url'],
+  FAQPage: ['mainEntity'],
+  VideoObject: ['name', 'description', 'thumbnailUrl', 'uploadDate', 'contentUrl', 'duration'],
+  Organization: ['name', 'url', 'logo'],
+  Person: ['name', 'url'],
 };
+
+// What each kind of page must carry.
+const EXPECTED_TYPES = [
+  [/^(\/us)?\/styles\/[^/]+\/$/, (doc) => (doc.querySelector('.steps') ? ['HowTo', 'FAQPage'] : ['WebPage'])],
+  [/^(\/us)?\/techniques\/[^/]+\/$/, () => ['HowTo', 'FAQPage']],
+  [/^(\/us)?\/about\/$/, () => ['Person', 'Organization']],
+  [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization']],
+];
 
 function checkStructuredData(page, doc, indexed) {
   const blocks = doc.querySelectorAll('script[type="application/ld+json"]');
   if (indexed && blocks.length === 0) fail(page, 'no structured data');
+  const types = [];
   for (const block of blocks) {
     let data;
     try {
@@ -226,6 +256,7 @@ function checkStructuredData(page, doc, indexed) {
       continue;
     }
     const type = data['@type'];
+    types.push(type);
     if (data['@context'] !== 'https://schema.org') fail(page, `${type}: @context must be https://schema.org`);
     if (!REQUIRED[type]) { fail(page, `structured data of an unexpected type: ${type}`); continue; }
     for (const key of REQUIRED[type]) {
@@ -243,6 +274,19 @@ function checkStructuredData(page, doc, indexed) {
         if (step.image) checkInternal(page, step.image.slice(SITE.length), 'HowTo step image');
       });
     }
+    if (type === 'FAQPage') {
+      if (data.mainEntity.length < 3 || data.mainEntity.length > 5) fail(page, `FAQPage has ${data.mainEntity.length} questions; it should have 3 to 5`);
+      const visible = doc.querySelectorAll('.faq summary').map((el) => el.text.trim());
+      for (const q of data.mainEntity) {
+        if (q['@type'] !== 'Question' || !q.name || !q.acceptedAnswer?.text) fail(page, 'FAQPage question without a name or answer');
+        else if (!visible.includes(q.name)) fail(page, `FAQ question not visible on the page: "${q.name}"`);
+      }
+    }
+    if (type === 'VideoObject') {
+      for (const key of ['thumbnailUrl', 'contentUrl']) checkInternal(page, data[key].slice(SITE.length), `VideoObject ${key}`);
+      if (!/^PT\d+S$/.test(data.duration)) fail(page, `VideoObject duration "${data.duration}" is not ISO 8601`);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(data.uploadDate)) fail(page, `VideoObject uploadDate "${data.uploadDate}" is not a date`);
+    }
     if (type === 'MobileApplication') {
       if (data.offers?.price !== '0' || !data.offers?.priceCurrency) fail(page, 'MobileApplication offer must be price 0 with a currency');
     }
@@ -257,10 +301,42 @@ function checkStructuredData(page, doc, indexed) {
         fail(page, 'the last breadcrumb is not this page');
       }
     }
-    for (const key of ['image', 'screenshot', 'primaryImageOfPage']) {
+    for (const key of ['image', 'screenshot', 'primaryImageOfPage', 'logo']) {
       if (typeof data[key] === 'string') checkInternal(page, data[key].slice(SITE.length), `${type} ${key}`);
     }
   }
+  for (const [pattern, expected] of EXPECTED_TYPES) {
+    if (!pattern.test(page)) continue;
+    for (const type of expected(doc)) if (!types.includes(type)) fail(page, `no ${type} structured data`);
+  }
+}
+
+// ─── Orphans ─────────────────────────────────────────────────────────────────
+
+// Every indexed page must be linked from the body (<main>) of some other
+// page. Header and footer links don't count: a page only a menu knows about
+// is a page nobody is sent to.
+function checkOrphans(indexedPages) {
+  const inbound = new Map(indexedPages.map((page) => [page, new Set()]));
+  for (const [page, doc] of pages) {
+    for (const a of doc.querySelectorAll('main a[href]')) {
+      const target = a.getAttribute('href').split('#')[0];
+      if (target !== page && inbound.has(target)) inbound.get(target).add(page);
+    }
+  }
+  for (const [page, from] of inbound) {
+    if (page === '/' || page === '/us/') continue;
+    if (from.size === 0) fail(page, 'orphan: no other page links to it from its body');
+  }
+}
+
+// ─── Placeholders ────────────────────────────────────────────────────────────
+
+// Text left for a person to write. A warning, not a failure, so the site
+// can be built and reviewed with it in; it is listed at the end of every run.
+const warnings = [];
+function checkPlaceholders(page, doc) {
+  if (/\[PLACEHOLDER/.test(doc.querySelector('main')?.text ?? '')) warnings.push(`${page}: has a [PLACEHOLDER] still to be written`);
 }
 
 // ─── This site's own rules ───────────────────────────────────────────────────
@@ -304,7 +380,10 @@ function checkOutboundLinks(page, doc) {
     if (disclosure === -1 || disclosure > firstLink) fail(page, 'the affiliate disclosure must come before the first Buy link');
     if (!/As an Amazon Associate/.test(html)) fail(page, 'the Amazon Associates notice is missing');
   }
-  if (doc.querySelector('script[src]')) fail(page, 'a page loads a script; the site ships none');
+  if (doc.querySelector('script[src]')) fail(page, 'a page loads a script file; the only script is the inline app bar');
+  for (const script of doc.querySelectorAll('script:not([type="application/ld+json"])')) {
+    if (/fetch\(|XMLHttpRequest|sendBeacon|new Image\(|localStorage/.test(script.text)) fail(page, 'an inline script sends or stores something; the site records nothing');
+  }
   for (const node of doc.querySelectorAll('script[src], link[rel="stylesheet"], img, iframe')) {
     const address = node.getAttribute('src') ?? node.getAttribute('href') ?? '';
     if (/^(https?:)?\/\//.test(address)) fail(page, `loads something from another site: ${address}`);
@@ -356,9 +435,12 @@ for (const [page, doc] of pages) {
   checkHreflang(page, doc, indexed);
   checkStructuredData(page, doc, indexed);
   checkOutboundLinks(page, doc);
+  checkPlaceholders(page, doc);
 }
 checkPackPreviews();
 checkSitemap(indexedPages);
+checkOrphans(indexedPages);
+if (!fs.existsSync(path.join(DIST, 'videos', 'videos.json'))) warnings.push('/videos/: no videos rendered (npm run videos)');
 if (!pages.has('/404.html')) fail('/404.html', 'not built');
 if (!built.has('/CNAME')) fail('/CNAME', 'not in the build; the custom domain depends on it');
 
@@ -367,4 +449,5 @@ if (failures.length) {
   for (const line of failures) console.error('  ' + line);
   process.exit(1);
 }
-console.log(`check-site: ${pages.size} pages, ${indexedPages.length} indexed. Links, alt text, titles, hreflang and structured data all pass.`);
+for (const line of warnings) console.log('  warning: ' + line);
+console.log(`check-site: ${pages.size} pages, ${indexedPages.length} indexed. Links, alt text, titles, hreflang, structured data and orphans all pass.`);

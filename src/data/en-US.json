@@ -1,7 +1,8 @@
 {
   "locale": "en-US",
+  "contentVersion": "4db9edad5faf7692",
   "appVersion": "1.2.0",
-  "appCommit": "19de5d0",
+  "appCommit": "c750377",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -36,6 +37,26 @@
     "criss-cross-bands",
     "pull-through-plait",
     "space-buns"
+  ],
+  "nextStyleOrder": [
+    "tangle-free-brushing",
+    "clip-back-baby-wisps",
+    "classic-ponytail",
+    "high-ponytail",
+    "half-up-half-down",
+    "two-even-bunches",
+    "bubble-ponytail",
+    "puffs",
+    "three-strand-plait",
+    "top-knot",
+    "sports-bun",
+    "twisted-bunches",
+    "pull-through-plait",
+    "space-buns",
+    "plaited-pigtails",
+    "french-plait",
+    "dutch-plait",
+    "criss-cross-bands"
   ],
   "styles": [
     {
@@ -72,8 +93,17 @@
       "minLength": "short",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": null,
+      "leadsTo": [
+        "classic-ponytail"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-knotted",
+        "entry-wont-sit"
+      ],
       "image": {
-        "base": "/images/styles/tangle-free-brushing/final",
+        "base": "/images/styles/tangle-free-brushing-finished",
         "widths": [
           800,
           400
@@ -82,7 +112,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/tangle-free-brushing/final-curly-coily",
+        "base": "/images/styles/tangle-free-brushing-finished-curly-hair",
         "widths": [
           800,
           400
@@ -115,7 +145,7 @@
           "why": "Using a brush on a knot does not smooth it. It pulls hair out.",
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/tangle-free-brushing/step-01",
+            "base": "/images/styles/tangle-free-brushing-step-1",
             "widths": [
               800,
               400
@@ -129,7 +159,7 @@
             "endState": "Your fingers slide through each section, root to tip.",
             "techniqueId": "detangling-curly-coily",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-01-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-1-curly-hair",
               "widths": [
                 800,
                 400
@@ -146,7 +176,7 @@
           "why": "This stops any tugging force from reaching her scalp.",
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/tangle-free-brushing/step-02",
+            "base": "/images/styles/tangle-free-brushing-step-2",
             "widths": [
               800,
               400
@@ -163,7 +193,7 @@
           "why": null,
           "techniqueId": "detangling",
           "photo": {
-            "base": "/images/styles/tangle-free-brushing/step-03",
+            "base": "/images/styles/tangle-free-brushing-step-3",
             "widths": [
               800,
               400
@@ -177,7 +207,7 @@
             "endState": "The comb runs freely through the ends of the section you're on.",
             "techniqueId": "detangling",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-03-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-3-curly-hair",
               "widths": [
                 800,
                 400
@@ -194,7 +224,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/tangle-free-brushing/step-04",
+            "base": "/images/styles/tangle-free-brushing-step-4",
             "widths": [
               800,
               400
@@ -208,7 +238,7 @@
             "endState": "Each section runs free from root to tip before you move to the next.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-04-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-4-curly-hair",
               "widths": [
                 800,
                 400
@@ -225,7 +255,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/tangle-free-brushing/step-05",
+            "base": "/images/styles/tangle-free-brushing-step-5",
             "widths": [
               800,
               400
@@ -239,7 +269,7 @@
             "endState": "The curls look soft and defined, not flattened or frizzed.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-05-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-5-curly-hair",
               "widths": [
                 800,
                 400
@@ -281,8 +311,21 @@
       "minLength": "short",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": "tangle-free-brushing",
+      "leadsTo": [
+        "high-ponytail",
+        "half-up-half-down",
+        "two-even-bunches",
+        "bubble-ponytail",
+        "three-strand-plait"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/classic-ponytail/final",
+        "base": "/images/styles/classic-ponytail-finished",
         "widths": [
           800,
           400
@@ -291,7 +334,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/classic-ponytail/final-curly-coily",
+        "base": "/images/styles/classic-ponytail-finished-curly-hair",
         "widths": [
           800,
           400
@@ -325,7 +368,7 @@
           "why": "This stops any pulling reaching her scalp.",
           "techniqueId": "detangling",
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-01",
+            "base": "/images/styles/classic-ponytail-step-1",
             "widths": [
               800,
               400
@@ -339,7 +382,7 @@
             "endState": "Your fingers slide through each section, root to tip.",
             "techniqueId": "detangling-curly-coily",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-01-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-1-curly-hair",
               "widths": [
                 800,
                 400
@@ -356,7 +399,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-02",
+            "base": "/images/styles/classic-ponytail-step-2",
             "widths": [
               800,
               400
@@ -370,7 +413,7 @@
             "endState": "One clean bundle at the back, with the hairline soft, not pulled tight.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/classic-ponytail/step-02-curly-coily",
+              "base": "/images/styles/classic-ponytail-step-2-curly-hair",
               "widths": [
                 800,
                 400
@@ -387,7 +430,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-03",
+            "base": "/images/styles/classic-ponytail-step-3",
             "widths": [
               800,
               400
@@ -404,7 +447,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-04",
+            "base": "/images/styles/classic-ponytail-step-4",
             "widths": [
               800,
               400
@@ -418,7 +461,7 @@
             "endState": "Flat and bump-free all the way round her head, with the curl pattern still intact.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/classic-ponytail/step-04-curly-coily",
+              "base": "/images/styles/classic-ponytail-step-4-curly-hair",
               "widths": [
                 800,
                 400
@@ -435,7 +478,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-05",
+            "base": "/images/styles/classic-ponytail-step-5",
             "widths": [
               800,
               400
@@ -452,7 +495,7 @@
           "why": null,
           "techniqueId": "holding-tension",
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-06",
+            "base": "/images/styles/classic-ponytail-step-6",
             "widths": [
               800,
               400
@@ -494,8 +537,17 @@
       "minLength": "short",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [
+        "top-knot"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/high-ponytail/final",
+        "base": "/images/styles/high-ponytail-finished",
         "widths": [
           800,
           400
@@ -504,7 +556,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/high-ponytail/final-curly-coily",
+        "base": "/images/styles/high-ponytail-finished-curly-hair",
         "widths": [
           800,
           400
@@ -538,7 +590,7 @@
           "why": null,
           "techniqueId": "detangling",
           "photo": {
-            "base": "/images/styles/classic-ponytail/step-01",
+            "base": "/images/styles/classic-ponytail-step-1",
             "widths": [
               800,
               400
@@ -552,7 +604,7 @@
             "endState": "Your fingers slide through each section, root to tip.",
             "techniqueId": "detangling-curly-coily",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-01-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-1-curly-hair",
               "widths": [
                 800,
                 400
@@ -569,7 +621,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/high-ponytail/step-02",
+            "base": "/images/styles/high-ponytail-step-2",
             "widths": [
               800,
               400
@@ -583,7 +635,7 @@
             "endState": "The hair is gathered at the crown, with the hairline soft, not strained.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/high-ponytail/step-02-curly-coily",
+              "base": "/images/styles/high-ponytail-step-2-curly-hair",
               "widths": [
                 800,
                 400
@@ -600,7 +652,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/high-ponytail/step-03",
+            "base": "/images/styles/high-ponytail-step-3",
             "widths": [
               800,
               400
@@ -614,7 +666,7 @@
             "endState": "Sits at the crown with the hairline soft, not strained.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/high-ponytail/step-03-curly-coily",
+              "base": "/images/styles/high-ponytail-step-3-curly-hair",
               "widths": [
                 800,
                 400
@@ -631,7 +683,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/high-ponytail/step-04",
+            "base": "/images/styles/high-ponytail-step-4",
             "widths": [
               800,
               400
@@ -645,7 +697,7 @@
             "endState": "Both sides and front are smooth and flat, without any pulling at the hairline.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/high-ponytail/step-04-curly-coily",
+              "base": "/images/styles/high-ponytail-step-4-curly-hair",
               "widths": [
                 800,
                 400
@@ -662,7 +714,7 @@
           "why": "The extra height creates more pull than a mid-height ponytail and needs more holding.",
           "techniqueId": "holding-tension",
           "photo": {
-            "base": "/images/styles/high-ponytail/step-05",
+            "base": "/images/styles/high-ponytail-step-5",
             "widths": [
               800,
               400
@@ -679,7 +731,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/high-ponytail/step-06",
+            "base": "/images/styles/high-ponytail-step-6",
             "widths": [
               800,
               400
@@ -721,8 +773,19 @@
       "minLength": "short",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [
+        "puffs",
+        "twisted-bunches",
+        "criss-cross-bands"
+      ],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-hurts",
+        "entry-falls-out"
+      ],
       "image": {
-        "base": "/images/styles/two-even-bunches/final",
+        "base": "/images/styles/two-even-bunches-finished",
         "widths": [
           800,
           400
@@ -731,7 +794,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/two-even-bunches/final-curly-coily",
+        "base": "/images/styles/two-even-bunches-finished-curly-hair",
         "widths": [
           800,
           400
@@ -767,7 +830,7 @@
           "why": "Both sides need to start from smooth hair or the part will look uneven.",
           "techniqueId": "detangling",
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-01",
+            "base": "/images/styles/two-even-bunches-step-1",
             "widths": [
               800,
               400
@@ -781,7 +844,7 @@
             "endState": "Your fingers slide through each section, root to tip.",
             "techniqueId": "detangling-curly-coily",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-01-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-1-curly-hair",
               "widths": [
                 800,
                 400
@@ -798,7 +861,7 @@
           "why": null,
           "techniqueId": "making-a-part",
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-02",
+            "base": "/images/styles/two-even-bunches-step-2",
             "widths": [
               800,
               400
@@ -815,7 +878,7 @@
           "why": "You are just keeping it out of the way while you work the right side first.",
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-03",
+            "base": "/images/styles/two-even-bunches-step-3",
             "widths": [
               800,
               400
@@ -832,7 +895,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-04",
+            "base": "/images/styles/two-even-bunches-step-4",
             "widths": [
               800,
               400
@@ -849,7 +912,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-05",
+            "base": "/images/styles/two-even-bunches-step-5",
             "widths": [
               800,
               400
@@ -866,7 +929,7 @@
           "why": null,
           "techniqueId": "holding-tension",
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-06",
+            "base": "/images/styles/two-even-bunches-step-6",
             "widths": [
               800,
               400
@@ -883,7 +946,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/two-even-bunches/step-07",
+            "base": "/images/styles/two-even-bunches-step-7",
             "widths": [
               800,
               400
@@ -925,8 +988,15 @@
       "minLength": "medium",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-too-short"
+      ],
       "image": {
-        "base": "/images/styles/half-up-half-down/step-06",
+        "base": "/images/styles/half-up-half-down-step-6",
         "widths": [
           800,
           400
@@ -935,7 +1005,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/half-up-half-down/step-06-curly-coily",
+        "base": "/images/styles/half-up-half-down-step-6-curly-hair",
         "widths": [
           800,
           400
@@ -969,7 +1039,7 @@
           "why": null,
           "techniqueId": "detangling",
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-01",
+            "base": "/images/styles/half-up-half-down-step-1",
             "widths": [
               800,
               400
@@ -983,7 +1053,7 @@
             "endState": "Your fingers slide through each section, root to tip.",
             "techniqueId": "detangling-curly-coily",
             "photo": {
-              "base": "/images/styles/tangle-free-brushing/step-01-curly-coily",
+              "base": "/images/styles/tangle-free-brushing-step-1-curly-hair",
               "widths": [
                 800,
                 400
@@ -1000,7 +1070,7 @@
           "why": null,
           "techniqueId": "making-a-part",
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-02",
+            "base": "/images/styles/half-up-half-down-step-2",
             "widths": [
               800,
               400
@@ -1017,7 +1087,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-03",
+            "base": "/images/styles/half-up-half-down-step-3",
             "widths": [
               800,
               400
@@ -1034,7 +1104,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-04",
+            "base": "/images/styles/half-up-half-down-step-4",
             "widths": [
               800,
               400
@@ -1048,7 +1118,7 @@
             "endState": "The top and sides are smooth, with the curl pattern still intact.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/half-up-half-down/step-04-curly-coily",
+              "base": "/images/styles/half-up-half-down-step-4-curly-hair",
               "widths": [
                 800,
                 400
@@ -1065,7 +1135,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-05",
+            "base": "/images/styles/half-up-half-down-step-5",
             "widths": [
               800,
               400
@@ -1079,7 +1149,7 @@
             "endState": "The elastic sits snug and does not slide down, with the part line soft, not strained.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/half-up-half-down/step-05-curly-coily",
+              "base": "/images/styles/half-up-half-down-step-5-curly-hair",
               "widths": [
                 800,
                 400
@@ -1096,7 +1166,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/half-up-half-down/step-06",
+            "base": "/images/styles/half-up-half-down-step-6",
             "widths": [
               800,
               400
@@ -1134,8 +1204,14 @@
       "minLength": "short",
       "pack": false,
       "curlyOnly": false,
+      "buildsOn": null,
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/clip-back-baby-wisps/final",
+        "base": "/images/styles/clip-back-baby-wisps-finished",
         "widths": [
           800,
           400
@@ -1164,7 +1240,7 @@
           "why": "This settles fine baby hair enough to gather it.",
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/clip-back-baby-wisps/step-01",
+            "base": "/images/styles/clip-back-baby-wisps-step-1",
             "widths": [
               800,
               400
@@ -1178,7 +1254,7 @@
             "endState": "Damp, not dripping wet.",
             "techniqueId": null,
             "photo": {
-              "base": "/images/styles/clip-back-baby-wisps/step-01",
+              "base": "/images/styles/clip-back-baby-wisps-step-1",
               "widths": [
                 800,
                 400
@@ -1195,7 +1271,7 @@
           "why": "You only want the front wisps, not the whole top section.",
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/clip-back-baby-wisps/step-02",
+            "base": "/images/styles/clip-back-baby-wisps-step-2",
             "widths": [
               800,
               400
@@ -1212,7 +1288,7 @@
           "why": null,
           "techniqueId": null,
           "photo": {
-            "base": "/images/styles/clip-back-baby-wisps/step-03",
+            "base": "/images/styles/clip-back-baby-wisps-step-3",
             "widths": [
               800,
               400
@@ -1256,8 +1332,18 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [
+        "plaited-pigtails",
+        "french-plait"
+      ],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-too-short"
+      ],
       "image": {
-        "base": "/images/styles/three-strand-plait/final",
+        "base": "/images/styles/three-strand-plait-finished",
         "widths": [
           800,
           400
@@ -1266,7 +1352,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/three-strand-plait/final-curly-coily",
+        "base": "/images/styles/three-strand-plait-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1340,8 +1426,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "three-strand-plait",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-too-short"
+      ],
       "image": {
-        "base": "/images/styles/plaited-pigtails/final",
+        "base": "/images/styles/plaited-pigtails-finished",
         "widths": [
           800,
           400
@@ -1350,7 +1443,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/plaited-pigtails/final-curly-coily",
+        "base": "/images/styles/plaited-pigtails-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1430,8 +1523,18 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "high-ponytail",
+      "leadsTo": [
+        "sports-bun",
+        "space-buns"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/top-knot/final",
+        "base": "/images/styles/top-knot-finished",
         "widths": [
           800,
           400
@@ -1440,7 +1543,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/top-knot/final-curly-coily",
+        "base": "/images/styles/top-knot-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1520,8 +1623,17 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "three-strand-plait",
+      "leadsTo": [
+        "dutch-plait"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-plait-technique"
+      ],
       "image": {
-        "base": "/images/styles/french-plait/final",
+        "base": "/images/styles/french-plait-finished",
         "widths": [
           800,
           400
@@ -1530,7 +1642,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/french-plait/final-curly-coily",
+        "base": "/images/styles/french-plait-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1611,8 +1723,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "french-plait",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-plait-technique"
+      ],
       "image": {
-        "base": "/images/styles/dutch-plait/final",
+        "base": "/images/styles/dutch-plait-finished",
         "widths": [
           800,
           400
@@ -1621,7 +1740,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/dutch-plait/final-curly-coily",
+        "base": "/images/styles/dutch-plait-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1700,8 +1819,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "top-knot",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/sports-bun/final",
+        "base": "/images/styles/sports-bun-finished",
         "widths": [
           800,
           400
@@ -1710,7 +1836,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/sports-bun/final-curly-coily",
+        "base": "/images/styles/sports-bun-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1789,8 +1915,17 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [
+        "pull-through-plait"
+      ],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
       "image": {
-        "base": "/images/styles/bubble-ponytail/final",
+        "base": "/images/styles/bubble-ponytail-finished",
         "widths": [
           800,
           400
@@ -1799,7 +1934,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/bubble-ponytail/final-curly-coily",
+        "base": "/images/styles/bubble-ponytail-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1866,8 +2001,15 @@
       "minLength": "short",
       "pack": true,
       "curlyOnly": true,
+      "buildsOn": "two-even-bunches",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-looks-wrong",
+        "entry-falls-out"
+      ],
       "image": {
-        "base": "/images/styles/puffs/final",
+        "base": "/images/styles/puffs-finished",
         "widths": [
           800,
           400
@@ -1939,8 +2081,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "two-even-bunches",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-plait-technique"
+      ],
       "image": {
-        "base": "/images/styles/twisted-bunches/final",
+        "base": "/images/styles/twisted-bunches-finished",
         "widths": [
           800,
           400
@@ -2015,8 +2164,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "two-even-bunches",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-hurts",
+        "entry-too-short"
+      ],
       "image": {
-        "base": "/images/styles/criss-cross-bands/final",
+        "base": "/images/styles/criss-cross-bands-finished",
         "widths": [
           800,
           400
@@ -2089,8 +2245,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "bubble-ponytail",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-plait-technique",
+        "entry-falls-out"
+      ],
       "image": {
-        "base": "/images/styles/pull-through-plait/final",
+        "base": "/images/styles/pull-through-plait-finished",
         "widths": [
           800,
           400
@@ -2099,7 +2262,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/pull-through-plait/final-curly-coily",
+        "base": "/images/styles/pull-through-plait-finished-curly-hair",
         "widths": [
           800,
           400
@@ -2169,8 +2332,15 @@
       "minLength": "medium",
       "pack": true,
       "curlyOnly": false,
+      "buildsOn": "top-knot",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-falls-out",
+        "entry-hurts"
+      ],
       "image": {
-        "base": "/images/styles/space-buns/final",
+        "base": "/images/styles/space-buns-finished",
         "widths": [
           800,
           400
@@ -2215,7 +2385,7 @@
       "title": "Holding tension",
       "description": "The anchor hand, and why it matters more than the elastic",
       "image": {
-        "base": "/images/techniques/holding-tension/anchor-hand",
+        "base": "/images/techniques/holding-tension-anchor-hand",
         "widths": [
           800,
           400
@@ -2252,7 +2422,7 @@
       "title": "Detangling without tears",
       "description": "Ends first, five centimeters at a time",
       "image": {
-        "base": "/images/styles/tangle-free-brushing/step-03",
+        "base": "/images/styles/tangle-free-brushing-step-3",
         "widths": [
           800,
           400
@@ -2298,7 +2468,7 @@
       "title": "Making a part",
       "description": "Follow the bone, not your eye",
       "image": {
-        "base": "/images/styles/two-even-bunches/step-02",
+        "base": "/images/styles/two-even-bunches-step-2",
         "widths": [
           800,
           400
@@ -2335,7 +2505,7 @@
       "title": "Choosing elastics",
       "description": "Fabric over rubber, every time",
       "image": {
-        "base": "/images/techniques/choosing-elastics/compare",
+        "base": "/images/techniques/choosing-elastics-compare",
         "widths": [
           800,
           400
@@ -2369,7 +2539,7 @@
       "title": "Keeping her still",
       "description": "Give her a job, not an instruction",
       "image": {
-        "base": "/images/techniques/keeping-her-still/mirror-and-clip",
+        "base": "/images/techniques/keeping-her-still-mirror-and-clip",
         "widths": [
           800,
           400
@@ -2403,7 +2573,7 @@
       "title": "Detangling curly and coily hair",
       "description": "Water and leave-in, not a dry brush",
       "image": {
-        "base": "/images/techniques/detangling-curly-coily/damp-sections",
+        "base": "/images/techniques/detangling-curly-coily-damp-sections",
         "widths": [
           800,
           400
@@ -2456,7 +2626,7 @@
       "title": "The two-strand twist",
       "description": "Two strands to keep track of, not three",
       "image": {
-        "base": "/images/techniques/two-strand-twist/cross-strands",
+        "base": "/images/techniques/two-strand-twist-cross-strands",
         "widths": [
           800,
           400
@@ -2495,7 +2665,7 @@
       "title": "Gentle tension and protecting her edges",
       "description": "If it hurts, it's too tight",
       "image": {
-        "base": "/images/techniques/gentle-tension-protecting-edges/soft-hairline",
+        "base": "/images/techniques/gentle-tension-protecting-edges-soft-hairline",
         "widths": [
           800,
           400
@@ -2878,42 +3048,50 @@
       {
         "id": "entry-hurts",
         "label": "She's crying or says it hurts",
-        "startNodeId": "q-hurts-1"
+        "startNodeId": "q-hurts-1",
+        "slug": "hurts"
       },
       {
         "id": "entry-knotted",
         "label": "Her hair is badly knotted",
-        "startNodeId": "q-knotted-1"
+        "startNodeId": "q-knotted-1",
+        "slug": "knotted"
       },
       {
         "id": "entry-too-short",
         "label": "Her hair is too short for the style I picked",
-        "startNodeId": "q-short-1"
+        "startNodeId": "q-short-1",
+        "slug": "too-short"
       },
       {
         "id": "entry-falls-out",
         "label": "It won't stay in: falls out within an hour",
-        "startNodeId": "q-falls-1"
+        "startNodeId": "q-falls-1",
+        "slug": "falls-out"
       },
       {
         "id": "entry-looks-wrong",
         "label": "It doesn't look right",
-        "startNodeId": "q-looks-1"
+        "startNodeId": "q-looks-1",
+        "slug": "looks-wrong"
       },
       {
         "id": "entry-wont-sit",
         "label": "She won't sit still",
-        "startNodeId": "q-sit-1"
+        "startNodeId": "q-sit-1",
+        "slug": "wont-sit"
       },
       {
         "id": "entry-plait-technique",
         "label": "I lost my place mid-braid",
-        "startNodeId": "q-plait-1"
+        "startNodeId": "q-plait-1",
+        "slug": "braid-technique"
       },
       {
         "id": "entry-sports-bun",
         "label": "The bun collapsed during activity",
-        "startNodeId": "q-sports-bun-1"
+        "startNodeId": "q-sports-bun-1",
+        "slug": "sports-bun"
       }
     ],
     "nodes": [

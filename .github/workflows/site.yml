@@ -1,10 +1,17 @@
 # Builds the site and checks it on every push and pull request. Deploys to
-# GitHub Pages only from main, and only when the checks pass.
+# GitHub Pages only from main, and only when every check passes.
 #
 # Pages must be set to deploy from "GitHub Actions" (Settings → Pages →
 # Source) before this is merged to main. While it is still set to "Deploy
 # from a branch", Pages publishes the repository's files as they are, and
 # after the Astro rebuild those are source files, not a site.
+#
+# The content-version check (scripts/check-export.mjs) compares the site's
+# exported data with the app's repository when it can see it. The app's
+# repository is private, so give this workflow a fine-grained personal
+# access token with read access to it as the secret APP_REPO_TOKEN; with
+# the secret set, a stale export fails the build here as it does locally.
+# Without it the comparison is skipped and the log says so.
 
 name: Site
 
@@ -23,16 +30,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      HAS_APP_TOKEN: ${{ secrets.APP_REPO_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
+      - if: env.HAS_APP_TOKEN == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: martinmick91-glitch/dad-hair-hero
+          token: ${{ secrets.APP_REPO_TOKEN }}
+          path: app
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
+      # The export's --version needs the app's typescript and sharp.
+      - if: env.HAS_APP_TOKEN == 'true'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: app
+      # prebuild runs the content-version check first.
       - run: npm run build
-      # Links, alt text, titles, hreflang and structured data.
+        env:
+          APP_REPO: ${{ env.HAS_APP_TOKEN == 'true' && format('{0}/app', github.workspace) || '' }}
+          REQUIRE_APP_CHECK: ${{ env.HAS_APP_TOKEN == 'true' && '1' || '0' }}
+      # Links, alt text, titles, hreflang, structured data, no orphans, the
+      # affiliate and store-link rules, the sitemap; then HTML validation.
       - run: npm run check
+      # Lighthouse, mobile, 90 or better in every category.
+      - run: npm run lighthouse
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:

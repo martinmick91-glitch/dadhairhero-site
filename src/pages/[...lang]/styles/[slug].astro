@@ -7,10 +7,17 @@
 import Base from '../../../layouts/Base.astro';
 import Photo from '../../../components/Photo.astro';
 import StyleCards from '../../../components/StyleCards.astro';
-import AppCta from '../../../components/AppCta.astro';
+import SummaryCard from '../../../components/SummaryCard.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import Author from '../../../components/Author.astro';
+import Faq from '../../../components/Faq.astro';
+import Related from '../../../components/Related.astro';
+import Video from '../../../components/Video.astro';
 import {
-  LOCALES, langParam, localeFromParam, path, absolute, w, minutes, ages, hairTypes, hairLength, difficulty,
-  offersCurly, sentence, kitItemById, techniqueById, pageTitle, pageDescription, breadcrumbs, imageUrl, list, lower,
+  LOCALES, langParam, localeFromParam, path, absolute, minutes, offersCurly, sentence, kitItemById,
+  techniqueById, fixEntryById, pageTitle, pageDescription, breadcrumbs, imageUrl, lower, t, campaign,
+  relatedStyles, techniquesUsed, hubsForStyle, styleFaq, faqPage, videoFor, AUTHORSHIP,
 } from '../../../lib/site.js';
 
 export function getStaticPaths() {
@@ -34,10 +41,16 @@ const curlyExtra = style.curlyOnly
       .filter((itemId) => !style.equipmentIds.includes(itemId))
       .map((itemId) => kitItemById(locale, itemId))
       .filter(Boolean);
+const allKit = [...kit, ...curlyExtra];
 
-const freeStyles = locale.data.styles.filter((s) => !s.pack && s.id !== style.id);
-const packStyles = locale.data.styles.filter((s) => s.pack && s.id !== style.id);
 const hasCurlySteps = free && style.steps.some((step) => step.curly);
+const techniques = free ? techniquesUsed(locale, style) : [];
+const related = relatedStyles(locale, style);
+const hubs = hubsForStyle(locale, style);
+const fixes = style.relatedFixIds.map((fixId) => fixEntryById(locale, fixId)).filter(Boolean);
+const faq = free ? styleFaq(locale, style) : [];
+const video = free ? videoFor(locale, style) : null;
+const packStyles = locale.data.styles.filter((s) => s.pack && s.id !== style.id);
 
 const title = free
   ? pageTitle(`${style.name}: step by step for dads | Dad Hair Hero`, `${style.name}, step by step | Dad Hair Hero`, `${style.name} | Dad Hair Hero`)
@@ -61,7 +74,24 @@ const trail = [
 ];
 const url = absolute(path(locale, 'style', style.id));
 
+// Alt text says what the photo shows: the style, the step, whose hair.
+const stepAlt = (step, i, curly) =>
+  `${style.name}, step ${i + 1}${curly || style.curlyOnly ? ', curly hair' : ''}: ${lower(curly ? step.curly.title : step.title)}`;
+
 const jsonld = [breadcrumbs(trail)];
+const videoObject = video && {
+  '@type': 'VideoObject',
+  name: `${style.name}, step by step`,
+  description: `Every step of ${lower(style.name)} from the Dad Hair Hero app, then the finished look. ${video.durationSeconds} seconds, no sound.`,
+  thumbnailUrl: absolute(video.poster),
+  contentUrl: absolute(video.src),
+  uploadDate: video.uploadDate,
+  duration: `PT${video.durationSeconds}S`,
+  width: 1080,
+  height: 1920,
+  inLanguage: locale.code,
+  ...AUTHORSHIP,
+};
 if (free) {
   jsonld.push({
     '@context': 'https://schema.org',
@@ -80,7 +110,11 @@ if (free) {
       image: imageUrl(step.photo),
       url: `${url}#step-${i + 1}`,
     })),
+    ...(videoObject ? { video: videoObject } : {}),
+    ...AUTHORSHIP,
   });
+  jsonld.push(faqPage(faq));
+  if (videoObject) jsonld.push({ '@context': 'https://schema.org', ...videoObject });
 } else {
   jsonld.push({
     '@context': 'https://schema.org',
@@ -90,10 +124,9 @@ if (free) {
     inLanguage: locale.code,
     url,
     primaryImageOfPage: imageUrl(style.image),
+    ...AUTHORSHIP,
   });
 }
-
-const packLine = `Beyond the Ponytail is an optional one-time pack of twelve styles in the Dad Hair Hero app. You pay once and they are yours to keep. There is no subscription.`;
 ---
 <Base
   locale={locale}
@@ -109,57 +142,41 @@ const packLine = `Beyond the Ponytail is an optional one-time pack of twelve sty
   {!free && <p><span class="pack-tag">Beyond the Ponytail</span></p>}
   <h1>{style.name}</h1>
   <p class="lede">{sentence(style.oneLiner)}</p>
+  <Author locale={locale} />
+  <p class="summary-cta">{style.pack ? t(locale, 'Full steps in the free app, in Beyond the Ponytail.') : t(locale, 'Follow it step by step in the free app.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'style', style.id)} />
+
+  <SummaryCard locale={locale} style={style} kit={kit} curlyExtra={curlyExtra} />
+
   <p>{style.description}</p>
 
-  <dl class="facts">
-    <div><dt>Time</dt><dd>About {minutes(style.targetMinutes)}</dd></div>
-    <div><dt>Steps</dt><dd>{style.steps.length}</dd></div>
-    <div><dt>Level</dt><dd>{difficulty(style)}</dd></div>
-    <div><dt>Ages</dt><dd>{ages(style)}</dd></div>
-    <div><dt>Hair type</dt><dd>{hairTypes(locale, style)}</dd></div>
-    <div><dt>Hair length</dt><dd>{hairLength(style)}</dd></div>
-  </dl>
-
-  <div class="looks">
-    <figure>
-      <Photo photo={style.image} alt={`${style.name}, the finished style${style.curlyOnly ? ' on curly hair' : ''}`} eager />
-      <figcaption>The finished look{style.curlyImage ? '.' : style.curlyOnly ? ', on curly hair.' : '.'}</figcaption>
+  {style.curlyImage && (
+    <figure class="photo hero-photo">
+      <Photo photo={style.curlyImage} alt={`${style.name}, the finished style, curly hair: back view`} sizes="(max-width: 42rem) 80vw, 416px" />
+      <figcaption>{t(locale, 'The same style on curly hair.')}</figcaption>
     </figure>
-    {style.curlyImage && (
-      <figure>
-        <Photo photo={style.curlyImage} alt={`${style.name}, the finished style on curly hair`} />
-        <figcaption>The same style on curly hair.</figcaption>
-      </figure>
-    )}
-  </div>
-
-  <h2>You'll need</h2>
-  <ul>
-    {kit.map((item) => <li><a href={path(locale, 'kitItem', item.id)}>{item.name}</a></li>)}
-  </ul>
-  {curlyExtra.length > 0 && (
-    <p>
-      For curly and coily hair, also:{' '}
-      {curlyExtra.map((item, i) => (
-        <>{i > 0 && ', '}<a href={path(locale, 'kitItem', item.id)}>{lower(item.name)}</a></>
-      ))}.
-    </p>
   )}
 
   {style.herJob && (
     <>
-      <h2>Her job</h2>
+      <h2>{t(locale, 'Her job')}</h2>
       <p>{style.herJob}</p>
     </>
   )}
 
   {free ? (
     <>
-      <h2>The steps</h2>
+      {video && (
+        <>
+          <h2>{t(locale, `Watch it in ${video.durationSeconds} seconds`)}</h2>
+          <Video video={video} style={style} />
+        </>
+      )}
+
+      <h2>{t(locale, 'The steps')}</h2>
       {hasCurlySteps && (
         <p>
-          Where the method changes for curly and coily hair, the step says so underneath. In the app, choose
-          Curly or Coily under “her hair today” and you only see the steps for her hair.
+          {t(locale, 'Where the method changes for curly and coily hair, the step says so underneath. In the app, choose Curly or Coily under “her hair today” and you only see the steps for her hair.')}
         </p>
       )}
       <ol class="steps">
@@ -168,35 +185,35 @@ const packLine = `Beyond the Ponytail is an optional one-time pack of twelve sty
           const curlyTechnique = step.curly?.techniqueId && techniqueById(locale, step.curly.techniqueId);
           return (
             <li id={`step-${i + 1}`}>
-              <p class="step-number">Step {i + 1} of {style.steps.length}</p>
+              <p class="step-number">{t(locale, `Step ${i + 1} of ${style.steps.length}`)}</p>
               <h3>{step.title}</h3>
               <p>{step.instruction}</p>
               {step.photo && (
                 <figure class="photo">
-                  <Photo photo={step.photo} alt={`${style.name}, step ${i + 1}: ${lower(step.title)}${style.curlyOnly ? ', on curly hair' : ''}`} />
+                  <Photo photo={step.photo} alt={stepAlt(step, i, false)} />
                 </figure>
               )}
               <div class="check">
-                <p class="eyebrow">Before you move on</p>
+                <p class="eyebrow">{t(locale, 'Before you move on')}</p>
                 <p>{step.endState}</p>
               </div>
-              {step.why && <p class="why"><strong>Why:</strong> {step.why}</p>}
+              {step.why && <p class="why"><strong>{t(locale, 'Why:')}</strong> {step.why}</p>}
               {technique && (
-                <p class="small">Technique: <a href={path(locale, 'technique', technique.id)}>{technique.title}</a></p>
+                <p class="small">{t(locale, 'Technique:')} <a href={path(locale, 'technique', technique.id)}>{technique.title}</a></p>
               )}
               {step.curly && (
                 <div class="curly">
-                  <p class="eyebrow">Curly and coily hair</p>
+                  <p class="eyebrow">{t(locale, 'Curly and coily hair')}</p>
                   <h4>{step.curly.title}</h4>
                   <p>{step.curly.instruction}</p>
                   {step.curly.photo && step.curly.photo.base !== step.photo?.base && (
                     <figure class="photo">
-                      <Photo photo={step.curly.photo} alt={`${style.name}, step ${i + 1} on curly hair: ${lower(step.curly.title)}`} />
+                      <Photo photo={step.curly.photo} alt={stepAlt(step, i, true)} />
                     </figure>
                   )}
-                  <p><strong>Before you move on:</strong> {step.curly.endState}</p>
+                  <p><strong>{t(locale, 'Before you move on:')}</strong> {step.curly.endState}</p>
                   {curlyTechnique && curlyTechnique.id !== technique?.id && (
-                    <p class="small">Technique: <a href={path(locale, 'technique', curlyTechnique.id)}>{curlyTechnique.title}</a></p>
+                    <p class="small">{t(locale, 'Technique:')} <a href={path(locale, 'technique', curlyTechnique.id)}>{curlyTechnique.title}</a></p>
                   )}
                 </div>
               )}
@@ -207,42 +224,47 @@ const packLine = `Beyond the Ponytail is an optional one-time pack of twelve sty
 
       {style.commonFailure && style.theFix && (
         <>
-          <h2>If it goes wrong</h2>
+          <h2>{t(locale, 'If it goes wrong')}</h2>
           <div class="panel">
-            <p><strong>What usually happens:</strong> {style.commonFailure}</p>
-            <p><strong>The fix:</strong> {style.theFix}</p>
+            <p><strong>{t(locale, 'What usually happens:')}</strong> {style.commonFailure}</p>
+            <p><strong>{t(locale, 'The fix:')}</strong> {style.theFix}</p>
+            {fixes.length > 0 && (
+              <p>
+                {t(locale, 'More in Fix It:')}{' '}
+                {fixes.map((f, i) => <>{i > 0 && ' · '}<a href={path(locale, 'fix', f.id)}>{f.label}</a></>)}
+              </p>
+            )}
           </div>
         </>
       )}
 
-      <AppCta locale={locale} kind="style" id={style.id} />
+      <Faq faq={faq} heading={t(locale, 'Questions dads ask')} />
 
-      <h2>More free styles</h2>
-      <StyleCards locale={locale} styles={freeStyles} />
+      <AppBlock locale={locale} kind="style" id={style.id} />
     </>
   ) : (
     <>
-      <h2>What the steps cover</h2>
+      <h2>{t(locale, 'What the steps cover')}</h2>
       <ol class="titles">
         {style.steps.map((step) => <li>{step.title}</li>)}
       </ol>
       <p>
-        The full steps, with a photo for each and what to check before you move on, are in the app, in
-        Beyond the Ponytail{offersCurly(style) && !style.curlyOnly ? ', with the curly and coily method where it differs' : ''}.
+        {t(locale, 'The full steps, with a photo for each and what to check before you move on, are in the app, in Beyond the Ponytail')}{offersCurly(style) && !style.curlyOnly ? t(locale, ', with the curly and coily method where it differs') : ''}.
       </p>
 
-      <AppCta locale={locale} kind="style" id={style.id} heading="Full steps in the app">
-        <p>{packLine}</p>
+      <AppBlock locale={locale} kind="style" id={style.id} heading="Full steps in the app">
         <p>
-          The app itself is free, with six everyday styles, eight technique guides and no account. You can
-          see every style in the pack before you decide.
+          {t(locale, 'Beyond the Ponytail is an optional one-time pack of twelve styles in the Dad Hair Hero app. You pay once and they are yours to keep. There is no subscription, and you can see every style in the pack before you decide. Once it is yours, the app does four things this page cannot:')}
         </p>
-      </AppCta>
+      </AppBlock>
+    </>
+  )}
 
-      <h2>Free styles, in full on this site</h2>
-      <StyleCards locale={locale} styles={freeStyles} />
+  <Related locale={locale} techniques={techniques} styles={related} hubs={hubs} kit={allKit} fixes={free ? [] : fixes} />
 
-      <h2>Also in Beyond the Ponytail</h2>
+  {!free && (
+    <>
+      <h2>{t(locale, 'Also in Beyond the Ponytail')}</h2>
       <StyleCards locale={locale} styles={packStyles} />
     </>
   )}

@@ -6,8 +6,9 @@
 // link for that store has no button.
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import AppCta from '../../components/AppCta.astro';
-import { LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, kitItems, US } from '../../lib/site.js';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
+import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, kitItems, campaign, t, US } from '../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
@@ -28,7 +29,7 @@ const trail = [
   { name: 'The Kit', path: path(locale, 'kit') },
 ];
 const title = 'The Kit: what you need to do her hair | Dad Hair Hero';
-const description = 'Eighteen things worth having for a girl\'s hair, from a wide-tooth comb to a satin bonnet: what each one is for, what to avoid and what to look for.';
+const description = t(locale, "Eighteen things worth having for a girl's hair, from a wide-tooth comb to a satin bonnet: what each one is for, what to avoid and what to look for.");
 const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitItem', item.id) }));
 ---
 <Base
@@ -39,19 +40,19 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
   trail={trail}
   jsonld={[breadcrumbs(trail), itemList('The Kit', entries)]}
 >
-  <h1>The Kit</h1>
+  <h1>{t(locale, 'The Kit')}</h1>
   <p class="lede">
-    Eighteen things worth having, and what each one is for. You don't need all of them: the essentials
-    cover every style.
+    {t(locale, "Eighteen things worth having, and what each one is for. You don't need all of them: the essentials cover every style.")}
   </p>
+  <p class="summary-cta">{t(locale, 'Each style in the free app lists what it needs before you start.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'kit')} />
 
   <div class="notice" id="disclosure">
     <p>
-      <strong>About the Buy links.</strong> Photos show the type of item, not the exact product.
+      <strong>{t(locale, 'About the Buy links.')}</strong> {t(locale, 'Photos show the type of item, not the exact product.')}
       {hasLinks && (
         <>
-          {' '}Buy one links go to {store} and are affiliate links: if you buy through them, Dad Hair Hero
-          earns a small commission at no extra cost to you. {associateNotice}
+          {' '}{t(locale, `Buy one links go to ${store} and are affiliate links: if you buy through them, Dad Hair Hero earns a small commission at no extra cost to you.`)} {associateNotice}
         </>
       )}
     </p>
@@ -73,14 +74,14 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
                 <h3>{item.name}</h3>
                 <p>{item.use}</p>
                 <dl>
-                  {item.avoid && <><dt>Avoid</dt><dd>{item.avoid}</dd></>}
-                  {item.buyingNote && <><dt>When buying</dt><dd>{item.buyingNote}</dd></>}
+                  {item.avoid && <><dt>{t(locale, 'Avoid')}</dt><dd>{item.avoid}</dd></>}
+                  {item.buyingNote && <><dt>{t(locale, 'When buying')}</dt><dd>{item.buyingNote}</dd></>}
                   {styles.length > 0 && (
                     <>
-                      <dt>Used in</dt>
+                      <dt>{t(locale, 'Used in')}</dt>
                       <dd>
                         {styles.length === locale.data.styles.length
-                          ? <a href={path(locale, 'styles')}>Every style</a>
+                          ? <a href={path(locale, 'styles')}>{t(locale, 'Every style')}</a>
                           : styles.map((style, i) => (
                               <>{i > 0 && ', '}<a href={path(locale, 'style', style.id)}>{style.name}</a></>
                             ))}
@@ -91,9 +92,9 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
                 {item.buyUrl && (
                   <>
                     <a class="buy" href={item.buyUrl} rel="sponsored nofollow noopener" target="_blank">
-                      Buy one on {store}
+                      {t(locale, `Buy one on ${store}`)}
                     </a>
-                    <span class="buy-note">Affiliate link. Opens {store}.</span>
+                    <span class="buy-note">{t(locale, `Affiliate link. Opens ${store}.`)}</span>
                   </>
                 )}
               </div>
@@ -104,10 +105,7 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
     </>
   ))}
 
-  <AppCta locale={locale} kind="kit" heading="The Kit is in the app too">
-    <p>
-      Each style in Dad Hair Hero lists what it needs before you start, so nothing is missing at step
-      three. The app is free, with no account and no tracking.
-    </p>
-  </AppCta>
+  <AppBlock locale={locale} kind="kit" heading="The Kit is in the app too">
+    <p>{t(locale, 'Each style in Dad Hair Hero lists what it needs before you start, so nothing is missing at step three. Then:')}</p>
+  </AppBlock>
 </Base>

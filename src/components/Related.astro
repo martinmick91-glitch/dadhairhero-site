@@ -1,0 +1,59 @@
+---
+// The links at the foot of a guide: the techniques it uses, two or three
+// styles to read next, the hubs it belongs to, and the Kit items it needs.
+// Every guide has this, so no page is reachable only from a menu.
+import { path, sentence, t, minutes } from '../lib/site.js';
+const { locale, techniques = [], styles = [], hubs = [], kit = [], fixes = [] } = Astro.props;
+---
+<section class="related">
+  <h2>{t(locale, 'Keep reading')}</h2>
+  <div class="related-grid">
+    {styles.length > 0 && (
+      <div>
+        <h3>{t(locale, 'Styles to try next')}</h3>
+        <ul>
+          {styles.map((s) => (
+            <li>
+              <a href={path(locale, 'style', s.id)}>{s.name}</a>
+              <span class="small"> {minutes(s.targetMinutes)}{s.pack ? t(locale, ', in Beyond the Ponytail') : ''}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {techniques.length > 0 && (
+      <div>
+        <h3>{t(locale, 'The techniques it uses')}</h3>
+        <ul>
+          {techniques.map((tq) => (
+            <li><a href={path(locale, 'technique', tq.id)}>{tq.title}</a><span class="small"> {sentence(tq.description)}</span></li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {fixes.length > 0 && (
+      <div>
+        <h3>{t(locale, 'If it goes wrong')}</h3>
+        <ul>
+          {fixes.map((f) => <li><a href={path(locale, 'fix', f.id)}>{f.label}</a></li>)}
+        </ul>
+      </div>
+    )}
+    {hubs.length > 0 && (
+      <div>
+        <h3>{t(locale, 'Good for')}</h3>
+        <ul>
+          {hubs.map((h) => <li><a href={h.path}>{h.name}</a></li>)}
+        </ul>
+      </div>
+    )}
+    {kit.length > 0 && (
+      <div>
+        <h3>{t(locale, 'What you need')}</h3>
+        <ul>
+          {kit.map((item) => <li><a href={path(locale, 'kitItem', item.id)}>{item.name}</a></li>)}
+        </ul>
+      </div>
+    )}
+  </div>
+</section>

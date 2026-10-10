@@ -2,8 +2,9 @@
 // The eight technique guides.
 import Base from '../../../layouts/Base.astro';
 import Photo from '../../../components/Photo.astro';
-import AppCta from '../../../components/AppCta.astro';
-import { LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, sentence } from '../../../lib/site.js';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, sentence, campaign, t } from '../../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
@@ -16,8 +17,8 @@ const trail = [
   { name: 'Techniques', path: path(locale, 'techniques') },
 ];
 const title = 'Hair techniques for dads: the basics | Dad Hair Hero';
-const description = `Eight short guides to the skills every hairstyle uses: holding tension, detangling without tears, making a ${w(locale, 'parting', 'part')}, choosing elastics and more.`;
-const entries = techniques.map((t) => ({ name: t.title, path: path(locale, 'technique', t.id) }));
+const description = t(locale, 'Eight short guides to the skills every hairstyle uses: holding tension, detangling without tears, making a parting, choosing elastics and more.');
+const entries = techniques.map((tq) => ({ name: tq.title, path: path(locale, 'technique', tq.id) }));
 ---
 <Base
   locale={locale}
@@ -27,11 +28,12 @@ const entries = techniques.map((t) => ({ name: t.title, path: path(locale, 'tech
   trail={trail}
   jsonld={[breadcrumbs(trail), itemList('Hair techniques for dads', entries)]}
 >
-  <h1>Techniques</h1>
+  <h1>{t(locale, 'Techniques')}</h1>
   <p class="lede">
-    The skills every style is built from. Eight short guides, each with how to do it, how to check it's
-    right and the mistakes to avoid.
+    {t(locale, "The skills every style is built from. Eight short guides, each with how to do it, how to check it's right and the mistakes to avoid.")}
   </p>
+  <p class="summary-cta">{t(locale, 'All eight are free in the app, a tap from the step that uses them.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'techniques')} />
 
   <ul class="cards">
     {techniques.map((technique, i) => (
@@ -52,10 +54,15 @@ const entries = techniques.map((t) => ({ name: t.title, path: path(locale, 'tech
     ))}
   </ul>
 
-  <AppCta locale={locale} kind="techniques" heading="Free in the app, beside every step" >
-    <p>
-      In Dad Hair Hero each step links to the technique it uses. All eight are free, with no account and no
-      tracking.
-    </p>
-  </AppCta>
+  <p>
+    {t(locale, 'Four of them are the basics behind every style, and the')}{' '}
+    <a href={path(locale, 'easy')}>{t(locale, 'easy hairstyles')}</a>{' '}
+    {t(locale, 'page starts there. Three are written for')}{' '}
+    <a href={path(locale, 'curly')}>{t(locale, 'curly and coily hair')}</a>.
+    {' '}{t(locale, 'When one goes wrong anyway,')} <a href={path(locale, 'fixIt')}>Fix It</a> {t(locale, 'takes it apart.')}
+  </p>
+
+  <AppBlock locale={locale} kind="techniques" heading="Beside every step, in the app">
+    <p>{t(locale, 'In Dad Hair Hero each step links to the technique it uses, so the explanation is there when you need it. Then:')}</p>
+  </AppBlock>
 </Base>

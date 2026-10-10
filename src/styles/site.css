@@ -171,3 +171,98 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 @media (min-width: 40rem) {
   .home-top { grid-template-columns: 1fr 15rem; }
 }
+
+/* ── Author, summary card, FAQ, related, app block ─────────────────────── */
+
+.author { font-size: 0.95rem; color: var(--indigo-70); margin: -0.25rem 0 1rem; }
+
+.summary {
+  display: grid; gap: 1rem; background: var(--surface); border: 1px solid var(--indigo-10);
+  border-radius: var(--radius); padding: 1rem; margin: 1rem 0 1.5rem;
+}
+.summary-photo { margin: 0; max-width: 20rem; }
+.summary-photo img { border-radius: 12px; }
+.summary .facts { margin: 0 0 0.75rem; }
+.summary .facts div { background: var(--alabaster); }
+.summary-kit { margin-bottom: 0.5rem; }
+.summary-cta { font-weight: 500; margin: 0.75rem 0 0.25rem; }
+.summary .badges { margin: 0.25rem 0 0; }
+@media (min-width: 40rem) {
+  .summary { grid-template-columns: 14rem 1fr; }
+  .summary-photo { max-width: none; }
+}
+
+.faq { margin-top: 2.5rem; }
+.faq details { border-top: 1px solid var(--indigo-10); padding: 0.75rem 0; }
+.faq details:last-child { border-bottom: 1px solid var(--indigo-10); }
+.faq summary { font-weight: 600; cursor: pointer; padding: 0.25rem 0; }
+.faq summary::marker { color: var(--apricot-text); }
+.faq details p { margin: 0.5rem 0 0.25rem; }
+
+.app-block { background: var(--peach); border-radius: var(--radius); padding: 1.5rem 1.25rem; margin: 2.5rem 0 0; }
+.app-block h2 { margin-top: 0; }
+.app-block ul { padding-left: 1.1rem; }
+.app-block > :last-child { margin-bottom: 0; }
+
+.related { margin-top: 2.5rem; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem 2rem; }
+.related h3 { margin-top: 0.5rem; }
+.related ul { list-style: none; padding: 0; margin: 0; }
+.related li { margin-bottom: 0.5rem; }
+
+.placeholder {
+  background: #fff7ed; border: 2px dashed var(--apricot-text); border-radius: 12px; padding: 0.9rem 1rem;
+  color: var(--apricot-text); font-weight: 500;
+}
+
+/* ── Fix It ────────────────────────────────────────────────────────────── */
+
+.fix-tree { margin-top: 1.5rem; }
+.fix-q { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
+.fix-question[data-depth="1"] .fix-q, .fix-question[data-depth="2"] .fix-q, .fix-question[data-depth="3"] .fix-q { font-size: 1.25rem; }
+.fix-answers { list-style: none; padding: 0; margin: 0 0 1rem; }
+.fix-answers > li { border-left: 3px solid var(--apricot); padding: 0.25rem 0 0.25rem 1rem; margin: 0.75rem 0 1.25rem; }
+.fix-a { font-weight: 600; margin: 0 0 0.5rem; }
+.fix-a::before { content: 'If: '; color: var(--apricot-text); font-weight: 600; }
+.fix-outcome { background: var(--surface); border: 1px solid var(--indigo-10); border-radius: 12px; padding: 1rem; margin: 0.5rem 0 0.75rem; }
+.fix-outcome h3 { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; margin: 0 0 0.5rem; }
+.fix-outcome > :last-child { margin-bottom: 0; }
+
+/* ── Video ─────────────────────────────────────────────────────────────── */
+
+.video { margin: 1rem 0 2rem; max-width: 20rem; }
+.video video { width: 100%; height: auto; border-radius: var(--radius); background: var(--indigo); display: block; }
+
+/* ── The app bar on phones ─────────────────────────────────────────────── */
+
+.app-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: none; align-items: center; gap: 0.6rem;
+  background: var(--indigo); color: var(--alabaster);
+  padding: 0.55rem 0.75rem; padding-bottom: calc(0.55rem + env(safe-area-inset-bottom));
+  box-shadow: 0 -2px 12px rgba(30, 41, 59, 0.2);
+}
+.app-bar img { width: 40px; height: 40px; border-radius: 9px; flex: none; }
+.app-bar p { flex: 1; margin: 0; font-weight: 600; font-size: 0.95rem; line-height: 1.2; }
+.app-bar p span { display: block; font-weight: 400; font-size: 0.8rem; opacity: 0.85; }
+.app-bar .store {
+  flex: none; background: var(--apricot); color: var(--indigo); text-decoration: none; font-weight: 600;
+  font-size: 0.9rem; border-radius: 999px; padding: 0.5rem 0.85rem;
+}
+.app-bar .store:hover { color: var(--indigo); }
+.app-bar.ios-only .android, .app-bar.android-only .ios { display: none; }
+.app-bar button {
+  flex: none; background: none; border: 0; color: var(--alabaster); font-size: 1.5rem; line-height: 1;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%; cursor: pointer;
+}
+.app-bar button:hover { background: rgba(248, 250, 252, 0.15); }
+.app-bar button:focus-visible { outline: 3px solid var(--apricot); }
+@media (max-width: 40rem) {
+  .app-bar:not([hidden]) { display: flex; }
+  body.has-app-bar { padding-bottom: 4.5rem; }
+}
+
+/* With both stores showing (a phone the script could not place) the bar
+   drops its second line so the buttons have room. */
+.app-bar:not(.ios-only):not(.android-only) p span { display: none; }
+.app-bar:not(.ios-only):not(.android-only) .store { padding: 0.5rem 0.7rem; font-size: 0.85rem; }

@@ -4,10 +4,11 @@
 // about it); only the few sentences of introduction are written here.
 import Base from '../../layouts/Base.astro';
 import StyleCards from '../../components/StyleCards.astro';
-import AppCta from '../../components/AppCta.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
 import {
-  LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, offersCurly, techniqueById,
-  kitItemById, sentence,
+  LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, offersCurly, techniqueById,
+  kitItemById, fixEntryById, sentence, campaign, t,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -27,17 +28,17 @@ const techniques = ['detangling-curly-coily', 'two-strand-twist', 'gentle-tensio
   .map((id) => techniqueById(locale, id));
 const kit = ['mist-bottle', 'leave-in-conditioner', 'wide-tooth-comb', 'soft-scrunchie', 'satin-bonnet']
   .map((id) => kitItemById(locale, id));
-if ([...pack, ...techniques, ...kit].some((entry) => !entry)) {
-  throw new Error('curly-hair: a style, technique or Kit item named on this page is no longer in the export');
+const fixes = ['entry-hurts', 'entry-knotted'].map((id) => fixEntryById(locale, id));
+if ([...pack, ...techniques, ...kit, ...fixes].some((entry) => !entry)) {
+  throw new Error('curly-hair: a style, technique, Kit item or Fix It entry named on this page is no longer in the export');
 }
 
-const bunches = w(locale, 'bunches', 'pigtails');
 const trail = [
   { name: 'Home', path: path(locale, 'home') },
-  { name: 'Curly and coily hair', path: path(locale, 'curly') },
+  { name: t(locale, 'Curly and coily hair'), path: path(locale, 'curly') },
 ];
 const title = 'Hairstyles for curly and coily hair, for dads | Dad Hair Hero';
-const description = `How to do a girl's curly or coily hair: detangle it damp, work in sections, keep her edges soft. ${curly.length} styles written for curly hair.`;
+const description = t(locale, `How to do a girl's curly or coily hair: detangle it damp, work in sections, keep her edges soft. ${curly.length} styles written for curly hair.`);
 const entries = [...free, ...pack].map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
 ---
 <Base
@@ -48,17 +49,17 @@ const entries = [...free, ...pack].map((s) => ({ name: s.name, path: path(locale
   trail={trail}
   jsonld={[breadcrumbs(trail), itemList('Hairstyles for curly and coily hair', entries)]}
 >
-  <h1>Hairstyles for curly and coily hair</h1>
+  <h1>{t(locale, 'Hairstyles for curly and coily hair')}</h1>
   <p class="lede">
-    Curly hair is done differently: damp, in sections, and with a gentle hand at her hairline. Every guide
-    here says where the method changes.
+    {t(locale, 'Curly hair is done differently: damp, in sections, and with a gentle hand at her hairline. Every guide here says where the method changes.')}
   </p>
+  <p class="summary-cta">{t(locale, 'Choose Curly or Coily in the free app and every style shows the steps for her hair.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'curly')} />
   <p>
-    Brushing curly or coily hair dry hurts, and dry hair breaks more easily. Water and a little leave-in
-    conditioner are what make it painless. The three techniques below are worth reading before any style.
+    {t(locale, 'Brushing curly or coily hair dry hurts, and dry hair breaks more easily. Water and a little leave-in conditioner are what make it painless. The three techniques below are worth reading before any style.')}
   </p>
 
-  <h2>Start with these three techniques</h2>
+  <h2>{t(locale, 'Start with these three techniques')}</h2>
   <ul class="rows">
     {techniques.map((technique) => (
       <li>
@@ -68,22 +69,19 @@ const entries = [...free, ...pack].map((s) => ({ name: s.name, path: path(locale
     ))}
   </ul>
 
-  <h2>Free styles, with the curly and coily steps</h2>
+  <h2>{t(locale, 'Free styles, with the curly and coily steps')}</h2>
   <p>
-    Ponytails, {bunches} and the everyday styles, in full. Where a step changes for curly and coily hair,
-    the guide gives that version underneath, with its own photo.
+    {t(locale, 'Ponytails, bunches and the everyday styles, in full. Where a step changes for curly and coily hair, the guide gives that version underneath, with its own photo.')}
   </p>
   <StyleCards locale={locale} styles={free} curly />
 
-  <h2>More styles, in Beyond the Ponytail</h2>
+  <h2>{t(locale, 'More styles, in Beyond the Ponytail')}</h2>
   <p>
-    Puffs are written only for curly and coily hair. Twisted {bunches} and criss-cross bands suit it well
-    too, so they come first. Each page shows the finished look, the time and what you need; the full steps
-    are in the app, in an optional one-time pack.
+    {t(locale, 'Puffs are written only for curly and coily hair. Twisted bunches and criss-cross bands suit it well too, so they come first. Each page shows the finished look, the time and what you need; the full steps are in the app, in an optional one-time pack.')}
   </p>
   <StyleCards locale={locale} styles={pack} curly />
 
-  <h2>What helps</h2>
+  <h2>{t(locale, 'What helps')}</h2>
   <ul class="rows">
     {kit.map((item) => (
       <li>
@@ -93,10 +91,12 @@ const entries = [...free, ...pack].map((s) => ({ name: s.name, path: path(locale
     ))}
   </ul>
 
-  <AppCta locale={locale} kind="curly" heading="Choose Curly or Coily in the app">
-    <p>
-      Pick Curly or Coily under “her hair today” and Dad Hair Hero shows only the steps and photos for her
-      hair. All the curly and coily guidance is free, with no account and no tracking.
-    </p>
-  </AppCta>
+  <h2>{t(locale, 'When it hurts, or it is knotted')}</h2>
+  <ul class="rows">
+    {fixes.map((fix) => <li><a href={path(locale, 'fix', fix.id)}>{fix.label}</a></li>)}
+  </ul>
+
+  <AppBlock locale={locale} kind="curly" heading="Choose Curly or Coily in the app">
+    <p>{t(locale, 'Pick Curly or Coily under “her hair today” and Dad Hair Hero shows only the steps and photos for her hair. All the curly and coily guidance is free. Then:')}</p>
+  </AppBlock>
 </Base>

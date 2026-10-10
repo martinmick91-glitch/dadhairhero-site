@@ -1,0 +1,34 @@
+---
+// The block that ends every guide: what the app adds to the page he has just
+// read, and the store links. A pack preview uses it with its own heading
+// and the first paragraph swapped for the pack's terms.
+import StoreBadges from './StoreBadges.astro';
+import { campaign, t } from '../lib/site.js';
+const {
+  locale,
+  kind,
+  id,
+  heading = 'Do this in the app',
+  // What the reader gets in the app that the page can't give. Overridden
+  // by a pack preview.
+  lead = null,
+} = Astro.props;
+
+const points = [
+  ['Her hair, not hair in general.', 'Choose Straight, Wavy, Thick, Curly or Coily under "her hair today" and the steps and photos change to the method for her hair.'],
+  ['A check before every step.', 'Each step ends with what it should look and feel like, so you know it is right before you move on.'],
+  ['Fix It, mid-style.', 'When something is not right, "Something\'s not right" opens the fix for it without leaving the step.'],
+  ['The diary.', 'Add a photo and a note when you finish, and see what you have done and what to try next.'],
+].map(([strong, text]) => [t(locale, strong), t(locale, text)]);
+---
+<section class="app-block" id="app">
+  <h2>{t(locale, heading)}</h2>
+  <slot>
+    <p>{lead ?? t(locale, 'The page tells you how. The app does four things a page cannot:')}</p>
+  </slot>
+  <ul>
+    {points.map(([strong, text]) => <li><strong>{strong}</strong> {text}</li>)}
+  </ul>
+  <p>{t(locale, 'Free, with six everyday styles and all eight techniques. No account, no ads, no tracking.')}</p>
+  <StoreBadges campaignName={campaign(locale, kind, id)} />
+</section>

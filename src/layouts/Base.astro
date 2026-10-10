@@ -1,11 +1,13 @@
 ---
 // The frame around every page: the head (title, description, canonical,
-// hreflang, Open Graph, structured data), the header and the footer.
+// hreflang, Open Graph, structured data), the header, the footer, and on
+// phones the slim bar that offers the app.
 import '@fontsource/instrument-serif/latin-400.css';
 import '@fontsource-variable/hanken-grotesk/wght.css';
 import '../styles/site.css';
 import StoreBadges from '../components/StoreBadges.astro';
-import { SITE, UK, US, LOCALES, APP_STORE_ID, EMAIL, absolute, alternates, campaign, path } from '../lib/site.js';
+import AppBar from '../components/AppBar.astro';
+import { SITE, UK, HUBS, APP_STORE_ID, EMAIL, absolute, alternates, campaign, path, otherLocale, t } from '../lib/site.js';
 
 const {
   locale = UK,
@@ -21,17 +23,21 @@ const {
   ogImageSize = { width: 1024, height: 500 },
   jsonld = [],
   trail = [],
+  // The phone bar is on every page a reader lands on from a search. The
+  // 404 and privacy pages do without.
+  appBar = true,
 } = Astro.props;
 
 const canonical = absolute(pathname);
 const links = paired ? alternates(kind, id) : [];
 const campaignName = campaign(locale, kind, id);
-const other = locale === US ? UK : US;
+const other = otherLocale(locale);
 
 const nav = [
   { kind: 'styles', label: 'Styles' },
   { kind: 'techniques', label: 'Techniques' },
   { kind: 'curly', label: 'Curly hair' },
+  { kind: 'fixIt', label: 'Fix It' },
   { kind: 'kit', label: 'Kit' },
 ];
 ---
@@ -65,7 +71,7 @@ const nav = [
 
     {jsonld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
-  <body>
+  <body class={appBar ? 'has-app-bar' : undefined}>
     <header class="site-header">
       <div class="column bar">
         <a class="brand" href={path(locale, 'home')}>Dad Hair Hero</a>
@@ -98,9 +104,12 @@ const nav = [
         <nav class="footer-links" aria-label="Footer">
           <a href={path(locale, 'easy')}>Easy hairstyles</a>
           <a href={path(locale, 'curly')}>Curly and coily hair</a>
+          {HUBS.map((hub) => <a href={path(locale, hub.kind)}>{t(locale, hub.name)}</a>)}
           <a href={path(locale, 'styles')}>All styles</a>
           <a href={path(locale, 'techniques')}>Techniques</a>
+          <a href={path(locale, 'fixIt')}>Fix It</a>
           <a href={path(locale, 'kit')}>The Kit</a>
+          <a href={path(locale, 'about')}>About</a>
           <a href="/privacy/">Privacy policy</a>
         </nav>
         {paired && (
@@ -114,5 +123,7 @@ const nav = [
         </p>
       </div>
     </footer>
+
+    {appBar && <AppBar campaignName={campaignName} />}
   </body>
 </html>
