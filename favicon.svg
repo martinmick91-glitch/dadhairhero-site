@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- The app icon's weave, redrawn as vector: two crossed strokes on a dark slate rounded square. -->
+  <rect width="1024" height="1024" rx="200" fill="#1E293B"/>
+  <g fill="none" stroke="#F59E0B" stroke-width="90" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="362,257 661,512 362,767"/>
+    <polyline points="662,257 363,512 662,767"/>
+  </g>
+</svg>
