@@ -1,8 +1,8 @@
 {
   "locale": "en-GB",
-  "contentVersion": "4db9edad5faf7692",
+  "contentVersion": "0f33fb879cdba541",
   "appVersion": "1.2.0",
-  "appCommit": "c750377",
+  "appCommit": "a03202a",
   "labels": {
     "ageBands": {
       "baby": "Baby",

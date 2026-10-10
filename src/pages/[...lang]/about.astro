@@ -1,8 +1,9 @@
 ---
 // About: who makes Dad Hair Hero and how it treats what it is told. The
 // facts are the app's own (CLAUDE.md and docs in its repository) and what
-// Martin has said about its origins. One paragraph is his to write; it is
-// marked, and the site's checks warn until it is replaced.
+// Martin has said about its origins: a dad in Dublin, a young daughter,
+// hair he couldn't do. Nothing else is claimed. One paragraph is his to
+// write; it is marked, and the site's checks warn until it is replaced.
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import { LOCALES, SITE, AUTHOR, EMAIL, langParam, localeFromParam, path, breadcrumbs, campaign, t, ORGANIZATION, PERSON } from '../../lib/site.js';
@@ -17,7 +18,7 @@ const trail = [
   { name: 'About', path: path(locale, 'about') },
 ];
 const title = 'About Dad Hair Hero: made by a dad in Dublin';
-const description = t(locale, "Made by a dad in Dublin who couldn't do his daughter's hair. The first twelve styles were reviewed by a professional hairdresser. Nothing is sent anywhere.");
+const description = t(locale, "Made by a dad in Dublin who couldn't do his daughter's hair. How the steps are written, what the app does with what you tell it, and who it is for.");
 const jsonld = [
   breadcrumbs(trail),
   { '@context': 'https://schema.org', ...ORGANIZATION, founder: { '@id': PERSON['@id'] } },
@@ -33,12 +34,8 @@ const jsonld = [
   <p class="placeholder">
     [PLACEHOLDER: a short personal paragraph from {AUTHOR.name} goes here. Who you are, the morning that started it, what you wanted the app to be. Three or four sentences.]
   </p>
-  <p>
-    {t(locale, 'The first twelve styles were reviewed by a professional hairdresser before the app was released. Every step since has been written to the same standard: positioned against things a dad can feel with his hands, with one action per step and a check at the end of it.')}
-  </p>
-
   <h2>{t(locale, 'How the steps are written')}</h2>
-  <p>{t(locale, 'Every step in the app follows five rules, and the free styles on this site are those steps word for word.')}</p>
+  <p>{t(locale, 'Every step in the app is written to one standard: positioned against things a dad can feel with his hands, one action per step, and a check at the end of it. There are five rules, and the free styles on this site are those steps word for word.')}</p>
   <ul>
     <li>{t(locale, 'The hand is named only when it matters: when both hands are doing different jobs, or left and right change the result.')}</li>
     <li>{t(locale, 'Everything is positioned against landmarks he can feel: ears, crown, nape, hairline. Never against an imagined picture.')}</li>

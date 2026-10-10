@@ -42,6 +42,14 @@ const jsonld = [
     publisher: { '@id': ORGANIZATION['@id'] },
   },
   { '@context': 'https://schema.org', ...ORGANIZATION },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Dad Hair Hero',
+    url: `${SITE}/`,
+    inLanguage: ['en-GB', 'en-US'],
+    publisher: { '@id': ORGANIZATION['@id'] },
+  },
 ];
 ---
 <Base locale={locale} kind="home" title={title} description={description} jsonld={jsonld}>
