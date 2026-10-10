@@ -233,6 +233,7 @@ const REQUIRED = {
   VideoObject: ['name', 'description', 'thumbnailUrl', 'uploadDate', 'contentUrl', 'duration'],
   Organization: ['name', 'url', 'logo'],
   Person: ['name', 'url'],
+  WebSite: ['name', 'url'],
 };
 
 // What each kind of page must carry.
@@ -240,7 +241,7 @@ const EXPECTED_TYPES = [
   [/^(\/us)?\/styles\/[^/]+\/$/, (doc) => (doc.querySelector('.steps') ? ['HowTo', 'FAQPage'] : ['WebPage'])],
   [/^(\/us)?\/techniques\/[^/]+\/$/, () => ['HowTo', 'FAQPage']],
   [/^(\/us)?\/about\/$/, () => ['Person', 'Organization']],
-  [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization']],
+  [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization', 'WebSite']],
 ];
 
 function checkStructuredData(page, doc, indexed) {
