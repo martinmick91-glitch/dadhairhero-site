@@ -35,14 +35,17 @@ const jsonld = [
     {t(locale, "I'm a dad in Dublin with a young daughter, and I couldn't do her hair. Not a ponytail, not a plait, nothing that would hold. So I built Dad Hair Hero to learn it myself, one step at a time, the way I'd want it explained: what my hands should be doing, and how to tell when it's right.")}
   </p>
   <h2>{t(locale, 'How the steps are written')}</h2>
-  <p>{t(locale, 'Every step in the app is written to one standard: positioned against things a dad can feel with his hands, one action per step, and a check at the end of it. There are five rules, and the free styles on this site are those steps word for word.')}</p>
+  <p>{t(locale, 'Every step in the app is written to one standard: positioned against things you can feel with your hands, one action per step, and a check at the end of it. There are five rules, and the free styles on this site are those steps word for word.')}</p>
   <ul>
     <li>{t(locale, 'The hand is named only when it matters: when both hands are doing different jobs, or left and right change the result.')}</li>
-    <li>{t(locale, 'Everything is positioned against landmarks he can feel: ears, crown, nape, hairline. Never against an imagined picture.')}</li>
-    <li>{t(locale, 'Every step ends with something he can see or feel to know it is done: a comb that passes in one stroke, a bundle with no loose strands in front of the ears.')}</li>
+    <li>{t(locale, 'Everything is positioned against landmarks you can feel: ears, crown, nape, hairline. Never against an imagined picture.')}</li>
+    <li>{t(locale, 'Every step ends with something you can see or feel to know it is done: a comb that passes in one stroke, a bundle with no loose strands in front of the ears.')}</li>
     <li>{t(locale, 'One action per step. A repeated cycle, like crossing right then left, is described once with how many times to repeat it.')}</li>
     <li>{t(locale, 'What to do when it goes wrong lives in Fix It, not in the step, so the steps describe the right path only.')}</li>
   </ul>
+
+  <h2>{t(locale, 'The pictures')}</h2>
+  <p>{t(locale, 'The pictures of hairstyles in the app and on this site are illustrations of a mannequin head. None of them is a photograph of a child.')}</p>
 
   <h2>{t(locale, 'What the app does with what you tell it')}</h2>
   <p>
@@ -63,7 +66,7 @@ const jsonld = [
 
   <h2>{t(locale, 'Get in touch')}</h2>
   <p>
-    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'A step that didn\'t work, a style you want, a photo that is wrong: all of it is read.')}
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'A step that didn\'t work, a style you want, a picture that is wrong: all of it is read.')}
   </p>
   <p class="small">{t(locale, 'This page is')} <a href={`${SITE}${path(locale, 'about')}`.replace(SITE, '')}>{t(locale, 'the About page')}</a> {t(locale, 'of dadhairhero.com. Guides on this site are by')} {AUTHOR.name}, {t(locale, 'and the steps in them are the ones in the app.')}</p>
 </Base>

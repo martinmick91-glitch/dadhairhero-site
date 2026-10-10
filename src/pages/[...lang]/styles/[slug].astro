@@ -168,7 +168,7 @@ if (free) {
     <>
       {video && (
         <>
-          <h2>{t(locale, `Watch it in ${video.durationSeconds} seconds`)}</h2>
+          <h2>{t(locale, `See the steps in ${video.durationSeconds} seconds`)}</h2>
           <Video video={video} style={style} />
         </>
       )}
@@ -238,7 +238,7 @@ if (free) {
         </>
       )}
 
-      <Faq faq={faq} heading={t(locale, 'Questions dads ask')} />
+      <Faq faq={faq} heading={t(locale, 'Common questions')} />
 
       <AppBlock locale={locale} kind="style" id={style.id} />
     </>

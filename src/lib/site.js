@@ -386,13 +386,13 @@ export function styleFaq(locale, style) {
   const name = style.name;
   const kit = style.equipmentIds.map((id) => kitItemById(locale, id)).filter(Boolean).map((i) => lower(i.name));
   faq.push({
-    q: `How long does ${lower(name)} take?`,
+    q: `How long does ${name} take?`,
     a: `About ${minutes(style.targetMinutes)} once you know it, in ${style.steps.length} steps. The first few times take longer; the steps tell you what to check before you move on, so you are never guessing.`,
   });
   faq.push({
     q: style.curlyOnly
-      ? `Does ${lower(name)} work on straight hair?`
-      : `Does ${lower(name)} work on curly or coily hair?`,
+      ? `Does ${name} work on straight hair?`
+      : `Does ${name} work on curly or coily hair?`,
     a: style.curlyOnly
       ? `${name} is written for curly and coily hair, and the app only offers it for those. The steps here are the curly and coily method.`
       : offersCurly(style)
@@ -400,12 +400,12 @@ export function styleFaq(locale, style) {
         : `${name} is written for ${lower(hairTypes(locale, style))}. For curly and coily hair the app offers its counterpart instead.`,
   });
   faq.push({
-    q: `What do I need for ${lower(name)}?`,
+    q: `What do I need for ${name}?`,
     a: `${upper(list(kit))}.${style.curlyEquipmentIds.length > style.equipmentIds.length ? ` For curly and coily hair, add ${list(style.curlyEquipmentIds.filter((id) => !style.equipmentIds.includes(id)).map((id) => lower(kitItemById(locale, id)?.name ?? id)))}.` : ''} Each one is on the Kit page with what it is for and what to avoid.`,
   });
   if (style.commonFailure && style.theFix) {
     faq.push({
-      q: `What usually goes wrong with ${lower(name)}?`,
+      q: `What usually goes wrong with ${name}?`,
       a: `${sentence(style.commonFailure)} ${sentence(style.theFix)}`,
     });
   }
@@ -413,12 +413,12 @@ export function styleFaq(locale, style) {
   if (falls) {
     const first = fixOutcomes(locale, falls)[0];
     faq.push({
-      q: `What if ${lower(name)} won't stay in?`,
+      q: `What if ${name} won't stay in?`,
       a: `${sentence(first.body)} Fix It has the full set of checks for a style that falls out.`,
     });
   } else {
     faq.push({
-      q: `What age is ${lower(name)} for?`,
+      q: `What age is ${name} for?`,
       a: `${ages(style)}, and ${lower(hairLength(style))}. In the app her age and hair length put the styles written for her first, and never hide one.`,
     });
   }
