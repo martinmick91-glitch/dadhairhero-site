@@ -34,7 +34,7 @@ const trail = [
   { name: t(locale, 'Easy hairstyles'), path: path(locale, 'easy') },
 ];
 const title = 'Easy hairstyles for girls, step by step | Dad Hair Hero';
-const description = t(locale, `Six easy hairstyles for girls that a dad can do before school, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a photo. No experience needed.`);
+const description = t(locale, `Six easy hairstyles for girls that a dad can do before school, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a picture. No experience needed.`);
 const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
 ---
 <Base
@@ -50,7 +50,7 @@ const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.i
   <p class="summary-cta">{t(locale, 'All six are free in the app, with a check before every step.')}</p>
   <StoreBadges campaignName={campaign(locale, 'easy')} />
   <p>
-    {t(locale, 'Each guide takes you through one action at a time, with a photo of what your hands should be doing and what it should look and feel like before you move on. Ponytails and bunches are where most dads start.')}
+    {t(locale, 'Each guide takes you through one action at a time, with a picture of what your hands should be doing and what it should look and feel like before you move on. Ponytails and bunches are where most dads start.')}
   </p>
 
   <h2>{t(locale, 'Quickest first')}</h2>

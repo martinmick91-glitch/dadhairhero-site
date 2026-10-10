@@ -58,7 +58,7 @@ const title = free
 const description = free
   ? pageDescription(
       `${style.name} in ${style.steps.length} steps, about ${minutes(style.targetMinutes)}.`,
-      'A photo for every step and what to check before you move on.',
+      'A picture for every step and what to check before you move on.',
       'Written for dads.',
     )
   : pageDescription(
@@ -249,7 +249,7 @@ if (free) {
         {style.steps.map((step) => <li>{step.title}</li>)}
       </ol>
       <p>
-        {t(locale, 'The full steps, with a photo for each and what to check before you move on, are in the app, in Beyond the Ponytail')}{offersCurly(style) && !style.curlyOnly ? t(locale, ', with the curly and coily method where it differs') : ''}.
+        {t(locale, 'The full steps, with a picture for each and what to check before you move on, are in the app, in Beyond the Ponytail')}{offersCurly(style) && !style.curlyOnly ? t(locale, ', with the curly and coily method where it differs') : ''}.
       </p>
 
       <AppBlock locale={locale} kind="style" id={style.id} heading="Full steps in the app">

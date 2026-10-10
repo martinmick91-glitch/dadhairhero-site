@@ -20,7 +20,7 @@ const trail = [
   { name: 'Styles', path: path(locale, 'styles') },
 ];
 const title = t(locale, 'Hairstyles for girls: ponytails, plaits and buns | Dad Hair Hero');
-const description = t(locale, 'Eighteen hairstyles for girls, written for dads. Six are free with every step and photo: ponytails, bunches and more. Twelve more are in the app.');
+const description = t(locale, 'Eighteen hairstyles for girls, written for dads. Six are free with every step and picture: ponytails, bunches and more. Twelve more are in the app.');
 const entries = locale.data.styles.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
 ---
 <Base
@@ -38,7 +38,7 @@ const entries = locale.data.styles.map((s) => ({ name: s.name, path: path(locale
 
   <h2>{t(locale, 'Free styles, step by step')}</h2>
   <p>
-    {t(locale, 'Six everyday styles, in full: every step, a photo of what your hands should be doing, and what to check before you move on. Ponytails and bunches are where most dads start.')}
+    {t(locale, 'Six everyday styles, in full: every step, a picture of what your hands should be doing, and what to check before you move on. Ponytails and bunches are where most dads start.')}
   </p>
   <StyleCards locale={locale} styles={free} />
 

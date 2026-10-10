@@ -102,7 +102,7 @@ export const HUBS = [
     name: 'School hairstyles',
     h1: 'School hairstyles for girls',
     title: 'School hairstyles for girls, timed for mornings | Dad Hair Hero',
-    description: 'Hairstyles for school that a dad can do before the bus: each one says how long it takes, and the free ones are here step by step with a photo for every step.',
+    description: 'Hairstyles for school that a dad can do before the bus: each one says how long it takes, and the free ones are here step by step with a picture for every step.',
     lede: 'The styles that get through a school day, quickest first. Each one says how long it takes.',
     intro: 'A school morning has a clock on it, so every style here is tagged for school in the app and listed by time. The six free ones are on this site in full. The rest are in Beyond the Ponytail, an optional one-time pack in the app, and their pages show what you would need and what the steps cover.',
     select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('school'))),
