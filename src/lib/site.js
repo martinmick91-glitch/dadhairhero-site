@@ -225,8 +225,12 @@ export function campaign(locale, kind, id) {
   return `${locale === US ? 'us-' : ''}${name}`.slice(0, 40);
 }
 
+// The provider token (pt) is what lets App Store Connect report installs by
+// campaign (ct); without it the campaign name is ignored. It identifies the
+// developer account, not a visitor.
+export const APP_STORE_PROVIDER = '129433924';
 export function appStoreUrl(campaignName) {
-  return `https://apps.apple.com/app/id${APP_STORE_ID}?ct=${encodeURIComponent(campaignName)}&mt=8`;
+  return `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=${APP_STORE_PROVIDER}&ct=${encodeURIComponent(campaignName)}&mt=8`;
 }
 
 export function playUrl(campaignName) {

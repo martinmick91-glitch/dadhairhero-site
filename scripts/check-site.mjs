@@ -361,6 +361,9 @@ function checkOutboundLinks(page, doc) {
     if (href.startsWith('https://apps.apple.com/')) {
       stores += 1;
       const url = new URL(href);
+      if (url.pathname !== '/app/apple-store/id6810375103') fail(page, `App Store link to the wrong address: ${href}`);
+      if (url.searchParams.get('pt') !== '129433924') fail(page, `App Store link without the provider token (pt): ${href}`);
+      if (url.searchParams.get('mt') !== '8') fail(page, `App Store link without mt=8: ${href}`);
       if (!url.searchParams.get('ct')) fail(page, `App Store link without a campaign (ct): ${href}`);
       else if (url.searchParams.get('ct').length > 40) fail(page, `App Store campaign over 40 characters: ${href}`);
     }
