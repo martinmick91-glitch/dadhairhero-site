@@ -1,0 +1,27 @@
+{
+  "name": "dadhairhero-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "node scripts/check-export.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node scripts/check-site.mjs && npm run validate",
+    "validate": "html-validate \"dist/**/*.html\"",
+    "videos": "node scripts/render-videos.mjs",
+    "lighthouse": "lhci autorun",
+    "test": "npm run build && npm run check"
+  },
+  "dependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "ffmpeg-static": "^5.3.0",
+    "html-validate": "^11.16.2",
+    "node-html-parser": "^9.0.4"
+  }
+}

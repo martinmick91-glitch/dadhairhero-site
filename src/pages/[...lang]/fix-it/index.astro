@@ -1,0 +1,50 @@
+---
+// Fix It: the eight problems the app can talk a dad through.
+import Base from '../../../layouts/Base.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, fixOutcomes, stylesForFix, campaign, t } from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const entries = locale.data.fixIt.entries;
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Fix It', path: path(locale, 'fixIt') },
+];
+const title = t(locale, "Fix It: when her hair won't go right | Dad Hair Hero");
+const description = t(locale, "Eight problems, from a ponytail that falls out to a child who won't sit still, each taken apart with a few questions and the thing to do next. From the app.");
+const list = entries.map((e) => ({ name: e.label, path: path(locale, 'fix', e.id) }));
+---
+<Base
+  locale={locale}
+  kind="fixIt"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList('Fix It', list)]}
+>
+  <h1>Fix It</h1>
+  <p class="lede">{t(locale, 'Something is not right. Pick the problem as you would say it, and it asks you a few questions, then tells you what to do.')}</p>
+  <p class="summary-cta">{t(locale, 'In the app it is one tap from any step.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'fixIt')} />
+
+  <ul class="rows">
+    {entries.map((entry) => {
+      const styles = stylesForFix(locale, entry.id);
+      return (
+        <li>
+          <a href={path(locale, 'fix', entry.id)}>{entry.label}</a>
+          <span>{t(locale, `${fixOutcomes(locale, entry).length} things it might be.`)}{styles.length > 0 ? ` ${t(locale, 'Linked from')} ${styles.length === 1 ? styles[0].name : t(locale, `${styles.length} styles`)}.` : ''}</span>
+        </li>
+      );
+    })}
+  </ul>
+
+  <AppBlock locale={locale} kind="fixIt" heading="Fix It, mid-style, in the app">
+    <p>{t(locale, 'The runner\'s "Something\'s not right" opens five quick fixes without leaving the step, and the full tree is a tap further. Then:')}</p>
+  </AppBlock>
+</Base>

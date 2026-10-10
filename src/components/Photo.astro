@@ -1,0 +1,21 @@
+---
+// One exported photo, at the sizes the export wrote. Width and height are
+// always set, so the page doesn't jump as photos arrive.
+const { photo, alt, sizes = '(max-width: 42rem) 100vw, 480px', eager = false } = Astro.props;
+const file = (width) => `${photo.base}-${width}.webp`;
+const largest = Math.max(...photo.widths);
+const srcset = photo.widths.length > 1
+  ? [...photo.widths].sort((a, b) => a - b).map((width) => `${file(width)} ${width}w`).join(', ')
+  : undefined;
+---
+<img
+  src={file(largest)}
+  srcset={srcset}
+  sizes={srcset ? sizes : undefined}
+  width={photo.width}
+  height={photo.height}
+  alt={alt}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  decoding="async"
+/>

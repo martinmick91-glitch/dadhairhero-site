@@ -1,0 +1,28 @@
+---
+// A grid of styles: finished look, name, time, and a tag on the ones that
+// are in Beyond the Ponytail. `curly` shows the curly finished look where a
+// style has one.
+import Photo from './Photo.astro';
+import { path, minutes } from '../lib/site.js';
+const { locale, styles, curly = false } = Astro.props;
+---
+<ul class="cards">
+  {styles.map((style) => {
+    const photo = (curly && style.curlyImage) || style.image;
+    const onCurly = style.curlyOnly || (curly && style.curlyImage);
+    return (
+      <li>
+        <a class="card" href={path(locale, 'style', style.id)}>
+          <Photo
+            photo={photo}
+            alt={`${style.name}, the finished style${onCurly ? ' on curly hair' : ''}`}
+            sizes="(max-width: 26rem) 45vw, 200px"
+          />
+          <span class="name">{style.name}</span>
+          <span class="meta">{minutes(style.targetMinutes)}</span>
+          {style.pack && <span class="pack-tag">Beyond the Ponytail</span>}
+        </a>
+      </li>
+    );
+  })}
+</ul>

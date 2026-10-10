@@ -1,0 +1,9 @@
+---
+// The author line under a guide's title, linking to the About page.
+import { AUTHOR, path, t } from '../lib/site.js';
+const { locale } = Astro.props;
+---
+<p class="author">
+  By <a href={path(locale, 'about')} rel="author">{AUTHOR.name}</a>, {t(locale, 'the dad behind Dad Hair Hero.')}
+  {' '}{t(locale, 'The steps are the ones in the app.')}
+</p>

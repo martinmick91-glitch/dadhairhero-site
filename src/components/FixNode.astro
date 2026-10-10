@@ -1,0 +1,31 @@
+---
+// One node of a Fix It branch: a question with its answers, each leading to
+// another node, or an outcome. Renders itself for the nodes beneath it.
+import { fixLinkTarget, t } from '../lib/site.js';
+const { locale, node, depth = 0 } = Astro.props;
+const link = node.type === 'outcome' ? fixLinkTarget(locale, node.link) : null;
+---
+{node.type === 'question' ? (
+  <div class="fix-question" data-depth={depth}>
+    <p class="fix-q">{node.question}</p>
+    {node.repeat ? (
+      <p class="small">{t(locale, 'This question is asked above.')}</p>
+    ) : (
+      <ul class="fix-answers">
+        {node.answers.map((answer) => (
+          <li>
+            <p class="fix-a">{answer.label}</p>
+            <Astro.self locale={locale} node={answer.node} depth={depth + 1} />
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+) : (
+  <div class="fix-outcome">
+    <p class="eyebrow">{t(locale, 'Do this')}</p>
+    <h3>{node.title}</h3>
+    <p>{node.body}</p>
+    {link && <p><a href={link.href}>{link.label}</a></p>}
+  </div>
+)}

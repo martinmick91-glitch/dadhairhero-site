@@ -1,0 +1,91 @@
+---
+// One Fix It problem: the app's decision tree for it, as a page. Each
+// question's answers lead to the next question or to what to do, with the
+// app's own links to the style, technique or Kit item that helps.
+import Base from '../../../layouts/Base.astro';
+import FixNode from '../../../components/FixNode.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import Author from '../../../components/Author.astro';
+import Related from '../../../components/Related.astro';
+import {
+  LOCALES, langParam, localeFromParam, path, fixTree, fixOutcomes, fixLinkTarget, stylesForFix,
+  techniqueById, kitItemById, pageTitle, pageDescription, breadcrumbs, sentence, campaign, t, lower, HUBS,
+} from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    locale.data.fixIt.entries.map((entry) => ({
+      params: { lang: langParam(locale), slug: entry.slug },
+      props: { id: entry.id },
+    })),
+  );
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const entry = locale.data.fixIt.entries.find((e) => e.id === Astro.props.id);
+const tree = fixTree(locale, entry);
+const outcomes = fixOutcomes(locale, entry);
+const links = outcomes.map((o) => o.link).filter(Boolean);
+const techniques = [...new Set(links.filter((l) => l.type === 'manual-section').map((l) => l.id))]
+  .map((id) => techniqueById(locale, id)).filter(Boolean);
+const kit = [...new Set(links.filter((l) => l.type === 'equipment').map((l) => l.id))]
+  .map((id) => kitItemById(locale, id)).filter(Boolean);
+const linkedStyles = [...new Set(links.filter((l) => l.type === 'style').map((l) => l.id))];
+const styles = [
+  ...stylesForFix(locale, entry.id),
+  ...linkedStyles.map((id) => locale.data.styles.find((s) => s.id === id)),
+].filter((s, i, arr) => s && arr.indexOf(s) === i).slice(0, 4);
+const hubs = HUBS.filter((hub) => hub.fixes?.includes(entry.id))
+  .map((hub) => ({ name: t(locale, hub.name), path: path(locale, hub.kind) }));
+const others = locale.data.fixIt.entries.filter((e) => e.id !== entry.id);
+
+// A problem's page is named for the problem, in the words a dad would use.
+const problem = entry.label.replace(/:.*$/, '');
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Fix It', path: path(locale, 'fixIt') },
+  { name: problem, path: path(locale, 'fix', entry.id) },
+];
+const title = pageTitle(
+  `${problem}: what to do | Dad Hair Hero Fix It`,
+  `${problem} | Dad Hair Hero`,
+);
+const description = pageDescription(
+  `"${entry.label}." ${t(locale, 'Fix It from the Dad Hair Hero app:')} ${tree.type === 'question' ? lower(tree.question) : sentence(tree.title)}`,
+  t(locale, 'A few questions, then the thing to do in the next thirty seconds.'),
+);
+---
+<Base
+  locale={locale}
+  kind="fix"
+  id={entry.id}
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail)]}
+>
+  <p class="eyebrow">Fix It</p>
+  <h1>{entry.label}</h1>
+  <p class="lede">{t(locale, 'A few questions, then the thing to do in the next thirty seconds. This is the Fix It tree from the app, written out.')}</p>
+  <Author locale={locale} />
+  <p class="summary-cta">{t(locale, 'In the app, "Something\'s not right" opens this mid-style.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'fix', entry.id)} />
+
+  <section class="fix-tree">
+    <FixNode locale={locale} node={tree} />
+  </section>
+
+  <AppBlock locale={locale} kind="fix" id={entry.id} heading="Fix It, mid-style, in the app">
+    <p>{t(locale, 'On a page you have to find your branch. In the app, "Something\'s not right" is one tap from any step, and it asks the questions. Then:')}</p>
+  </AppBlock>
+
+  <Related
+    locale={locale}
+    styles={styles}
+    techniques={techniques}
+    kit={kit}
+    hubs={hubs}
+    fixes={others.slice(0, 3)}
+  />
+</Base>

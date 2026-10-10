@@ -1,0 +1,109 @@
+---
+// The four occasion and age hubs (school, toddler, sport, party), one
+// template. Each hub's sentences and its rule for picking styles are in
+// HUBS in lib/site.js; the styles themselves come from the app's tags.
+import Base from '../../layouts/Base.astro';
+import StyleCards from '../../components/StyleCards.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
+import {
+  LOCALES, HUBS, langParam, localeFromParam, hubByKind, path, breadcrumbs, itemList, techniqueById,
+  fixEntryById, sentence, campaign, t, minutes, ages,
+} from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    HUBS.map((hub) => ({ params: { lang: langParam(locale), hub: hub.segment }, props: { kind: hub.kind } })),
+  );
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const hub = hubByKind(Astro.props.kind);
+const styles = hub.select(locale.data.styles);
+const free = styles.filter((s) => !s.pack);
+const pack = styles.filter((s) => s.pack);
+const techniques = (hub.techniques ?? []).map((id) => techniqueById(locale, id));
+const fixes = (hub.fixes ?? []).map((id) => fixEntryById(locale, id));
+if ([...techniques, ...fixes].some((entry) => !entry) || styles.length === 0) {
+  throw new Error(`${hub.kind}: a technique or Fix It entry named for this hub is no longer in the export, or no style matches`);
+}
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, hub.name), path: path(locale, hub.kind) },
+];
+const entries = styles.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
+---
+<Base
+  locale={locale}
+  kind={hub.kind}
+  title={t(locale, hub.title)}
+  description={t(locale, hub.description)}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList(t(locale, hub.h1), entries)]}
+>
+  <h1>{t(locale, hub.h1)}</h1>
+  <p class="lede">{t(locale, hub.lede)}</p>
+  <p class="summary-cta">{t(locale, 'Every style here is in the free app, with the steps for her hair.')}</p>
+  <StoreBadges campaignName={campaign(locale, hub.kind)} />
+  <p>{t(locale, hub.intro)}</p>
+
+  {free.length > 0 && (
+    <>
+      <h2>{t(locale, 'Free, step by step')}</h2>
+      <ul class="rows">
+        {free.map((style) => (
+          <li>
+            <a href={path(locale, 'style', style.id)}>{style.name}</a>
+            <span>{t(locale, `About ${minutes(style.targetMinutes)}. ${style.steps.length} steps. ${ages(style)}.`)}</span>
+            <span>{style.description}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {pack.length > 0 && (
+    <>
+      <h2>{t(locale, 'In Beyond the Ponytail')}</h2>
+      <p>{t(locale, 'The finished look, the time and what you need are on each page. The full steps are in the app, in an optional one-time pack. No subscription.')}</p>
+      <StyleCards locale={locale} styles={pack} />
+    </>
+  )}
+
+  {techniques.length > 0 && (
+    <>
+      <h2>{t(locale, 'The techniques that matter here')}</h2>
+      <ul class="rows">
+        {techniques.map((technique) => (
+          <li>
+            <a href={path(locale, 'technique', technique.id)}>{technique.title}</a>
+            <span>{sentence(technique.description)}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {fixes.length > 0 && (
+    <>
+      <h2>{t(locale, 'When it goes wrong')}</h2>
+      <ul class="rows">
+        {fixes.map((fix) => <li><a href={path(locale, 'fix', fix.id)}>{fix.label}</a></li>)}
+      </ul>
+    </>
+  )}
+
+  <AppBlock locale={locale} kind={hub.kind} heading={hub.ctaHeading}>
+    <p>{t(locale, hub.cta)} {t(locale, 'In the app:')}</p>
+  </AppBlock>
+
+  <p class="small">
+    {t(locale, 'More ways in:')}{' '}
+    <a href={path(locale, 'easy')}>{t(locale, 'easy hairstyles')}</a>,{' '}
+    <a href={path(locale, 'curly')}>{t(locale, 'curly and coily hair')}</a>,{' '}
+    {HUBS.filter((h) => h.kind !== hub.kind).map((h, i, arr) => (
+      <>{i > 0 && (i === arr.length - 1 ? ' and ' : ', ')}<a href={path(locale, h.kind)}>{t(locale, h.name).toLowerCase()}</a></>
+    ))}, {t(locale, 'or')} <a href={path(locale, 'styles')}>{t(locale, 'all eighteen styles')}</a>.
+  </p>
+</Base>

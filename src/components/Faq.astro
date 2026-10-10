@@ -1,0 +1,15 @@
+---
+// Questions and answers built from the content (see styleFaq and
+// techniqueFaq in lib/site.js). The page also carries them as FAQPage
+// structured data; this is the visible half.
+const { faq, heading = 'Questions dads ask' } = Astro.props;
+---
+<section class="faq">
+  <h2>{heading}</h2>
+  {faq.map(({ q, a }) => (
+    <details>
+      <summary>{q}</summary>
+      <p>{a}</p>
+    </details>
+  ))}
+</section>

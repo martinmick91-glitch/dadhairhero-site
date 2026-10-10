@@ -1,0 +1,63 @@
+---
+// Every style: the six free ones, in full on this site, then the twelve in
+// Beyond the Ponytail, as previews.
+import Base from '../../../layouts/Base.astro';
+import StyleCards from '../../../components/StyleCards.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import { LOCALES, HUBS, langParam, localeFromParam, path, breadcrumbs, itemList, campaign, t } from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const free = locale.data.styles.filter((s) => !s.pack);
+const pack = locale.data.styles.filter((s) => s.pack);
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Styles', path: path(locale, 'styles') },
+];
+const title = t(locale, 'Hairstyles for girls: ponytails, plaits and buns | Dad Hair Hero');
+const description = t(locale, 'Eighteen hairstyles for girls, written for dads. Six are free with every step and photo: ponytails, bunches and more. Twelve more are in the app.');
+const entries = locale.data.styles.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
+---
+<Base
+  locale={locale}
+  kind="styles"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList('Hairstyles for girls', entries)]}
+>
+  <h1>{t(locale, 'Hairstyles for girls')}</h1>
+  <p class="lede">{t(locale, 'Eighteen styles, written for dads. Each one says how long it takes and what you need.')}</p>
+  <p class="summary-cta">{t(locale, 'All eighteen are in the free app, with the steps for her hair.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'styles')} />
+
+  <h2>{t(locale, 'Free styles, step by step')}</h2>
+  <p>
+    {t(locale, 'Six everyday styles, in full: every step, a photo of what your hands should be doing, and what to check before you move on. Ponytails and bunches are where most dads start.')}
+  </p>
+  <StyleCards locale={locale} styles={free} />
+
+  <h2>Beyond the Ponytail</h2>
+  <p>
+    {t(locale, 'Twelve more styles, from plaits and buns to puffs and twists. Each page shows the finished look, how long it takes, what you need and what the steps cover. The full steps are in the app, in an optional one-time pack. There is no subscription.')}
+  </p>
+  <StyleCards locale={locale} styles={pack} />
+
+  <h2>{t(locale, 'By the day, or by her hair')}</h2>
+  <ul class="rows">
+    <li><a href={path(locale, 'easy')}>{t(locale, 'Easy hairstyles for girls')}</a><span>{t(locale, 'The six free styles, quickest first.')}</span></li>
+    <li><a href={path(locale, 'curly')}>{t(locale, 'Hairstyles for curly and coily hair')}</a><span>{t(locale, 'The curly method, and the styles written for it.')}</span></li>
+    {HUBS.map((hub) => (
+      <li><a href={path(locale, hub.kind)}>{t(locale, hub.h1)}</a><span>{t(locale, hub.lede)}</span></li>
+    ))}
+  </ul>
+
+  <AppBlock locale={locale} kind="styles" heading="All eighteen, on your phone">
+    <p>{t(locale, 'Tell Dad Hair Hero how long you have and what her hair is like today, and it picks a style that fits. Then:')}</p>
+  </AppBlock>
+</Base>

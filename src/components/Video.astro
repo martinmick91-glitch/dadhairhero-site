@@ -1,0 +1,21 @@
+---
+// A style's video, where one has been rendered (see scripts/render-videos.mjs
+// and videoFor() in lib/site.js). Nothing loads until the reader presses
+// play; the poster is the finished look.
+const { video, style } = Astro.props;
+---
+<figure class="video">
+  <video
+    controls
+    muted
+    playsinline
+    preload="none"
+    width="1080"
+    height="1920"
+    poster={video.poster}
+    aria-label={`${style.name}, every step in ${video.durationSeconds} seconds`}
+  >
+    <source src={video.src} type="video/mp4" />
+  </video>
+  <figcaption>{style.name} in {video.durationSeconds} seconds: the steps, then the finished look. No sound.</figcaption>
+</figure>

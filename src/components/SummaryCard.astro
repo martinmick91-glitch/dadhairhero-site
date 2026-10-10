@@ -1,0 +1,37 @@
+---
+// The card at the top of a style page: the finished look, the facts a reader
+// decides on (time, level, hair), and what he needs, with links into the Kit.
+import Photo from './Photo.astro';
+import { path, minutes, difficulty, hairTypes, hairLength, ages, lower, t } from '../lib/site.js';
+const { locale, style, kit, curlyExtra = [] } = Astro.props;
+---
+<section class="summary" aria-label={t(locale, 'At a glance')}>
+  <figure class="summary-photo">
+    <Photo
+      photo={style.image}
+      alt={`${style.name}, the finished style${style.curlyOnly ? ', curly hair' : ''}: back view`}
+      sizes="(max-width: 42rem) 60vw, 300px"
+      eager
+    />
+  </figure>
+  <div class="summary-body">
+    <dl class="facts">
+      <div><dt>{t(locale, 'Time')}</dt><dd>{t(locale, `About ${minutes(style.targetMinutes)}`)}</dd></div>
+      <div><dt>{t(locale, 'Steps')}</dt><dd>{style.steps.length}</dd></div>
+      <div><dt>{t(locale, 'Level')}</dt><dd>{t(locale, difficulty(style))}</dd></div>
+      <div><dt>{t(locale, 'Hair type')}</dt><dd>{t(locale, hairTypes(locale, style))}</dd></div>
+      <div><dt>{t(locale, 'Ages')}</dt><dd>{t(locale, ages(style))}</dd></div>
+      <div><dt>{t(locale, 'Hair length')}</dt><dd>{t(locale, hairLength(style))}</dd></div>
+    </dl>
+    <p class="summary-kit">
+      <strong>{t(locale, "You'll need")}</strong>{' '}
+      {kit.map((item, i) => <>{i > 0 && ', '}<a href={path(locale, 'kitItem', item.id)}>{lower(item.name)}</a></>)}.
+      {curlyExtra.length > 0 && (
+        <>
+          {' '}{t(locale, 'For curly and coily hair, also')}{' '}
+          {curlyExtra.map((item, i) => <>{i > 0 && ', '}<a href={path(locale, 'kitItem', item.id)}>{lower(item.name)}</a></>)}.
+        </>
+      )}
+    </p>
+  </div>
+</section>

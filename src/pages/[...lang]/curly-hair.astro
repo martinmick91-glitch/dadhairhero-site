@@ -1,0 +1,102 @@
+---
+// Hub: hairstyles for curly and coily hair. The lists come from the data
+// (which styles are written for curly and coily hair, which techniques are
+// about it); only the few sentences of introduction are written here.
+import Base from '../../layouts/Base.astro';
+import StyleCards from '../../components/StyleCards.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
+import {
+  LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, offersCurly, techniqueById,
+  kitItemById, fixEntryById, sentence, campaign, t,
+} from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const curly = locale.data.styles.filter(offersCurly);
+const free = curly.filter((s) => !s.pack);
+// The three the app leads with for curly and coily hair, then the rest.
+const LEAD = ['puffs', 'twisted-bunches', 'criss-cross-bands'];
+const pack = [
+  ...LEAD.map((id) => curly.find((s) => s.id === id)),
+  ...curly.filter((s) => s.pack && !LEAD.includes(s.id)),
+];
+const techniques = ['detangling-curly-coily', 'two-strand-twist', 'gentle-tension-protecting-edges']
+  .map((id) => techniqueById(locale, id));
+const kit = ['mist-bottle', 'leave-in-conditioner', 'wide-tooth-comb', 'soft-scrunchie', 'satin-bonnet']
+  .map((id) => kitItemById(locale, id));
+const fixes = ['entry-hurts', 'entry-knotted'].map((id) => fixEntryById(locale, id));
+if ([...pack, ...techniques, ...kit, ...fixes].some((entry) => !entry)) {
+  throw new Error('curly-hair: a style, technique, Kit item or Fix It entry named on this page is no longer in the export');
+}
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Curly and coily hair'), path: path(locale, 'curly') },
+];
+const title = 'Hairstyles for curly and coily hair, for dads | Dad Hair Hero';
+const description = t(locale, `How to do a girl's curly or coily hair: detangle it damp, work in sections, keep her edges soft. ${curly.length} styles written for curly hair.`);
+const entries = [...free, ...pack].map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
+---
+<Base
+  locale={locale}
+  kind="curly"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList('Hairstyles for curly and coily hair', entries)]}
+>
+  <h1>{t(locale, 'Hairstyles for curly and coily hair')}</h1>
+  <p class="lede">
+    {t(locale, 'Curly hair is done differently: damp, in sections, and with a gentle hand at her hairline. Every guide here says where the method changes.')}
+  </p>
+  <p class="summary-cta">{t(locale, 'Choose Curly or Coily in the free app and every style shows the steps for her hair.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'curly')} />
+  <p>
+    {t(locale, 'Brushing curly or coily hair dry hurts, and dry hair breaks more easily. Water and a little leave-in conditioner are what make it painless. The three techniques below are worth reading before any style.')}
+  </p>
+
+  <h2>{t(locale, 'Start with these three techniques')}</h2>
+  <ul class="rows">
+    {techniques.map((technique) => (
+      <li>
+        <a href={path(locale, 'technique', technique.id)}>{technique.title}</a>
+        <span>{sentence(technique.description)}</span>
+      </li>
+    ))}
+  </ul>
+
+  <h2>{t(locale, 'Free styles, with the curly and coily steps')}</h2>
+  <p>
+    {t(locale, 'Ponytails, bunches and the everyday styles, in full. Where a step changes for curly and coily hair, the guide gives that version underneath, with its own photo.')}
+  </p>
+  <StyleCards locale={locale} styles={free} curly />
+
+  <h2>{t(locale, 'More styles, in Beyond the Ponytail')}</h2>
+  <p>
+    {t(locale, 'Puffs are written only for curly and coily hair. Twisted bunches and criss-cross bands suit it well too, so they come first. Each page shows the finished look, the time and what you need; the full steps are in the app, in an optional one-time pack.')}
+  </p>
+  <StyleCards locale={locale} styles={pack} curly />
+
+  <h2>{t(locale, 'What helps')}</h2>
+  <ul class="rows">
+    {kit.map((item) => (
+      <li>
+        <a href={path(locale, 'kitItem', item.id)}>{item.name}</a>
+        <span>{item.use}</span>
+      </li>
+    ))}
+  </ul>
+
+  <h2>{t(locale, 'When it hurts, or it is knotted')}</h2>
+  <ul class="rows">
+    {fixes.map((fix) => <li><a href={path(locale, 'fix', fix.id)}>{fix.label}</a></li>)}
+  </ul>
+
+  <AppBlock locale={locale} kind="curly" heading="Choose Curly or Coily in the app">
+    <p>{t(locale, 'Pick Curly or Coily under “her hair today” and Dad Hair Hero shows only the steps and photos for her hair. All the curly and coily guidance is free. Then:')}</p>
+  </AppBlock>
+</Base>

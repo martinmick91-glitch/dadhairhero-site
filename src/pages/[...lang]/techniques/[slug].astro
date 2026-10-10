@@ -1,0 +1,156 @@
+---
+// One technique guide, in full. Every technique is free in the app, so all
+// of it is here: why it matters, how to do it, how to check, the common
+// mistakes and the styles that use it.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import Author from '../../../components/Author.astro';
+import Faq from '../../../components/Faq.astro';
+import Related from '../../../components/Related.astro';
+import {
+  LOCALES, langParam, localeFromParam, path, styleById, pageTitle, pageDescription, breadcrumbs, imageUrl,
+  sentence, lower, campaign, t, techniqueFaq, faqPage, kitItemById, fixEntryById, AUTHORSHIP, HUBS,
+} from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    locale.data.techniques.map((technique) => ({
+      params: { lang: langParam(locale), slug: technique.slug },
+      props: { id: technique.id },
+    })),
+  );
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const { id } = Astro.props;
+const technique = locale.data.techniques.find((tq) => tq.id === id);
+const usedIn = technique.usedInStyleIds.map((styleId) => styleById(locale, styleId));
+const others = locale.data.techniques.filter((tq) => tq.id !== technique.id);
+const faq = techniqueFaq(locale, technique);
+
+// Where to go next: the easiest free styles that use it, the hubs that name
+// it, the Kit items its "how to" mentions, and the Fix It entries that link
+// to it.
+const related = usedIn
+  .filter((s) => !s.pack)
+  .sort((a, b) => a.targetMinutes - b.targetMinutes)
+  .slice(0, 3);
+const hubs = HUBS.filter((hub) => hub.techniques?.includes(technique.id))
+  .map((hub) => ({ name: t(locale, hub.name), path: path(locale, hub.kind) }));
+if (technique.impliesHairType) hubs.push({ name: t(locale, 'Curly and coily hair'), path: path(locale, 'curly') });
+if (['detangling', 'holding-tension', 'choosing-elastics', 'keeping-her-still'].includes(technique.id)) {
+  hubs.unshift({ name: t(locale, 'Easy hairstyles'), path: path(locale, 'easy') });
+}
+const text = [technique.whyItMatters, ...technique.howToDoIt, ...technique.commonMistakes].join(' ').toLowerCase();
+const kit = locale.data.kit.sections.flatMap((s) => s.items)
+  .filter((item) => text.includes(lower(item.name).replace(/s$/, '')) || text.includes(lower(item.name)))
+  .slice(0, 4);
+const fixes = locale.data.fixIt.entries.filter((entry) =>
+  locale.data.fixIt.nodes.some((n) => n.link?.type === 'manual-section' && n.link.id === technique.id && n.id.includes(entry.slug.split('-')[0])),
+).concat(technique.id === 'keeping-her-still' ? [fixEntryById(locale, 'entry-wont-sit')] : [])
+  .concat(technique.id === 'detangling' || technique.id === 'detangling-curly-coily' ? [fixEntryById(locale, 'entry-knotted')] : [])
+  .filter((f, i, arr) => f && arr.indexOf(f) === i);
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Techniques', path: path(locale, 'techniques') },
+  { name: technique.title, path: path(locale, 'technique', technique.id) },
+];
+const title = pageTitle(
+  `${technique.title}: a guide for dads | Dad Hair Hero`,
+  `${technique.title} | Dad Hair Hero`,
+  technique.title,
+);
+const description = pageDescription(
+  `${technique.title}: ${sentence(lower(technique.description))}`,
+  'How to do it, how to check it is right, and the mistakes to avoid.',
+  'Written for dads.',
+);
+
+const jsonld = [
+  breadcrumbs(trail),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: technique.title,
+    description: technique.whyItMatters,
+    inLanguage: locale.code,
+    image: imageUrl(technique.image),
+    step: technique.howToDoIt.map((stepText, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: `Step ${i + 1}`,
+      text: stepText,
+    })),
+    ...AUTHORSHIP,
+  },
+  faqPage(faq),
+];
+---
+<Base
+  locale={locale}
+  kind="technique"
+  id={technique.id}
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={jsonld}
+  ogImage={technique.image ? `${technique.image.base}-800.webp` : undefined}
+  ogImageSize={technique.image ? { width: technique.image.width, height: technique.image.height } : undefined}
+>
+  <p class="eyebrow">{t(locale, 'Technique')}</p>
+  <h1>{technique.title}</h1>
+  <p class="lede">{sentence(technique.description)}</p>
+  <Author locale={locale} />
+  <p class="summary-cta">{t(locale, 'Every step in the free app links to the technique it uses.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'technique', technique.id)} />
+
+  {technique.image && (
+    <figure class="photo hero-photo">
+      <Photo photo={technique.image} alt={`${technique.title}: ${lower(sentence(technique.description)).replace(/\.$/, '')}, shown on a model head`} eager />
+    </figure>
+  )}
+
+  <h2>{t(locale, 'Why it matters')}</h2>
+  <p>{technique.whyItMatters}</p>
+
+  <h2>{t(locale, 'How to do it')}</h2>
+  <ol>
+    {technique.howToDoIt.map((step) => <li>{step}</li>)}
+  </ol>
+
+  <h2>{t(locale, "How to check it's right")}</h2>
+  <ul>
+    {technique.howToCheck.map((check) => <li>{check}</li>)}
+  </ul>
+
+  <h2>{t(locale, 'Common mistakes')}</h2>
+  <ul>
+    {technique.commonMistakes.map((mistake) => <li>{mistake}</li>)}
+  </ul>
+
+  {technique.note && <div class="panel"><p>{technique.note}</p></div>}
+
+  {usedIn.length > 0 && (
+    <>
+      <h2>{t(locale, 'Used in these styles')}</h2>
+      {technique.usedInAllStyles && <p>{t(locale, 'Every style uses this one.')}</p>}
+      <ul class="rows">
+        {usedIn.map((style) => (
+          <li>
+            <a href={path(locale, 'style', style.id)}>{style.name}</a>
+            <span>{style.pack ? t(locale, 'In Beyond the Ponytail') : t(locale, 'Free, in full on this site')}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <Faq faq={faq} heading={t(locale, 'Questions dads ask')} />
+
+  <AppBlock locale={locale} kind="technique" id={technique.id} />
+
+  <Related locale={locale} styles={related} hubs={hubs} kit={kit} fixes={fixes} techniques={others.slice(0, 3)} />
+</Base>

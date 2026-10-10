@@ -1,0 +1,31 @@
+---
+// GitHub Pages serves this for any address that doesn't exist. Both store
+// badges are in the footer every page shares.
+import Base from '../layouts/Base.astro';
+import { UK, path } from '../lib/site.js';
+---
+<Base
+  locale={UK}
+  kind="404"
+  paired={false}
+  pathname="/404.html"
+  noindex
+  appBar={false}
+  title="Page not found - Dad Hair Hero"
+  description="There is nothing at this address."
+>
+  <h1>Page not found</h1>
+  <p class="lede">There is nothing at this address.</p>
+  <p><a href={path(UK, 'home')}>Go to the Dad Hair Hero home page</a></p>
+  <ul>
+    <li><a href={path(UK, 'easy')}>Easy hairstyles for girls</a></li>
+    <li><a href={path(UK, 'curly')}>Hairstyles for curly and coily hair</a></li>
+    <li><a href={path(UK, 'styles')}>All styles</a></li>
+    <li><a href={path(UK, 'techniques')}>Techniques</a></li>
+    <li><a href={path(UK, 'fixIt')}>Fix It</a></li>
+  </ul>
+  <p>
+    Dad Hair Hero is the app that teaches dads to do their daughters' hair, step by step. It is free on
+    the App Store and Google Play.
+  </p>
+</Base>
