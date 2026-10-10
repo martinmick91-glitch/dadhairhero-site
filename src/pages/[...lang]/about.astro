@@ -2,8 +2,8 @@
 // About: who makes Dad Hair Hero and how it treats what it is told. The
 // facts are the app's own (CLAUDE.md and docs in its repository) and what
 // Martin has said about its origins: a dad in Dublin, a young daughter,
-// hair he couldn't do. Nothing else is claimed. One paragraph is his to
-// write; it is marked, and the site's checks warn until it is replaced.
+// hair he couldn't do. Nothing else is claimed. The opening paragraph is
+// his own words (2026-10-10).
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import { LOCALES, SITE, AUTHOR, EMAIL, langParam, localeFromParam, path, breadcrumbs, campaign, t, ORGANIZATION, PERSON } from '../../lib/site.js';
@@ -31,8 +31,8 @@ const jsonld = [
   <StoreBadges campaignName={campaign(locale, 'about')} />
 
   <h2>{t(locale, 'Where it came from')}</h2>
-  <p class="placeholder">
-    [PLACEHOLDER: a short personal paragraph from {AUTHOR.name} goes here. Who you are, the morning that started it, what you wanted the app to be. Three or four sentences.]
+  <p>
+    {t(locale, "I'm a dad in Dublin with a young daughter, and I couldn't do her hair. Not a ponytail, not a plait, nothing that would hold. So I built Dad Hair Hero to learn it myself, one step at a time, the way I'd want it explained: what my hands should be doing, and how to tell when it's right.")}
   </p>
   <h2>{t(locale, 'How the steps are written')}</h2>
   <p>{t(locale, 'Every step in the app is written to one standard: positioned against things a dad can feel with his hands, one action per step, and a check at the end of it. There are five rules, and the free styles on this site are those steps word for word.')}</p>
