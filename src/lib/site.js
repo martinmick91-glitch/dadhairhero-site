@@ -8,6 +8,7 @@
 // change a style's wording, change it in the app and export again.
 
 import fs from 'node:fs';
+import { join as joinPath } from 'node:path';
 import gb from '../data/en-GB.json';
 import us from '../data/en-US.json';
 import glossary from '../data/glossary.json';
@@ -530,7 +531,10 @@ export function videoFor(locale, style) {
   if (videoManifest === undefined) {
     try {
       // Read at build time, not imported: the manifest may not exist yet.
-      videoManifest = JSON.parse(fs.readFileSync(new URL('../../public/videos/videos.json', import.meta.url), 'utf8'));
+      // The path is from the project root, not from this file: the build
+      // bundles this module into a chunk elsewhere, where a relative path
+      // found nothing and every page quietly lost its video.
+      videoManifest = JSON.parse(fs.readFileSync(joinPath(process.cwd(), 'public', 'videos', 'videos.json'), 'utf8'));
     } catch {
       videoManifest = null;
     }

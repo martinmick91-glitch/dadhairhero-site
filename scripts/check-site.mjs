@@ -438,10 +438,28 @@ for (const [page, doc] of pages) {
   checkOutboundLinks(page, doc);
   checkPlaceholders(page, doc);
 }
+// Every video in the manifest is on its style's page. The build once read
+// the manifest from a path that didn't exist and every page quietly lost
+// its video, with nothing failing.
+function checkVideosEmbedded() {
+  const manifestPath = path.join(DIST, 'videos', 'videos.json');
+  if (!fs.existsSync(manifestPath)) {
+    warnings.push('/videos/: no videos rendered (npm run videos)');
+    return;
+  }
+  const { videos } = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  for (const video of videos) {
+    const page = `${video.locale === 'en-GB' ? '' : '/us'}/styles/${video.slug}/`;
+    const file = path.join(DIST, page, 'index.html');
+    if (!fs.existsSync(file)) fail(page, `the page for the ${video.locale} video is not built`);
+    else if (!fs.readFileSync(file, 'utf8').includes(`src="${video.src}"`)) fail(page, `the ${video.locale} video ${video.src} is in the manifest but not on the page`);
+  }
+}
+
 checkPackPreviews();
 checkSitemap(indexedPages);
 checkOrphans(indexedPages);
-if (!fs.existsSync(path.join(DIST, 'videos', 'videos.json'))) warnings.push('/videos/: no videos rendered (npm run videos)');
+checkVideosEmbedded();
 if (!pages.has('/404.html')) fail('/404.html', 'not built');
 if (!built.has('/CNAME')) fail('/CNAME', 'not in the build; the custom domain depends on it');
 
