@@ -1,0 +1,47 @@
+---
+// The privacy policy. One page, in UK English, for both languages: the
+// stores link to this address. The wording is the policy as published on
+// 9 October 2026; change the date whenever the text changes.
+import Base from '../layouts/Base.astro';
+import { UK, path, breadcrumbs } from '../lib/site.js';
+
+const trail = [
+  { name: 'Home', path: path(UK, 'home') },
+  { name: 'Privacy Policy', path: '/privacy/' },
+];
+---
+<Base
+  locale={UK}
+  kind="privacy"
+  paired={false}
+  pathname="/privacy/"
+  title="Privacy Policy - Dad Hair Hero"
+  description="Dad Hair Hero collects no personal data. No accounts, no analytics, no advertising. What the app stores stays on your device and in your own backup."
+  trail={trail}
+  jsonld={[breadcrumbs(trail)]}
+>
+  <h1>Privacy Policy</h1>
+  <p>Last updated: 9 October 2026</p>
+
+  <p>Dad Hair Hero does not collect, transmit or store your personal data on any server. We have no accounts, no analytics, no advertising, and no crash reporting.</p>
+
+  <p>What the app stores. Everything you enter — your child's name, hair type and age band, your progress, and any photos and notes you add to the style diary — is saved on your device. None of it is sent to Dad Hair Hero or to anyone else. We cannot see it.</p>
+
+  <p>Backups. If your device backs itself up (iCloud, or Android backup), what the app stores is part of that backup, photos and notes included, like any other app. That backup is yours, in your own Apple or Google account. It is never sent to Dad Hair Hero.</p>
+
+  <p>Photos. The app asks for camera and photo library access only when you choose to add a photo to the diary. Photos are saved in the app's own storage on your device. If you share a photo using your phone's share options, it goes wherever you send it — never to us.</p>
+
+  <p>Links to shops. The Kit section contains affiliate links to product pages. Tapping one opens your normal browser, and we may earn a small commission on purchases. Once you leave the app, the site you land on has its own privacy policy, which we don't control.</p>
+
+  <p>In-app purchases. Beyond the Ponytail is an optional one-time purchase. If you buy it, the App Store or Google Play takes the payment through your store account. Dad Hair Hero never receives your payment or card details. The app only asks the store for the price of the pack and whether you have bought it. Nothing is sent to us.</p>
+
+  <p>Deleting your data. The app's Privacy &amp; data screen, reached from the Us tab, has a "Delete everything" option. It removes all stored data and every diary and Wall of Fame photo from your device. The app will restart as if it has never been opened. This cannot be undone.</p>
+
+  <p>Three things are kept. Your spelling choice. The record of which styles are yours, so deleting never costs you a style you already had. And whether Today has already suggested Beyond the Ponytail, so it is never suggested twice. A purchase stays with your App Store or Google Play account.</p>
+
+  <p>Uninstalling the app also removes what it stores from your device.</p>
+
+  <p>Children. This app is designed for adults. It is not directed at children and does not knowingly collect data from anyone.</p>
+
+  <p>Contact. hello@dadhairhero.com</p>
+</Base>

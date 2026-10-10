@@ -1,0 +1,61 @@
+---
+// The eight technique guides.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import AppCta from '../../../components/AppCta.astro';
+import { LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, sentence } from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const techniques = locale.data.techniques;
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Techniques', path: path(locale, 'techniques') },
+];
+const title = 'Hair techniques for dads: the basics | Dad Hair Hero';
+const description = `Eight short guides to the skills every hairstyle uses: holding tension, detangling without tears, making a ${w(locale, 'parting', 'part')}, choosing elastics and more.`;
+const entries = techniques.map((t) => ({ name: t.title, path: path(locale, 'technique', t.id) }));
+---
+<Base
+  locale={locale}
+  kind="techniques"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList('Hair techniques for dads', entries)]}
+>
+  <h1>Techniques</h1>
+  <p class="lede">
+    The skills every style is built from. Eight short guides, each with how to do it, how to check it's
+    right and the mistakes to avoid.
+  </p>
+
+  <ul class="cards">
+    {techniques.map((technique, i) => (
+      <li>
+        <a class="card" href={path(locale, 'technique', technique.id)}>
+          {technique.image && (
+            <Photo
+              photo={technique.image}
+              alt={`${technique.title}, shown on a model head`}
+              sizes="(max-width: 26rem) 45vw, 200px"
+              eager={i < 2}
+            />
+          )}
+          <span class="name">{technique.title}</span>
+          <span class="meta">{sentence(technique.description)}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <AppCta locale={locale} kind="techniques" heading="Free in the app, beside every step" >
+    <p>
+      In Dad Hair Hero each step links to the technique it uses. All eight are free, with no account and no
+      tracking.
+    </p>
+  </AppCta>
+</Base>

@@ -1,0 +1,16 @@
+---
+// The box that sends a reader to the app. Used once near the end of a page.
+import StoreBadges from './StoreBadges.astro';
+import { campaign } from '../lib/site.js';
+const { locale, kind, id, heading = 'Follow it on your phone' } = Astro.props;
+---
+<section class="cta">
+  <h2>{heading}</h2>
+  <slot>
+    <p>
+      Dad Hair Hero shows one step at a time, with the photo and what to check before you move on, so you
+      can prop the phone up and keep both hands on her hair. It is free, with no account and no tracking.
+    </p>
+  </slot>
+  <StoreBadges campaignName={campaign(locale, kind, id)} />
+</section>

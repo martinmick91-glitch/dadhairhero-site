@@ -1,0 +1,14 @@
+---
+// Both store badges. Each link carries the name of the page it is on (see
+// campaign() in lib/site.js); nothing is recorded by the site.
+import { appStoreUrl, playUrl } from '../lib/site.js';
+const { campaignName } = Astro.props;
+---
+<p class="badges">
+  <a href={appStoreUrl(campaignName)}>
+    <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" />
+  </a>
+  <a href={playUrl(campaignName)}>
+    <img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="148" height="44" />
+  </a>
+</p>

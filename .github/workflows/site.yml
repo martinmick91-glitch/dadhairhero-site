@@ -1,0 +1,53 @@
+# Builds the site and checks it on every push and pull request. Deploys to
+# GitHub Pages only from main, and only when the checks pass.
+#
+# Pages must be set to deploy from "GitHub Actions" (Settings → Pages →
+# Source) before this is merged to main. While it is still set to "Deploy
+# from a branch", Pages publishes the repository's files as they are, and
+# after the Astro rebuild those are source files, not a site.
+
+name: Site
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # Links, alt text, titles, hreflang and structured data.
+      - run: npm run check
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

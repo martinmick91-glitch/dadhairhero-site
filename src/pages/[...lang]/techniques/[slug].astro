@@ -1,0 +1,134 @@
+---
+// One technique guide, in full. Every technique is free in the app, so all
+// of it is here: why it matters, how to do it, how to check, the common
+// mistakes and the styles that use it.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import AppCta from '../../../components/AppCta.astro';
+import {
+  LOCALES, langParam, localeFromParam, path, absolute, styleById, pageTitle, pageDescription,
+  breadcrumbs, imageUrl, sentence,
+} from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    locale.data.techniques.map((technique) => ({
+      params: { lang: langParam(locale), slug: technique.slug },
+      props: { id: technique.id },
+    })),
+  );
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const { id } = Astro.props;
+const technique = locale.data.techniques.find((t) => t.id === id);
+const usedIn = technique.usedInStyleIds.map((styleId) => styleById(locale, styleId));
+const others = locale.data.techniques.filter((t) => t.id !== technique.id);
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'Techniques', path: path(locale, 'techniques') },
+  { name: technique.title, path: path(locale, 'technique', technique.id) },
+];
+const title = pageTitle(
+  `${technique.title}: a guide for dads | Dad Hair Hero`,
+  `${technique.title} | Dad Hair Hero`,
+  technique.title,
+);
+const description = pageDescription(
+  `${technique.title}: ${sentence(technique.description.charAt(0).toLowerCase() + technique.description.slice(1))}`,
+  'How to do it, how to check it is right, and the mistakes to avoid.',
+  'Written for dads.',
+);
+
+const jsonld = [
+  breadcrumbs(trail),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: technique.title,
+    description: technique.whyItMatters,
+    inLanguage: locale.code,
+    image: imageUrl(technique.image),
+    step: technique.howToDoIt.map((text, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: `Step ${i + 1}`,
+      text,
+    })),
+  },
+];
+---
+<Base
+  locale={locale}
+  kind="technique"
+  id={technique.id}
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={jsonld}
+  ogImage={technique.image ? `${technique.image.base}-800.webp` : undefined}
+  ogImageSize={technique.image ? { width: technique.image.width, height: technique.image.height } : undefined}
+>
+  <p class="eyebrow">Technique</p>
+  <h1>{technique.title}</h1>
+  <p class="lede">{sentence(technique.description)}</p>
+
+  {technique.image && (
+    <figure class="photo hero-photo">
+      <Photo photo={technique.image} alt={`${technique.title}, shown on a model head`} eager />
+    </figure>
+  )}
+
+  <h2>Why it matters</h2>
+  <p>{technique.whyItMatters}</p>
+
+  <h2>How to do it</h2>
+  <ol>
+    {technique.howToDoIt.map((step) => <li>{step}</li>)}
+  </ol>
+
+  <h2>How to check it's right</h2>
+  <ul>
+    {technique.howToCheck.map((check) => <li>{check}</li>)}
+  </ul>
+
+  <h2>Common mistakes</h2>
+  <ul>
+    {technique.commonMistakes.map((mistake) => <li>{mistake}</li>)}
+  </ul>
+
+  {technique.note && <div class="panel"><p>{technique.note}</p></div>}
+
+  {usedIn.length > 0 && (
+    <>
+      <h2>Used in these styles</h2>
+      {technique.usedInAllStyles && <p>Every style uses this one.</p>}
+      <ul class="rows">
+        {usedIn.map((style) => (
+          <li>
+            <a href={path(locale, 'style', style.id)}>{style.name}</a>
+            <span>{style.pack ? 'In Beyond the Ponytail' : 'Free, in full on this site'}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <AppCta locale={locale} kind="technique" id={technique.id} heading="All eight techniques are free in the app">
+    <p>
+      Each step in Dad Hair Hero links to the technique it uses, so the explanation is there when you need
+      it. The app is free, with no account and no tracking.
+    </p>
+  </AppCta>
+
+  <h2>More techniques</h2>
+  <ul class="rows">
+    {others.map((other) => (
+      <li>
+        <a href={path(locale, 'technique', other.id)}>{other.title}</a>
+        <span>{sentence(other.description)}</span>
+      </li>
+    ))}
+  </ul>
+</Base>

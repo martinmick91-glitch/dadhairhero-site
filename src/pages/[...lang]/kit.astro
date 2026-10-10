@@ -1,0 +1,113 @@
+---
+// The Kit: the only page with anything to buy, as the Kit tab is in the
+// app. The disclosure comes before the first link, and every Buy link is
+// rel="sponsored". A UK English reader gets amazon.co.uk links and a US
+// English reader amazon.com ones, straight from the export; an item with no
+// link for that store has no button.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import AppCta from '../../components/AppCta.astro';
+import { LOCALES, langParam, localeFromParam, path, w, breadcrumbs, itemList, kitItems, US } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const { sections, associateNotice } = locale.data.kit;
+const items = kitItems(locale);
+const store = locale === US ? 'Amazon.com' : 'Amazon.co.uk';
+const hasLinks = items.some((item) => item.buyUrl);
+
+// The styles that list an item, for "Used in".
+const usedIn = (itemId) =>
+  locale.data.styles.filter((s) => s.equipmentIds.includes(itemId) || s.curlyEquipmentIds.includes(itemId));
+
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: 'The Kit', path: path(locale, 'kit') },
+];
+const title = 'The Kit: what you need to do her hair | Dad Hair Hero';
+const description = 'Eighteen things worth having for a girl\'s hair, from a wide-tooth comb to a satin bonnet: what each one is for, what to avoid and what to look for.';
+const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitItem', item.id) }));
+---
+<Base
+  locale={locale}
+  kind="kit"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList('The Kit', entries)]}
+>
+  <h1>The Kit</h1>
+  <p class="lede">
+    Eighteen things worth having, and what each one is for. You don't need all of them: the essentials
+    cover every style.
+  </p>
+
+  <div class="notice" id="disclosure">
+    <p>
+      <strong>About the Buy links.</strong> Photos show the type of item, not the exact product.
+      {hasLinks && (
+        <>
+          {' '}Buy one links go to {store} and are affiliate links: if you buy through them, Dad Hair Hero
+          earns a small commission at no extra cost to you. {associateNotice}
+        </>
+      )}
+    </p>
+  </div>
+
+  {sections.map((section) => (
+    <>
+      <h2 id={section.tier}>{section.label}</h2>
+      <p>{section.sub}</p>
+      <ul class="kit">
+        {section.items.map((item) => {
+          const styles = usedIn(item.id);
+          return (
+            <li id={item.id}>
+              <div>
+                {item.image && <Photo photo={item.image} alt={`${item.name}: an example of the type of item`} sizes="104px" />}
+              </div>
+              <div>
+                <h3>{item.name}</h3>
+                <p>{item.use}</p>
+                <dl>
+                  {item.avoid && <><dt>Avoid</dt><dd>{item.avoid}</dd></>}
+                  {item.buyingNote && <><dt>When buying</dt><dd>{item.buyingNote}</dd></>}
+                  {styles.length > 0 && (
+                    <>
+                      <dt>Used in</dt>
+                      <dd>
+                        {styles.length === locale.data.styles.length
+                          ? <a href={path(locale, 'styles')}>Every style</a>
+                          : styles.map((style, i) => (
+                              <>{i > 0 && ', '}<a href={path(locale, 'style', style.id)}>{style.name}</a></>
+                            ))}
+                      </dd>
+                    </>
+                  )}
+                </dl>
+                {item.buyUrl && (
+                  <>
+                    <a class="buy" href={item.buyUrl} rel="sponsored nofollow noopener" target="_blank">
+                      Buy one on {store}
+                    </a>
+                    <span class="buy-note">Affiliate link. Opens {store}.</span>
+                  </>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  ))}
+
+  <AppCta locale={locale} kind="kit" heading="The Kit is in the app too">
+    <p>
+      Each style in Dad Hair Hero lists what it needs before you start, so nothing is missing at step
+      three. The app is free, with no account and no tracking.
+    </p>
+  </AppCta>
+</Base>

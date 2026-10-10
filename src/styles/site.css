@@ -1,0 +1,173 @@
+/* Colours and type follow the app's design system (src/designSystem.ts in
+   the app's repository). The site is light only, as the app is. */
+
+:root {
+  color-scheme: light;
+  --indigo: #1e293b;
+  --indigo-70: rgba(30, 41, 59, 0.78);
+  --indigo-10: rgba(30, 41, 59, 0.1);
+  --apricot: #fdba74;
+  --apricot-text: #a85a28;
+  --blush: #fbcfe8;
+  --peach: #fcebdd;
+  --alabaster: #f8fafc;
+  --surface: #ffffff;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --sans: 'Hanken Grotesk Variable', -apple-system, system-ui, 'Segoe UI', sans-serif;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--alabaster);
+  color: var(--indigo);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.column { max-width: 42rem; margin: 0 auto; padding: 0 1.25rem; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--indigo); text-underline-offset: 0.18em; }
+a:hover { color: var(--apricot-text); }
+a:focus-visible { outline: 3px solid var(--apricot-text); outline-offset: 2px; border-radius: 4px; }
+
+h1, h2 { font-family: var(--serif); font-weight: 400; line-height: 1.12; letter-spacing: -0.005em; }
+h1 { font-size: clamp(2.4rem, 8vw, 3.4rem); margin: 0.5rem 0 0.5rem; }
+h2 { font-size: clamp(1.7rem, 5vw, 2.1rem); margin: 3rem 0 0.75rem; }
+h3 { font-size: 1.15rem; line-height: 1.3; margin: 0 0 0.35rem; font-weight: 600; }
+
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+li { margin-bottom: 0.4rem; }
+
+.lede { font-size: 1.2rem; color: var(--indigo-70); }
+.eyebrow {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--apricot-text); margin: 0 0 0.25rem;
+}
+.small { font-size: 0.9rem; color: var(--indigo-70); }
+
+/* ── Header and footer ─────────────────────────────────────────────────── */
+
+.site-header { background: var(--peach); }
+.site-header .bar {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 0.25rem 1.25rem; padding-top: 0.9rem; padding-bottom: 0.9rem;
+}
+.brand { font-family: var(--serif); font-size: 1.6rem; text-decoration: none; }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; }
+.site-header nav a { font-size: 0.98rem; font-weight: 500; text-decoration: none; padding: 0.35rem 0; }
+.site-header nav a:hover, .site-header nav a[aria-current='page'] {
+  text-decoration: underline; text-decoration-thickness: 2px;
+}
+
+main { padding-top: 1.5rem; padding-bottom: 3rem; }
+
+.crumbs { font-size: 0.9rem; color: var(--indigo-70); margin-bottom: 0.5rem; }
+.crumbs a { color: var(--indigo-70); }
+
+.site-footer { background: var(--indigo); color: var(--alabaster); padding: 2.5rem 0 2rem; }
+.site-footer a { color: var(--alabaster); }
+.site-footer a:hover { color: var(--apricot); }
+.site-footer a:focus-visible { outline-color: var(--apricot); }
+.site-footer .small { color: rgba(248, 250, 252, 0.8); }
+.footer-lede { font-family: var(--serif); font-size: 1.7rem; line-height: 1.2; margin-bottom: 0.5rem; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin: 1.75rem 0 1rem; }
+.language { margin-bottom: 0.5rem; }
+
+/* ── Store badges ──────────────────────────────────────────────────────── */
+
+.badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; padding: 0; }
+.badges a { display: inline-block; border-radius: 8px; }
+.badges img { height: 44px; width: auto; }
+
+/* ── Cards and panels ──────────────────────────────────────────────────── */
+
+.panel { background: var(--surface); border: 1px solid var(--indigo-10); border-radius: var(--radius); padding: 1.25rem; }
+.panel > :last-child { margin-bottom: 0; }
+
+.cta { background: var(--peach); border-radius: var(--radius); padding: 1.5rem 1.25rem; margin: 2.5rem 0 0; }
+.cta h2 { margin-top: 0; }
+.cta > :last-child { margin-bottom: 0; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.75rem; margin: 1.25rem 0; padding: 0; }
+.facts div { background: var(--surface); border: 1px solid var(--indigo-10); border-radius: 12px; padding: 0.7rem 0.85rem; }
+.facts dt { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apricot-text); }
+.facts dd { margin: 0.1rem 0 0; font-weight: 500; }
+
+.looks { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; margin: 1.25rem 0; }
+.looks figure, .photo { margin: 0; }
+.looks img, .photo img, .card img { border-radius: var(--radius); background: rgba(30, 41, 59, 0.05); }
+figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
+.hero-photo { max-width: 26rem; margin: 1.25rem 0; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 1.25rem 1rem; list-style: none; padding: 0; margin: 1rem 0 0; }
+.cards li { margin: 0; }
+.card { display: block; text-decoration: none; }
+.card .name { display: block; font-weight: 600; margin-top: 0.5rem; line-height: 1.3; text-decoration: underline; }
+.card .meta { display: block; font-size: 0.9rem; color: var(--indigo-70); }
+.pack-tag {
+  display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--indigo); color: var(--alabaster); border-radius: 999px; padding: 0.15rem 0.6rem;
+}
+
+.rows { list-style: none; padding: 0; margin: 1rem 0 0; }
+.rows li { border-top: 1px solid var(--indigo-10); padding: 0.85rem 0; margin: 0; }
+.rows li:last-child { border-bottom: 1px solid var(--indigo-10); }
+.rows a { font-weight: 600; }
+.rows span { display: block; color: var(--indigo-70); }
+
+/* ── Steps ─────────────────────────────────────────────────────────────── */
+
+.steps { list-style: none; padding: 0; margin: 1.25rem 0 0; counter-reset: step; }
+.steps > li { margin: 0 0 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--indigo-10); }
+.step-number { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--apricot-text); margin: 0 0 0.15rem; }
+.steps h3 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.15; margin-bottom: 0.5rem; }
+.steps .photo { max-width: 30rem; margin: 1rem 0; }
+.check { background: var(--blush); border-radius: 12px; padding: 0.85rem 1rem; margin: 1rem 0; }
+.check p { margin: 0; }
+.check .eyebrow { margin-bottom: 0.15rem; }
+.why { color: var(--indigo-70); }
+.curly { background: var(--surface); border: 1px solid var(--indigo-10); border-left: 4px solid var(--apricot); border-radius: 12px; padding: 1rem; margin-top: 1.25rem; }
+.curly h4 { margin: 0 0 0.35rem; font-size: 1.05rem; }
+.curly > :last-child { margin-bottom: 0; }
+
+.titles { counter-reset: none; }
+.titles li { padding: 0.3rem 0; }
+
+/* ── Kit ───────────────────────────────────────────────────────────────── */
+
+.notice { background: var(--peach); border-radius: 12px; padding: 0.9rem 1rem; margin: 1rem 0 0; }
+.notice p:last-child { margin-bottom: 0; }
+.kit { list-style: none; padding: 0; margin: 1rem 0 0; }
+.kit > li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; border-top: 1px solid var(--indigo-10); padding: 1.5rem 0; margin: 0; scroll-margin-top: 1rem; }
+.kit img { border-radius: 12px; background: var(--surface); }
+.kit h3 { font-size: 1.2rem; }
+.kit dl { margin: 0.5rem 0 0; }
+.kit dt { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apricot-text); margin-top: 0.6rem; }
+.kit dd { margin: 0; }
+.buy {
+  display: inline-block; margin-top: 0.9rem; background: var(--apricot); color: var(--indigo);
+  font-weight: 600; text-decoration: none; border-radius: 999px; padding: 0.55rem 1.1rem;
+}
+.buy:hover { color: var(--indigo); text-decoration: underline; }
+.buy-note { display: block; font-size: 0.85rem; color: var(--indigo-70); margin-top: 0.35rem; }
+
+@media (max-width: 26rem) {
+  .kit > li { grid-template-columns: 4.5rem 1fr; }
+}
+
+/* ── Home ──────────────────────────────────────────────────────────────── */
+
+.home-top { display: grid; gap: 1.5rem; align-items: start; }
+.home-top .screenshot { max-width: 17rem; border-radius: 18px; }
+@media (min-width: 40rem) {
+  .home-top { grid-template-columns: 1fr 15rem; }
+}
