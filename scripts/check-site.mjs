@@ -234,6 +234,7 @@ const REQUIRED = {
   Organization: ['name', 'url', 'logo'],
   Person: ['name', 'url'],
   WebSite: ['name', 'url'],
+  ImageObject: ['contentUrl', 'width', 'height', 'description'],
 };
 
 // What each kind of page must carry.

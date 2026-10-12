@@ -13,6 +13,7 @@ module.exports = {
         'http://localhost/school-hairstyles/',
         'http://localhost/fix-it/falls-out/',
         'http://localhost/kit/',
+        'http://localhost/about/',
       ],
       numberOfRuns: 1,
     },

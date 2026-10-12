@@ -266,3 +266,12 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
    drops its second line so the buttons have room. */
 .app-bar:not(.ios-only):not(.android-only) p span { display: none; }
 .app-bar:not(.ios-only):not(.android-only) .store { padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+
+/* About: the one real photograph, beside Martin's own paragraphs. */
+.about-story { display: grid; gap: 1.25rem; align-items: start; }
+.about-photo { margin: 0; max-width: 360px; }
+@media (min-width: 42rem) { .about-photo { max-width: 280px; } }
+.about-photo img { width: 100%; height: auto; border-radius: var(--radius); background: rgba(30, 41, 59, 0.05); }
+@media (min-width: 42rem) {
+  .about-story { grid-template-columns: 280px 1fr; gap: 2rem; }
+}
