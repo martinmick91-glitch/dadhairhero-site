@@ -16,16 +16,19 @@
 //                and Organization
 //   orphans      every indexed page is linked from the body of at least one
 //                other page, not only from the header or footer
-// and four rules of this site's own:
+// and five rules of this site's own:
 //   - Amazon links are rel="sponsored", only on the Kit page, on the right
 //     country's store, and after the disclosure;
 //   - every store badge link carries its campaign name;
 //   - a Beyond the Ponytail page shows step titles and nothing more;
-//   - the sitemap lists exactly the pages that should be indexed.
+//   - the sitemap lists exactly the pages that should be indexed;
+//   - a page opened from the app's share link passes its campaign on to
+//     the store links, and touches no cookie or storage.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 import { parse } from 'node-html-parser';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -428,6 +431,55 @@ function checkSitemap(indexedPages) {
   }
 }
 
+// ─── The app's share campaign ────────────────────────────────────────────────
+
+// A page opened from the app's "Send the steps" passes its share-<style>
+// campaign on to the store links (src/components/ShareCampaign.astro). Every
+// page carries the script; run here against a page's real store links, it
+// rewrites them for a share link and leaves them alone for anything else.
+// It touches no cookie and no storage.
+function checkShareCampaign() {
+  const marker = "params.get('utm_source') !== 'app'";
+  let source = null;
+  for (const [url, doc] of pages) {
+    const script = doc.querySelectorAll('script').map((s) => s.textContent).find((t) => t.includes(marker));
+    if (!script) { fail(url, 'no share-campaign script'); continue; }
+    source ??= script;
+  }
+  if (!source) return;
+  if (/cookie|localStorage|sessionStorage|fetch\(|XMLHttpRequest|sendBeacon/.test(source)) {
+    fail('ShareCampaign.astro', 'the share-campaign script must not store or send anything');
+  }
+  // A real style page (the one a share links to), with its own copy of the
+  // script and its store links.
+  const storeLinks = (doc) => doc.querySelectorAll('a').map((a) => a.getAttribute('href') ?? '')
+    .filter((href) => href.startsWith('https://apps.apple.com/') || href.startsWith('https://play.google.com/'));
+  const page = [...pages.entries()].find(([url, doc]) => url === '/styles/classic-ponytail/' && storeLinks(doc).length >= 2);
+  if (!page) { fail('/styles/classic-ponytail/', 'not built with store links, so the share campaign could not be checked'); return; }
+  source = page[1].querySelectorAll('script').map((s) => s.textContent).find((t) => t.includes(marker)) ?? source;
+  const original = storeLinks(page[1]);
+  const run = (search) => {
+    const links = original.map((href) => ({ href }));
+    const sandbox = {
+      location: { search }, URL, URLSearchParams,
+      document: { querySelectorAll: () => links },
+    };
+    vm.runInNewContext(source, sandbox);
+    return links.map((l) => l.href);
+  };
+  const shared = run('?utm_source=app&utm_campaign=share-classic-ponytail');
+  for (const href of shared) {
+    const url = new URL(href);
+    const ok = url.hostname === 'apps.apple.com'
+      ? url.searchParams.get('ct') === 'share-classic-ponytail' && url.searchParams.get('pt') !== null
+      : url.searchParams.get('referrer') === 'utm_source=app&utm_medium=share&utm_campaign=share-classic-ponytail';
+    if (!ok) fail(page[0], `a shared visit did not carry its campaign to ${href}`);
+  }
+  for (const search of ['', '?utm_campaign=share-classic-ponytail', '?utm_source=app&utm_campaign=newsletter', '?utm_source=app&utm_campaign=share-%22%3E%3Cscript%3E']) {
+    if (run(search).some((href, i) => href !== original[i])) fail(page[0], `store links changed for "${search}"`);
+  }
+}
+
 // ─── Run ─────────────────────────────────────────────────────────────────────
 
 const indexedPages = [];
@@ -464,6 +516,7 @@ checkPackPreviews();
 checkSitemap(indexedPages);
 checkOrphans(indexedPages);
 checkVideosEmbedded();
+checkShareCampaign();
 if (!pages.has('/404.html')) fail('/404.html', 'not built');
 if (!built.has('/CNAME')) fail('/CNAME', 'not in the build; the custom domain depends on it');
 
