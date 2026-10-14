@@ -7,6 +7,7 @@ import '@fontsource-variable/hanken-grotesk/wght.css';
 import '../styles/site.css';
 import StoreBadges from '../components/StoreBadges.astro';
 import AppBar from '../components/AppBar.astro';
+import ShareCampaign from '../components/ShareCampaign.astro';
 import { SITE, UK, HUBS, APP_STORE_ID, EMAIL, absolute, alternates, campaign, path, otherLocale, t } from '../lib/site.js';
 
 const {
@@ -128,5 +129,6 @@ const nav = [
     </footer>
 
     {appBar && <AppBar campaignName={campaignName} />}
+    <ShareCampaign />
   </body>
 </html>
