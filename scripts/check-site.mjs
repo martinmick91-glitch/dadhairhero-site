@@ -485,6 +485,9 @@ function checkShareCampaign() {
     ['?utm_source=app&utm_campaign=share-classic-ponytail', 'share-classic-ponytail', 'share'],
     ['?utm_source=pinterest&utm_campaign=pin-school-ponytail-2', 'pin-school-ponytail-2', 'social'],
     [`?utm_source=pinterest&utm_campaign=${longest}`, longest, 'social'],
+    // The longest step-strip and handoff campaigns in pins/ (pin-st-, pin-ho-).
+    ['?utm_source=pinterest&utm_medium=social&utm_campaign=pin-st-clip-back-baby-wisps', 'pin-st-clip-back-baby-wisps', 'social'],
+    ['?utm_source=pinterest&utm_medium=social&utm_campaign=pin-ho-clip-back-baby-wisps', 'pin-ho-clip-back-baby-wisps', 'social'],
     // Forwarded with "Send this to him": from a pin, and from a direct visit.
     ['?utm_source=share&utm_medium=web&utm_campaign=fwd-pin-halloween-hair', 'fwd-pin-halloween-hair', 'web'],
     ['?utm_source=share&utm_medium=web&utm_campaign=fwd-classic-ponytail', 'fwd-classic-ponytail', 'web'],
@@ -592,6 +595,8 @@ async function checkShareButton() {
   const pin33 = 'pin-' + 'c'.repeat(33); // one too many
   const cases = [
     ['a forward from a pin', '?utm_source=pinterest&utm_campaign=pin-halloween-hair', 'fwd-pin-halloween-hair'],
+    ['a forward from a step-strip pin', '?utm_source=pinterest&utm_medium=social&utm_campaign=pin-st-clip-back-baby-wisps', 'fwd-pin-st-clip-back-baby-wisps'],
+    ['a forward from a handoff pin', '?utm_source=pinterest&utm_medium=social&utm_campaign=pin-ho-clip-back-baby-wisps', 'fwd-pin-ho-clip-back-baby-wisps'],
     ['a forward from a direct visit', '', 'fwd-classic-ponytail'],
     ['a forward from a pin at exactly 40 characters', `?utm_source=pinterest&utm_campaign=${pin32}`, `fwd-${pin32}`],
     ['a pin campaign that would pass 40 characters', `?utm_source=pinterest&utm_campaign=${pin33}`, 'fwd-classic-ponytail'],
@@ -752,6 +757,13 @@ function checkPins(indexedPages) {
       if (link.searchParams.get('utm_source') !== 'pinterest' || !/^pin-[a-z0-9-]{1,36}$/.test(link.searchParams.get('utm_campaign') ?? '')) {
         fail(at, 'link must carry utm_source=pinterest and a pin-<id> campaign');
       }
+      // Each kind of pin has its own prefix, so the stores count them apart:
+      // pin-st- for a step strip (…-step-by-step.png), pin-ho- for a handoff
+      // pin (send-him-….png), plain pin- for everything else.
+      const image = row['Media URL'].split('/').pop();
+      const kind = /-step-by-step\.png$/.test(image) ? 'st' : /^send-him-/.test(image) ? 'ho' : null;
+      const prefix = (link.searchParams.get('utm_campaign') ?? '').match(/^pin-(st|ho)-/)?.[1] ?? null;
+      if (kind !== prefix) fail(at, `${image} needs a ${kind ? `pin-${kind}-` : 'pin-'} campaign, not ${link.searchParams.get('utm_campaign')}`);
     });
   }
   // Every pin image is 1000×1500 and in a batch: nothing sits in

@@ -65,10 +65,10 @@ export const PINS = [
   },
   {
     pillar: 'style', styleId: 'clip-back-baby-wisps', file: 'clip-back-baby-wisps-in-1-minute.png',
-    headline: 'Baby wisps clipped back in 1 minute',
+    headline: 'Baby wisps clipped back in one minute',
     title: 'Clip back baby wisps in 1 minute: a first hairstyle for babies and toddlers',
     description: 'Clip-back for baby wisps: fine wisps clipped back from a baby or toddler\'s face with a single soft snap clip. It takes 1 minute, suits straight, thick, wavy, curly and coily hair, and every step is free. To make it last: "Clip the wisps while they are still a little damp. They dry flat under the clip and hold it in." ' + END,
-    alt: 'Short hair with the front wisps held back by a pink snap clip, on a mannequin head seen from the side, under the headline Baby wisps clipped back in 1 minute.',
+    alt: 'Short hair with the front wisps held back by a pink snap clip, on a mannequin head seen from the side, under the headline Baby wisps clipped back in one minute.',
     board: TODDLER,
   },
 
@@ -161,10 +161,10 @@ export const PINS = [
   },
   {
     pillar: 'handoff', styleId: 'clip-back-baby-wisps', file: 'send-him-clip-back-baby-wisps.png',
-    headline: 'A first style for dad: 1 minute',
+    headline: 'A first style for dad: one minute',
     title: 'Clip back baby wisps in 1 minute: a first toddler hairstyle for dads',
     description: 'Clip back baby wisps in 1 minute: three steps and one soft snap clip. A gentle first style for a dad who has never done hair. ' + SEND + ' ' + END,
-    alt: 'Short hair with the front wisps held back by a pink snap clip, on a mannequin head seen from the side, under the headline A first style for dad: 1 minute.',
+    alt: 'Short hair with the front wisps held back by a pink snap clip, on a mannequin head seen from the side, under the headline A first style for dad: one minute.',
     board: TODDLER,
   },
   {
@@ -216,4 +216,7 @@ export const SCHEDULE = WEEKS.flatMap(([styleId, handoffId], week) => {
   ].map(([pin, day]) => ({ ...pin, day, publishDate: eightPmDublin(day), part: week < PART_1_WEEKS ? 1 : 2 }));
 });
 
-export const campaign = (pin) => (pin.pillar === 'handoff' ? `pin-ho-${pin.styleId}` : `pin-${pin.styleId}`);
+// pin-<style id> for a style pin, pin-st- for a step strip, pin-ho- for a
+// handoff pin, so the stores count each kind apart.
+const PREFIX = { style: 'pin-', 'step strip': 'pin-st-', handoff: 'pin-ho-' };
+export const campaign = (pin) => `${PREFIX[pin.pillar]}${pin.styleId}`;
