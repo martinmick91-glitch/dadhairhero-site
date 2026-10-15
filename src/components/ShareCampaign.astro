@@ -12,7 +12,8 @@
 //
 // 2. On a style page, "Send this to him" (ShareButton.astro). At the tap it
 //    builds the page's own address with utm_campaign=fwd-<c>: <c> is the
-//    visit's pin campaign if it has one that fits, or else the style's id.
+//    visit's pin campaign if it came from Pinterest (utm_source=pinterest,
+//    as the badges require) and fits, or else the style's id.
 //    It opens the phone's share sheet with that link; without one it copies
 //    the link, and failing that shows it to select by hand.
 //
@@ -55,8 +56,10 @@
     };
     // Read at the tap, not at load: the address is whatever it is now.
     var shareLink = function () {
-      var current = new URLSearchParams(location.search).get('utm_campaign') || '';
-      var c = /^pin-[a-z0-9-]+$/.test(current) && ('fwd-' + current).length <= 40 ? current : box.getAttribute('data-share-id');
+      var now = new URLSearchParams(location.search);
+      var current = now.get('utm_campaign') || '';
+      var fromPin = now.get('utm_source') === 'pinterest' && /^pin-[a-z0-9-]+$/.test(current) && ('fwd-' + current).length <= 40;
+      var c = fromPin ? current : box.getAttribute('data-share-id');
       var canonical = document.querySelector('link[rel="canonical"]');
       var link = new URL(canonical ? canonical.href : location.origin + location.pathname);
       link.search = '';

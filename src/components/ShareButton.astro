@@ -3,9 +3,11 @@
 // in ShareCampaign.astro, the site's one campaign script; this is only the
 // button, the text it shares and the place it reports back. Hidden until
 // that script runs, so without JavaScript there is no button that does
-// nothing.
+// nothing. A free style's page has every step; a pack style's page doesn't,
+// so its text says where the style is instead.
+import { shareText } from '../lib/site.js';
 const { style } = Astro.props;
-const text = `Here's the ${style.name} step by step, written for dads. The app is free: no ads, no account.`;
+const text = shareText(style);
 ---
 <span class="share" data-share-id={style.id} data-share-title={style.name} data-share-text={text} hidden>
   <button type="button" class="share-button">Send this to him</button>

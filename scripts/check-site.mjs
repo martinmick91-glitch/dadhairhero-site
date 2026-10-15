@@ -531,7 +531,10 @@ function checkShareCampaign() {
 // fits in 40 characters and fwd-<style id> otherwise, reads the address at
 // the tap, and falls back to copying, then to showing the link.
 const SHARE_LABEL = 'Send this to him';
-const shareText = (name) => `Here's the ${name} step by step, written for dads. The app is free: no ads, no account.`;
+// A free style's page has every step; a pack style's says where it is.
+const shareText = (name, pack = false) => (pack
+  ? `Here's ${name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free: no ads, no account.`
+  : `Here's the ${name} step by step, written for dads. The app is free: no ads, no account.`);
 async function checkShareButton() {
   const isStyle = (url) => /^(\/us)?\/styles\/[^/]+\/$/.test(url);
   for (const [url, doc] of pages) {
@@ -541,7 +544,8 @@ async function checkShareButton() {
     const box = boxes[0];
     const name = doc.querySelector('h1')?.text.trim();
     if (box.getAttribute('data-share-title') !== name) fail(url, `share title "${box.getAttribute('data-share-title')}" is not the style's name as the page shows it`);
-    if (box.getAttribute('data-share-text') !== shareText(name)) fail(url, `share text is "${box.getAttribute('data-share-text')}"`);
+    const pack = content[isUS(url) ? 'us' : 'uk'].styles.find((st) => st.id === box.getAttribute('data-share-id'))?.pack;
+    if (box.getAttribute('data-share-text') !== shareText(name, pack)) fail(url, `share text is "${box.getAttribute('data-share-text')}"`);
     if (!url.endsWith(`/${content[isUS(url) ? 'us' : 'uk'].styles.find((s) => s.id === box.getAttribute('data-share-id'))?.slug}/`)) fail(url, 'share button carries another style\'s id');
     if (!box.hasAttribute('hidden')) fail(url, 'the share button must be hidden until the script runs');
     if (!box.closest('.badges')) fail(url, 'the share button is not beside the store badges');
@@ -594,6 +598,10 @@ async function checkShareButton() {
     ['a malformed pin campaign', '?utm_source=pinterest&utm_campaign=Pin-Halloween', 'fwd-classic-ponytail'],
     ['a pin campaign with markup', '?utm_source=pinterest&utm_campaign=pin-%22%3E%3Cscript%3E', 'fwd-classic-ponytail'],
     ['a forward of a forward', '?utm_source=share&utm_campaign=fwd-classic-ponytail', 'fwd-classic-ponytail'],
+    // A pin campaign counts only when it came from Pinterest, as for the badges.
+    ['a pin campaign from another source', '?utm_source=app&utm_campaign=pin-halloween-hair', 'fwd-classic-ponytail'],
+    ['a pin campaign with no source', '?utm_campaign=pin-halloween-hair', 'fwd-classic-ponytail'],
+    ['a pin campaign from "Pinterest" with a capital', '?utm_source=Pinterest&utm_campaign=pin-halloween-hair', 'fwd-classic-ponytail'],
   ];
   for (const [what, search, expected] of cases) {
     const nav = sharing();
