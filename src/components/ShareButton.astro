@@ -1,0 +1,13 @@
+---
+// "Send this to him", beside a style page's store badges. The behaviour is
+// in ShareCampaign.astro, the site's one campaign script; this is only the
+// button, the text it shares and the place it reports back. Hidden until
+// that script runs, so without JavaScript there is no button that does
+// nothing.
+const { style } = Astro.props;
+const text = `Here's the ${style.name} step by step, written for dads. The app is free: no ads, no account.`;
+---
+<span class="share" data-share-id={style.id} data-share-title={style.name} data-share-text={text} hidden>
+  <button type="button" class="share-button">Send this to him</button>
+  <span class="share-status" role="status"></span>
+</span>

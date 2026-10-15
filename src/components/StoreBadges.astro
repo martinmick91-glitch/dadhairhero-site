@@ -1,6 +1,7 @@
 ---
 // Both store badges. Each link carries the name of the page it is on (see
-// campaign() in lib/site.js); nothing is recorded by the site.
+// campaign() in lib/site.js); nothing is recorded by the site. Anything
+// passed in (a style page's share button) sits in the same row.
 import { appStoreUrl, playUrl } from '../lib/site.js';
 const { campaignName } = Astro.props;
 ---
@@ -11,4 +12,5 @@ const { campaignName } = Astro.props;
   <a href={playUrl(campaignName)}>
     <img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="148" height="44" />
   </a>
+  <slot />
 </p>

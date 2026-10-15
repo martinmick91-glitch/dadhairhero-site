@@ -444,10 +444,11 @@ function checkSitemap(indexedPages) {
 // ─── The app's share campaign ────────────────────────────────────────────────
 
 // A page opened from the app's "Send the steps" passes its share-<style>
-// campaign on to the store links, and a page opened from a Pinterest pin its
-// pin-<id> campaign (src/components/ShareCampaign.astro). Every page carries
-// the script; run here against a page's real store links, it rewrites them
-// for a share link or a pin and leaves them alone for anything else.
+// campaign on to the store links, a page opened from a Pinterest pin its
+// pin-<id> campaign, and one opened from the site's own "Send this to him"
+// its fwd-<id> campaign (src/components/ShareCampaign.astro). Every page
+// carries the script; run here against a page's real store links, it
+// rewrites them for those and leaves them alone for anything else.
 // It touches no cookie and no storage.
 function checkShareCampaign() {
   const marker = "var source = params.get('utm_source');";
@@ -473,16 +474,21 @@ function checkShareCampaign() {
     const links = original.map((href) => ({ href }));
     const sandbox = {
       location: { search }, URL, URLSearchParams,
-      document: { querySelectorAll: () => links },
+      document: { querySelectorAll: () => links, querySelector: () => null },
     };
     vm.runInNewContext(source, sandbox);
     return links.map((l) => l.href);
   };
+  const longestFwd = 'fwd-' + 'b'.repeat(36);
   const longest = 'pin-' + 'a'.repeat(36); // 40 characters, the most allowed
   const carried = [
     ['?utm_source=app&utm_campaign=share-classic-ponytail', 'share-classic-ponytail', 'share'],
     ['?utm_source=pinterest&utm_campaign=pin-school-ponytail-2', 'pin-school-ponytail-2', 'social'],
     [`?utm_source=pinterest&utm_campaign=${longest}`, longest, 'social'],
+    // Forwarded with "Send this to him": from a pin, and from a direct visit.
+    ['?utm_source=share&utm_medium=web&utm_campaign=fwd-pin-halloween-hair', 'fwd-pin-halloween-hair', 'web'],
+    ['?utm_source=share&utm_medium=web&utm_campaign=fwd-classic-ponytail', 'fwd-classic-ponytail', 'web'],
+    [`?utm_source=share&utm_campaign=${longestFwd}`, longestFwd, 'web'],
   ];
   for (const [search, campaign, medium] of carried) {
     const source = new URLSearchParams(search).get('utm_source');
@@ -504,9 +510,127 @@ function checkShareCampaign() {
     '?utm_source=pinterest&utm_campaign=Pin-School', '?utm_source=pinterest&utm_campaign=pin-school%20ponytail',
     '?utm_source=pinterest&utm_campaign=pin-%22%3E%3Cscript%3E', `?utm_source=pinterest&utm_campaign=${longest}a`,
     '?utm_source=pinterest&utm_campaign=pin-',
+    // A forward campaign from another source, a forward one character too
+    // long, and malformed ones: capitals, markup, no id.
+    '?utm_campaign=fwd-classic-ponytail', '?utm_source=app&utm_campaign=fwd-classic-ponytail', '?utm_source=pinterest&utm_campaign=fwd-classic-ponytail',
+    `?utm_source=share&utm_campaign=${longestFwd}b`, '?utm_source=share&utm_campaign=Fwd-Classic',
+    '?utm_source=share&utm_campaign=fwd-%22%3E%3Cscript%3E', '?utm_source=share&utm_campaign=fwd-',
+    '?utm_source=share&utm_campaign=share-classic-ponytail',
   ]) {
     if (run(search).some((href, i) => href !== original[i])) fail(page[0], `store links changed for "${search}"`);
   }
+}
+
+// ─── "Send this to him" ──────────────────────────────────────────────────────
+
+// Every style page, and only a style page, has one share button beside its
+// store badges, hidden until the script runs, carrying the style's id, its
+// name as the page's h1 shows it, and the share text. Then the script from
+// a real page is run in a sandbox and the button tapped: it shares the
+// page's own address with fwd-<pin campaign> when the visit has one that
+// fits in 40 characters and fwd-<style id> otherwise, reads the address at
+// the tap, and falls back to copying, then to showing the link.
+const SHARE_LABEL = 'Send this to him';
+const shareText = (name) => `Here's the ${name} step by step, written for dads. The app is free: no ads, no account.`;
+async function checkShareButton() {
+  const isStyle = (url) => /^(\/us)?\/styles\/[^/]+\/$/.test(url);
+  for (const [url, doc] of pages) {
+    const boxes = doc.querySelectorAll('[data-share-id]');
+    if (!isStyle(url)) { if (boxes.length) fail(url, 'a share button on a page that is not a style'); continue; }
+    if (boxes.length !== 1) { fail(url, `${boxes.length} share buttons; a style page has one`); continue; }
+    const box = boxes[0];
+    const name = doc.querySelector('h1')?.text.trim();
+    if (box.getAttribute('data-share-title') !== name) fail(url, `share title "${box.getAttribute('data-share-title')}" is not the style's name as the page shows it`);
+    if (box.getAttribute('data-share-text') !== shareText(name)) fail(url, `share text is "${box.getAttribute('data-share-text')}"`);
+    if (!url.endsWith(`/${content[isUS(url) ? 'us' : 'uk'].styles.find((s) => s.id === box.getAttribute('data-share-id'))?.slug}/`)) fail(url, 'share button carries another style\'s id');
+    if (!box.hasAttribute('hidden')) fail(url, 'the share button must be hidden until the script runs');
+    if (!box.closest('.badges')) fail(url, 'the share button is not beside the store badges');
+    const button = box.querySelector('button');
+    if (!button || button.getAttribute('type') !== 'button' || button.text.trim() !== SHARE_LABEL) fail(url, `the share button must be a <button type="button"> saying "${SHARE_LABEL}"`);
+    if (!box.querySelector('.share-status[role="status"]')) fail(url, 'the share button has no status for "Link copied"');
+  }
+
+  const marker = "var source = params.get('utm_source');";
+  const tap = async (page, search, navigator, changeTo) => {
+    const doc = pages.get(page);
+    const real = doc.querySelector('[data-share-id]');
+    const source = doc.querySelectorAll('script').map((s) => s.textContent).find((t) => t.includes(marker));
+    let onClick = null;
+    const status = { textContent: '' };
+    const box = {
+      hidden: true,
+      getAttribute: (key) => real.getAttribute(key),
+      querySelector: (selector) => (selector === 'button' ? { addEventListener: (_, fn) => { onClick = fn; } } : status),
+    };
+    const location = { search, origin: SITE, pathname: page };
+    const canonical = { href: meta(doc, 'link[rel="canonical"]', 'href') };
+    vm.runInNewContext(source, {
+      location, navigator, URL, URLSearchParams, setTimeout: () => 0, clearTimeout: () => {},
+      document: {
+        querySelectorAll: () => [],
+        querySelector: (selector) => (selector === '[data-share-id]' ? box : selector.startsWith('link') ? canonical : null),
+      },
+    });
+    if (box.hidden) fail(page, 'the script did not show the share button');
+    if (!onClick) { fail(page, 'the share button does nothing when tapped'); return {}; }
+    if (changeTo !== undefined) location.search = changeTo;
+    onClick();
+    for (let i = 0; i < 3; i++) await new Promise((resolve) => setImmediate(resolve));
+    return { status: status.textContent };
+  };
+  const sharing = () => {
+    const nav = { shared: null };
+    nav.share = async (data) => { nav.shared = data; };
+    return nav;
+  };
+  const campaignOf = (link) => new URL(link).searchParams.get('utm_campaign');
+  const pin32 = 'pin-' + 'c'.repeat(32); // fwd-pin-… is exactly 40 characters
+  const pin33 = 'pin-' + 'c'.repeat(33); // one too many
+  const cases = [
+    ['a forward from a pin', '?utm_source=pinterest&utm_campaign=pin-halloween-hair', 'fwd-pin-halloween-hair'],
+    ['a forward from a direct visit', '', 'fwd-classic-ponytail'],
+    ['a forward from a pin at exactly 40 characters', `?utm_source=pinterest&utm_campaign=${pin32}`, `fwd-${pin32}`],
+    ['a pin campaign that would pass 40 characters', `?utm_source=pinterest&utm_campaign=${pin33}`, 'fwd-classic-ponytail'],
+    ['a malformed pin campaign', '?utm_source=pinterest&utm_campaign=Pin-Halloween', 'fwd-classic-ponytail'],
+    ['a pin campaign with markup', '?utm_source=pinterest&utm_campaign=pin-%22%3E%3Cscript%3E', 'fwd-classic-ponytail'],
+    ['a forward of a forward', '?utm_source=share&utm_campaign=fwd-classic-ponytail', 'fwd-classic-ponytail'],
+  ];
+  for (const [what, search, expected] of cases) {
+    const nav = sharing();
+    await tap('/styles/classic-ponytail/', search, nav);
+    const link = nav.shared?.url;
+    if (!link) { fail('/styles/classic-ponytail/', `${what}: nothing was shared`); continue; }
+    const url = new URL(link);
+    if (url.origin + url.pathname !== `${SITE}/styles/classic-ponytail/`) fail('/styles/classic-ponytail/', `${what}: shared ${link}, not the page's own address`);
+    if (url.searchParams.get('utm_source') !== 'share' || url.searchParams.get('utm_medium') !== 'web') fail('/styles/classic-ponytail/', `${what}: shared ${link} without utm_source=share&utm_medium=web`);
+    if (campaignOf(link) !== expected) fail('/styles/classic-ponytail/', `${what}: shared campaign ${campaignOf(link)}, expected ${expected}`);
+    if (campaignOf(link).length > 40) fail('/styles/classic-ponytail/', `${what}: campaign longer than 40 characters`);
+  }
+  // The address is read at the tap: a campaign that arrives after load counts.
+  const late = sharing();
+  await tap('/styles/classic-ponytail/', '', late, '?utm_source=pinterest&utm_campaign=pin-halloween-hair');
+  if (campaignOf(late.shared?.url ?? 'https://x/') !== 'fwd-pin-halloween-hair') fail('/styles/classic-ponytail/', 'the share link was not read at the moment of the tap');
+  // The US page shares its own address, with its own name for the style.
+  const us = sharing();
+  await tap('/us/styles/two-even-pigtails/', '', us);
+  if (!us.shared?.url?.startsWith(`${SITE}/us/styles/two-even-pigtails/?`) || us.shared.title !== 'Two Even Pigtails' || us.shared.text !== shareText('Two Even Pigtails')) {
+    fail('/us/styles/two-even-pigtails/', `shared ${JSON.stringify(us.shared)}`);
+  }
+  // No share sheet: copy, and say so. Share sheet closed: nothing else.
+  // Share sheet refused: copy. Neither works: show the link.
+  const copied = { value: null };
+  const clipboard = { writeText: async (text) => { copied.value = text; } };
+  let result = await tap('/styles/classic-ponytail/', '', { clipboard });
+  if (result.status !== 'Link copied' || campaignOf(copied.value ?? 'https://x/') !== 'fwd-classic-ponytail') fail('/styles/classic-ponytail/', 'without a share sheet the link is not copied with "Link copied"');
+  copied.value = null;
+  result = await tap('/styles/classic-ponytail/', '', { clipboard, share: async () => { throw Object.assign(new Error('closed'), { name: 'AbortError' }); } });
+  if (copied.value !== null || result.status !== '') fail('/styles/classic-ponytail/', 'closing the share sheet should do nothing more');
+  result = await tap('/styles/classic-ponytail/', '', { clipboard, share: async () => { throw Object.assign(new Error('no'), { name: 'NotAllowedError' }); } });
+  if (result.status !== 'Link copied') fail('/styles/classic-ponytail/', 'a refused share sheet should fall back to copying');
+  result = await tap('/styles/classic-ponytail/', '', {});
+  if (campaignOf(result.status?.startsWith('https://') ? result.status : 'https://x/') !== 'fwd-classic-ponytail') fail('/styles/classic-ponytail/', 'with no share sheet and no clipboard the link is not shown');
+  result = await tap('/styles/classic-ponytail/', '', { clipboard: { writeText: async () => { throw new Error('denied'); } } });
+  if (!result.status?.startsWith(`${SITE}/styles/classic-ponytail/?`)) fail('/styles/classic-ponytail/', 'a refused copy should show the link');
 }
 
 // ─── Seasonal guides ─────────────────────────────────────────────────────────
@@ -624,6 +748,7 @@ checkSitemap(indexedPages);
 checkOrphans(indexedPages);
 checkVideosEmbedded();
 checkShareCampaign();
+await checkShareButton();
 checkSeasonalGuides();
 checkPins(indexedPages);
 if (!pages.has('/404.html')) fail('/404.html', 'not built');
