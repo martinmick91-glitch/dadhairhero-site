@@ -17,7 +17,7 @@ import Video from '../../../components/Video.astro';
 import {
   LOCALES, langParam, localeFromParam, path, absolute, minutes, offersCurly, sentence, kitItemById,
   techniqueById, fixEntryById, pageTitle, pageDescription, breadcrumbs, imageUrl, lower, t, campaign,
-  relatedStyles, techniquesUsed, hubsForStyle, styleFaq, faqPage, videoFor, AUTHORSHIP,
+  relatedStyles, techniquesUsed, hubsForStyle, styleFaq, faqPage, videoFor, AUTHORSHIP, halloweenLooksForStyle,
 } from '../../../lib/site.js';
 
 export function getStaticPaths() {
@@ -149,6 +149,9 @@ if (free) {
   <SummaryCard locale={locale} style={style} kit={kit} curlyExtra={curlyExtra} />
 
   <p>{style.description}</p>
+  {halloweenLooksForStyle(style).map((look) => (
+    <p class="small">{t(locale, 'A Halloween idea:')} <a href={`${path(locale, 'halloween-hair')}#${look.anchor}`}>{t(locale, look.idea)}</a></p>
+  ))}
 
   {style.curlyImage && (
     <figure class="photo hero-photo">

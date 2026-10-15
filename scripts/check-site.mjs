@@ -238,6 +238,7 @@ const REQUIRED = {
   Person: ['name', 'url'],
   WebSite: ['name', 'url'],
   ImageObject: ['contentUrl', 'width', 'height', 'description'],
+  Article: ['headline', 'description', 'image', 'datePublished', 'dateModified', 'author', 'publisher'],
 };
 
 // What each kind of page must carry.
@@ -246,6 +247,7 @@ const EXPECTED_TYPES = [
   [/^(\/us)?\/techniques\/[^/]+\/$/, () => ['HowTo', 'FAQPage']],
   [/^(\/us)?\/about\/$/, () => ['Person', 'Organization']],
   [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization', 'WebSite']],
+  [/^(\/us)?\/halloween-hairstyles\/$/, () => ['Article', 'BreadcrumbList', 'ItemList']],
 ];
 
 function checkStructuredData(page, doc, indexed) {
@@ -291,6 +293,14 @@ function checkStructuredData(page, doc, indexed) {
       for (const key of ['thumbnailUrl', 'contentUrl']) checkInternal(page, data[key].slice(SITE.length), `VideoObject ${key}`);
       if (!/^PT\d+S$/.test(data.duration)) fail(page, `VideoObject duration "${data.duration}" is not ISO 8601`);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(data.uploadDate)) fail(page, `VideoObject uploadDate "${data.uploadDate}" is not a date`);
+    }
+    if (type === 'Article') {
+      for (const key of ['datePublished', 'dateModified']) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(data[key] ?? '')) fail(page, `Article ${key} "${data[key]}" is not a date`);
+      }
+      if (data.dateModified < data.datePublished) fail(page, 'Article was modified before it was published');
+      if (data.author?.['@type'] !== 'Person' || data.author?.url !== `${SITE}/about/`) fail(page, 'Article author must be Martin, linking to the About page');
+      if (data.publisher?.['@type'] !== 'Organization' || data.publisher?.name !== 'Dad Hair Hero') fail(page, 'Article publisher must be Dad Hair Hero');
     }
     if (type === 'MobileApplication') {
       if (data.offers?.price !== '0' || !data.offers?.priceCurrency) fail(page, 'MobileApplication offer must be price 0 with a currency');
@@ -499,6 +509,84 @@ function checkShareCampaign() {
   }
 }
 
+// ─── Seasonal guides ─────────────────────────────────────────────────────────
+
+// The Halloween guide links to the Kit for anything to buy, and carries no
+// prices, no shop links, and no HowTo or FAQ structured data. Its share
+// image is at least 1200 pixels wide, as an Article image should be, and
+// its sitemap entry has a lastmod.
+function checkSeasonalGuides() {
+  const sitemap = fs.existsSync(path.join(DIST, 'sitemap.xml')) ? fs.readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8') : '';
+  for (const page of ['/halloween-hairstyles/', '/us/halloween-hairstyles/']) {
+    const doc = pages.get(page);
+    if (!doc) { fail(page, 'not built'); continue; }
+    const main = doc.querySelector('main');
+    const links = main.querySelectorAll('a[href]').map((a) => a.getAttribute('href'));
+    if (links.some((href) => /amazon\.|amzn\.|[?&]tag=/.test(href))) fail(page, 'a seasonal guide must not carry shop links');
+    if (!links.includes(page.startsWith('/us/') ? '/us/kit/' : '/kit/')) fail(page, 'a seasonal guide links to the Kit page');
+    if (/[£$€]\s?\d/.test(main.text)) fail(page, 'a seasonal guide must not show prices');
+    if (/"(HowTo|FAQPage)"/.test(doc.toString())) fail(page, 'a seasonal guide carries no HowTo or FAQ structured data');
+    if (Number(meta(doc, 'meta[property="og:image:width"]')) < 1200) fail(page, 'the share image must be at least 1200 pixels wide');
+    // Its ItemList is the free looks: each one a style page with every step.
+    const list = doc.querySelectorAll('script[type="application/ld+json"]').map((s) => JSON.parse(s.text)).find((d) => d['@type'] === 'ItemList');
+    for (const item of list?.itemListElement ?? []) {
+      const target = pages.get(item.url.slice(SITE.length));
+      if (!target?.querySelector('.steps')) fail(page, `ItemList lists ${item.url}, which is not a free style with its steps`);
+    }
+    const entry = sitemap.match(new RegExp(`<loc>${SITE}${page}</loc>\\s*<lastmod>\\d{4}-\\d{2}-\\d{2}</lastmod>`));
+    if (!entry) fail('/sitemap.xml', `${page} has no lastmod`);
+  }
+}
+
+// ─── Pin batches ─────────────────────────────────────────────────────────────
+
+// Every row in pins/*.csv: an image on this site that is built, Pinterest's
+// length limits, a link to an indexed page carrying a pin campaign the store
+// badges accept, and no hashtags or prices.
+const PIN_COLUMNS = ['Title', 'Media URL', 'Pinterest board', 'Thumbnail', 'Description', 'Link', 'Publish date', 'Keywords'];
+function parseCsv(text) {
+  const rows = [[]];
+  let field = '';
+  let quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (c === '"') quoted = false;
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ',') { rows.at(-1).push(field); field = ''; }
+    else if (c === '\n') { rows.at(-1).push(field.replace(/\r$/, '')); field = ''; rows.push([]); }
+    else field += c;
+  }
+  if (field || rows.at(-1).length) rows.at(-1).push(field);
+  return rows.filter((row) => row.length > 1);
+}
+function checkPins(indexedPages) {
+  const dir = path.join(ROOT, 'pins');
+  if (!fs.existsSync(dir)) return;
+  for (const name of fs.readdirSync(dir).filter((f) => f.endsWith('.csv'))) {
+    const where = `pins/${name}`;
+    const [header, ...rows] = parseCsv(fs.readFileSync(path.join(dir, name), 'utf8'));
+    if (header.join() !== PIN_COLUMNS.join()) { fail(where, `columns must be Pinterest's: ${PIN_COLUMNS.join(', ')}`); continue; }
+    rows.forEach((cells, i) => {
+      const row = Object.fromEntries(PIN_COLUMNS.map((key, j) => [key, cells[j] ?? '']));
+      const at = `${where} row ${i + 1}`;
+      if (!row['Media URL'].startsWith(`${SITE}/pins/`) || !built.has(row['Media URL'].slice(SITE.length))) fail(at, `image ${row['Media URL']} is not in public/pins/`);
+      if (!row.Title || row.Title.length >= 100) fail(at, 'title must be under 100 characters');
+      if (!row.Description || row.Description.length >= 500) fail(at, 'description must be under 500 characters');
+      if (!row['Pinterest board']) fail(at, 'no board');
+      if (/#\w|[£$€]\s?\d/.test(`${row.Title} ${row.Description}`)) fail(at, 'no hashtags or prices');
+      let link;
+      try { link = new URL(row.Link); } catch { fail(at, `link "${row.Link}" is not an address`); return; }
+      if (link.origin !== SITE || !indexedPages.includes(link.pathname)) fail(at, `link ${row.Link} is not an indexed page`);
+      if (link.searchParams.get('utm_source') !== 'pinterest' || !/^pin-[a-z0-9-]{1,36}$/.test(link.searchParams.get('utm_campaign') ?? '')) {
+        fail(at, 'link must carry utm_source=pinterest and a pin-<id> campaign');
+      }
+    });
+  }
+}
+
 // ─── Run ─────────────────────────────────────────────────────────────────────
 
 const indexedPages = [];
@@ -536,6 +624,8 @@ checkSitemap(indexedPages);
 checkOrphans(indexedPages);
 checkVideosEmbedded();
 checkShareCampaign();
+checkSeasonalGuides();
+checkPins(indexedPages);
 if (!pages.has('/404.html')) fail('/404.html', 'not built');
 if (!built.has('/CNAME')) fail('/CNAME', 'not in the build; the custom domain depends on it');
 

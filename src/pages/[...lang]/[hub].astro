@@ -46,6 +46,9 @@ const entries = styles.map((s) => ({ name: s.name, path: path(locale, 'style', s
   <p class="lede">{t(locale, hub.lede)}</p>
   <p class="summary-cta">{t(locale, 'Every style here is in the free app, with the steps for her hair.')}</p>
   <StoreBadges campaignName={campaign(locale, hub.kind)} />
+  {hub.guide && (
+    <p><strong>{t(locale, hub.guide.lead)}</strong> <a href={path(locale, hub.guide.kind)}>{t(locale, hub.guide.link)}</a>{t(locale, hub.guide.after)}</p>
+  )}
   <p>{t(locale, hub.intro)}</p>
 
   {free.length > 0 && (

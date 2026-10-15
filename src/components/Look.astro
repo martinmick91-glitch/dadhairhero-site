@@ -1,0 +1,29 @@
+---
+// One look in a seasonal guide: the finished picture, the style it is made
+// from, the time, how it goes, a line for the evening, and the link to the
+// style. A free style's page has every step; a pack style's page shows what
+// the steps cover, and says so in the link.
+import Photo from './Photo.astro';
+import { path, minutes, t } from '../lib/site.js';
+const { locale, look, level = 'h2' } = Astro.props;
+const { style } = look;
+const Heading = level;
+---
+<section class="look" id={look.anchor}>
+  {style.pack && <p><span class="pack-tag">Beyond the Ponytail</span></p>}
+  <Heading>{t(locale, look.heading)}</Heading>
+  <figure class="photo hero-photo">
+    <Photo photo={style.image} alt={`${style.name}, the finished style: ${t(locale, look.alt)}`} sizes="(max-width: 42rem) 100vw, 416px" />
+  </figure>
+  <dl class="facts">
+    <div><dt>{t(locale, 'The style')}</dt><dd><a href={path(locale, 'style', style.id)}>{style.name}</a></dd></div>
+    <div><dt>{t(locale, 'Time')}</dt><dd>{t(locale, `About ${minutes(style.targetMinutes)}`)}</dd></div>
+  </dl>
+  <p>{t(locale, look.how)}</p>
+  <p><strong>{t(locale, 'For the evening:')}</strong> {t(locale, look.last)}</p>
+  {style.pack ? (
+    <p class="small"><a href={path(locale, 'style', style.id)}>{t(locale, 'What the steps cover')}</a>: {t(locale, `the finished look and what ${style.name} needs. The full steps are in the app, in Beyond the Ponytail.`)}</p>
+  ) : (
+    <p class="small"><a href={path(locale, 'style', style.id)}>{t(locale, 'Full steps')}</a>: {t(locale, `every step of ${style.name} with a picture and what to check, free.`)}</p>
+  )}
+</section>
