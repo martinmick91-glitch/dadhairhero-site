@@ -150,12 +150,120 @@ export const HUBS = [
     select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('party') || s.occasions.includes('dance'))),
     techniques: ['making-a-part', 'holding-tension'],
     fixes: ['entry-looks-wrong'],
+    // Near the top of the hub: the seasonal guide built from these styles.
+    guide: { kind: 'halloween-hair', lead: 'For Halloween:', link: 'five easy Halloween hairstyles', after: ', from cat ears to a witch\'s plaits.' },
     ctaHeading: 'Practise it first, in the app',
     cta: 'Dad Hair Hero keeps a diary of what you have done and how it went, so the party style is one you have already tried. Free, no account, no tracking.',
   },
 ];
 
 export const hubByKind = (kind) => HUBS.find((hub) => hub.kind === kind);
+
+// ─── Seasonal guides ─────────────────────────────────────────────────────────
+//
+// Halloween: five looks, each one a style the app already has. The address
+// has no year in it, so the page builds up over seasons; each September,
+// refresh the wording and dateModified and keep the address.
+//
+// The sentences are the guide's own, written in UK English and passed
+// through t() for the US page, except where the two are searched for in
+// different words (title, description, opening). How each look goes is
+// told from the style's own description and step titles, the only parts of
+// a pack style the export carries. The Fix It answers are read from the
+// export by node id, so they are always the app's own words.
+
+export const HALLOWEEN = {
+  kind: 'halloween-hair',
+  segment: 'halloween-hairstyles',
+  name: 'Halloween hairstyles',
+  h1: 'Easy Halloween hairstyles for kids',
+  title: {
+    uk: 'Halloween hairstyles for girls, made easy | Dad Hair Hero',
+    us: 'Easy Halloween hairstyles for girls | Dad Hair Hero',
+  },
+  description: {
+    uk: 'Halloween hairstyles for girls: cat ears, witch plaits and more, each from one simple style in 5 to 15 minutes. The Dad Hair Hero app is free.',
+    us: 'Easy Halloween hairstyles for girls: cat ears, witch braids and more, each from one simple style in 5 to 15 minutes. The Dad Hair Hero app is free.',
+  },
+  // The first two sentences answer the search.
+  lede: {
+    uk: 'Five easy Halloween hairstyles for girls, each made from one simple style and done in 5 to 15 minutes. They are written for anyone who hasn\'t done much hair: what each look is, how long it takes and how it goes.',
+    us: 'Five easy Halloween hairstyles for girls, each made from one simple style and done in 5 to 15 minutes. They are written for anyone who hasn\'t done much hair: what each look is, how long it takes and how it goes.',
+  },
+  intro: {
+    uk: 'Easy Halloween hair for kids starts from styles you may already know: buns, plaits, bunches and a ponytail. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
+    us: 'Halloween hairstyles for kids can start from styles you may already know: buns, braids, pigtails and a ponytail. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
+  },
+  // The 1200×630 collage and the 2:3 pin are made by scripts/render-pins.mjs.
+  ogImage: '/images/guides/halloween-hairstyles-1200x630.jpg',
+  ogImageSize: { width: 1200, height: 630 },
+  datePublished: '2026-10-15',
+  dateModified: '2026-10-15',
+  // `idea` is the line on the style's own page: "A Halloween idea: …".
+  looks: [
+    {
+      anchor: 'cat-ears',
+      styleId: 'space-buns',
+      heading: 'Cat, bear or mouse ears from space buns',
+      alt: 'two round buns high on each side of the head, back view',
+      how: 'Part the hair in two and make a ponytail high on one side. Twist it, wind it around its own base and pin it into a bun, then build the second to match and check them from the back.',
+      last: 'Second-day hair holds a bun better, so they last the evening best on hair that wasn\'t washed that day. Take them down at bedtime.',
+      idea: 'two space buns make cat, bear or mouse ears.',
+    },
+    {
+      anchor: 'witch-plaits',
+      styleId: 'plaited-pigtails',
+      heading: 'Witch or pioneer plaits from plaited bunches',
+      alt: 'two three-strand plaits, one each side of a centre parting, back view',
+      how: 'Draw a centre parting and move the right side clear. Gather and plait the left side, plait the right side to match, then check both sides together.',
+      last: 'Plaits survive a night\'s sleep, so an evening of trick-or-treating is no trouble.',
+      idea: 'two plaits for a witch or a pioneer.',
+    },
+    {
+      anchor: 'animal-tail',
+      styleId: 'bubble-ponytail',
+      heading: 'An animal tail from a bubble ponytail',
+      alt: 'a ponytail with elastics spaced down its length and a rounded bubble between each, back view',
+      how: 'Make a ponytail, then add elastics evenly down its length and pinch each gap outward into a rounded bubble. Repeat to the end and even them up.',
+      last: 'Pull the bubbles a little fuller than looks right: they settle flatter as the evening goes on.',
+      idea: 'a bubble ponytail makes a tail for any animal costume.',
+    },
+    {
+      anchor: 'ballerina-bun',
+      styleId: 'top-knot',
+      heading: 'A ballerina or princess bun from a top knot',
+      alt: 'all the hair wound into one bun at the very top of the head, back view',
+      how: 'Gather all the hair to the very top of her head and secure it with an elastic. Twist the ponytail into a rope, wind it around the base, then secure it with a second elastic and pin any loose ends.',
+      last: 'Hair washed the day before holds a bun better than freshly washed hair. Take the bun down at bedtime.',
+      idea: 'a top knot for a ballerina or a princess.',
+    },
+    {
+      anchor: 'under-a-hat',
+      styleId: 'criss-cross-bands',
+      heading: 'Criss-cross bands under a hat or ears',
+      alt: 'rows of small banded bunches joined diagonally into a lattice down the head, back view',
+      how: 'Small bunches are banded in rows and joined diagonally with their neighbours. Make the front row, split and cross each bunch into the next row, add one more row, then finish the ends and check the edges.',
+      last: 'It can last a few days, so it will see out the evening. Take it out sooner if she says it feels tight or sore.',
+      idea: 'criss-cross bands under a hat or a pair of ears.',
+    },
+  ],
+  // If it goes wrong: the question is the guide's, the answer is the Fix It
+  // outcome's own title and text, and the link goes to its Fix It page.
+  fixes: [
+    { q: 'What if a bun or ponytail won\'t stay in?', node: 'outcome-falls-elastic-slip', entry: 'entry-falls-out' },
+    { q: 'What if a plait comes undone at the end?', node: 'outcome-falls-braid-end', entry: 'entry-falls-out' },
+    { q: 'What if she won\'t sit still?', node: 'outcome-sit-bored', entry: 'entry-wont-sit' },
+    { q: 'What if she says it\'s too tight?', node: 'outcome-root-elastic', entry: 'entry-hurts' },
+  ],
+};
+
+// The app's under-three line, word for word: UNDER_THREE_LINE in the app's
+// src/data/safety.ts (wording approved 2026-10-14, release 1.2.1). It is not
+// in the export yet; once it is, read it from there instead.
+export const UNDER_THREE_LINE = "Under three? Use elastics and clips only while you're with her, and take them out before she sleeps.";
+
+// Halloween looks a style is used in, for the line on its own page.
+export const halloweenLooksForStyle = (style) => HALLOWEEN.looks.filter((look) => look.styleId === style.id);
 
 // The hubs a style appears on, for its "Good for" line.
 export function hubsForStyle(locale, style) {
@@ -178,6 +286,7 @@ const FIXED = {
   fixIt: '/fix-it/',
   about: '/about/',
   ...Object.fromEntries(HUBS.map((hub) => [hub.kind, `/${hub.segment}/`])),
+  [HALLOWEEN.kind]: `/${HALLOWEEN.segment}/`,
 };
 
 // The path of a page in one language. `id` is the app's id, which is the
@@ -517,6 +626,23 @@ export const PERSON = {
   url: `${SITE}/about/`,
   worksFor: { '@id': `${SITE}/#organization` },
 };
+
+// A seasonal guide: an Article by Martin, published by Dad Hair Hero.
+export function article({ headline, description, image, datePublished, dateModified, url, locale }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    description,
+    image,
+    datePublished,
+    dateModified,
+    inLanguage: locale.code,
+    mainEntityOfPage: url,
+    author: { '@type': 'Person', name: AUTHOR.name, url: `${SITE}/about/` },
+    publisher: { '@type': 'Organization', name: 'Dad Hair Hero', url: `${SITE}/`, logo: { '@type': 'ImageObject', url: `${SITE}/assets/icon-512.png` } },
+  };
+}
 
 // The author and publisher a guide's HowTo carries.
 export const AUTHORSHIP = {

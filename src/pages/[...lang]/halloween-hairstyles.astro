@@ -1,0 +1,130 @@
+---
+// Halloween: five looks, each one a style the app already has, described as
+// a look and never as a character. The guide's own sentences, the looks and
+// the Fix It answers it quotes are in HALLOWEEN in lib/site.js. All five
+// styles are in Beyond the Ponytail, so each look links to the style's
+// preview page, and the page says where the full steps are. No prices and
+// no shop links here: things to buy are on the Kit page.
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import AppBlock from '../../components/AppBlock.astro';
+import Author from '../../components/Author.astro';
+import {
+  LOCALES, US, HALLOWEEN, UNDER_THREE_LINE, langParam, localeFromParam, path, absolute, breadcrumbs, itemList,
+  article, styleById, fixEntryById, fixNodeById, campaign, minutes, sentence, t,
+} from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const region = locale === US ? 'us' : 'uk';
+const guide = HALLOWEEN;
+
+const looks = guide.looks.map((look) => ({ ...look, style: styleById(locale, look.styleId) }));
+const fixes = guide.fixes.map((fix) => ({ ...fix, outcome: fixNodeById(locale, fix.node), entry: fixEntryById(locale, fix.entry) }));
+if (looks.some((look) => !look.style) || fixes.some((fix) => !fix.outcome || fix.outcome.type !== 'outcome' || !fix.entry)) {
+  throw new Error('halloween: a style or Fix It entry named for this guide is no longer in the export');
+}
+
+const title = guide.title[region];
+const description = guide.description[region];
+const h1 = t(locale, guide.h1);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Party hairstyles'), path: path(locale, 'party') },
+  { name: t(locale, guide.name), path: path(locale, guide.kind) },
+];
+const url = absolute(path(locale, guide.kind));
+const jsonld = [
+  article({
+    headline: h1,
+    description,
+    image: absolute(guide.ogImage),
+    datePublished: guide.datePublished,
+    dateModified: guide.dateModified,
+    url,
+    locale,
+  }),
+  breadcrumbs(trail),
+  itemList(h1, looks.map((look) => ({ name: t(locale, look.heading), path: path(locale, 'style', look.styleId) }))),
+];
+---
+<Base
+  locale={locale}
+  kind={guide.kind}
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={jsonld}
+  ogImage={guide.ogImage}
+  ogImageSize={guide.ogImageSize}
+>
+  <h1>{h1}</h1>
+  <p class="lede">{guide.lede[region]}</p>
+  <Author locale={locale} />
+  <p class="summary-cta">{t(locale, 'Every look here is in the free app, in Beyond the Ponytail.')}</p>
+  <StoreBadges campaignName={campaign(locale, guide.kind)} />
+  <p>{guide.intro[region]}</p>
+  <p>
+    {t(locale, 'All five styles are in Beyond the Ponytail, an optional one-time pack in the app. Each style\'s page shows the finished look, what you need and what the steps cover; the full steps, with a picture for each, are in the app.')}
+  </p>
+
+  <ul class="rows">
+    {looks.map((look) => (
+      <li><a href={`#${look.anchor}`}>{t(locale, look.heading)}</a><span>{t(locale, `About ${minutes(look.style.targetMinutes)}`)}</span></li>
+    ))}
+  </ul>
+
+  {looks.map((look) => (
+    <section class="look" id={look.anchor}>
+      <h2>{t(locale, look.heading)}</h2>
+      <figure class="photo hero-photo">
+        <Photo photo={look.style.image} alt={`${look.style.name}, the finished style: ${t(locale, look.alt)}`} sizes="(max-width: 42rem) 100vw, 416px" />
+      </figure>
+      <dl class="facts">
+        <div><dt>{t(locale, 'The style')}</dt><dd><a href={path(locale, 'style', look.styleId)}>{look.style.name}</a></dd></div>
+        <div><dt>{t(locale, 'Time')}</dt><dd>{t(locale, `About ${minutes(look.style.targetMinutes)}`)}</dd></div>
+      </dl>
+      <p>{t(locale, look.how)}</p>
+      <p><strong>{t(locale, 'For the evening:')}</strong> {t(locale, look.last)}</p>
+      <p class="small"><a href={path(locale, 'style', look.styleId)}>{t(locale, 'Full steps')}</a>: {t(locale, `what ${look.style.name} needs and what each step covers, with the full steps in the app.`)}</p>
+    </section>
+  ))}
+
+  <h2>{t(locale, 'Toddler Halloween hair')}</h2>
+  <p>
+    {t(locale, 'These five are written for young children and older. For a toddler, start from the')}{' '}
+    <a href={path(locale, 'toddler')}>{t(locale, 'toddler hairstyles')}</a>{t(locale, ': short, fine hair, nothing that needs length, and nothing that takes long.')}
+  </p>
+  <p class="panel">{UNDER_THREE_LINE}</p>
+
+  <h2>{t(locale, 'If it goes wrong')}</h2>
+  <p>{t(locale, 'The answers are from Fix It, the app\'s troubleshooter.')}</p>
+  {fixes.map((fix) => (
+    <>
+      <h3>{t(locale, fix.q)}</h3>
+      <p><strong>{sentence(fix.outcome.title)}</strong> {fix.outcome.body}</p>
+      <p class="small">{t(locale, 'More in Fix It:')} <a href={path(locale, 'fix', fix.entry.id)}>{fix.entry.label}</a></p>
+    </>
+  ))}
+
+  <h2>{t(locale, 'What you need')}</h2>
+  <p>
+    {t(locale, 'Each style\'s page lists what it needs, and every item on those lists is on')}{' '}
+    <a href={path(locale, 'kit')}>{t(locale, 'the Kit page')}</a>{t(locale, ', with what it is for and what to avoid.')}
+  </p>
+
+  <AppBlock locale={locale} kind={guide.kind} heading="Full steps in the app">
+    <p>
+      {t(locale, 'Beyond the Ponytail is an optional one-time pack of twelve styles in the Dad Hair Hero app. You pay once and they are yours to keep. There is no subscription, and you can see every style in the pack before you decide. Once it is yours, the app does four things this page cannot:')}
+    </p>
+  </AppBlock>
+
+  <p class="small">
+    {t(locale, 'More for dressing up:')} <a href={path(locale, 'party')}>{t(locale, 'party hairstyles')}</a>, {t(locale, 'or')}{' '}
+    <a href={path(locale, 'styles')}>{t(locale, 'all eighteen styles')}</a>.
+  </p>
+</Base>
