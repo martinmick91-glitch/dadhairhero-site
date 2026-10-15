@@ -1,36 +1,94 @@
 ---
-// A page opened from the app's "Send the steps" carries
-// ?utm_source=app&utm_campaign=share-<style id> in its address, and a page
-// opened from a Pinterest pin carries
-// ?utm_source=pinterest&utm_campaign=pin-<id>. This passes that campaign on
-// to the page's store links, so App Store Connect and Play Console count an
-// install from a shared page as share-<style id>, and one from a pin as
-// pin-<id>, rather than as the page's own campaign.
+// The site's one script about campaigns, on every page. Two jobs:
 //
-// It only changes where the store links on this page point, for this one
-// visit. No cookie, no storage, nothing sent anywhere: the stores see the
-// campaign only if someone taps a store link, as with every other link on
-// the site. Anything that isn't exactly one of those two campaigns is
-// ignored.
+// 1. A page opened from the app's "Send the steps" carries
+//    ?utm_source=app&utm_campaign=share-<style id>, one opened from a
+//    Pinterest pin ?utm_source=pinterest&utm_campaign=pin-<id>, and one
+//    opened from this site's own "Send this to him" button
+//    ?utm_source=share&utm_campaign=fwd-<id>. The script passes that
+//    campaign on to the page's store links, so App Store Connect and Play
+//    Console count the install under it rather than the page's own
+//    campaign. Anything that isn't exactly one of those three is ignored.
+//
+// 2. On a style page, "Send this to him" (ShareButton.astro). At the tap it
+//    builds the page's own address with utm_campaign=fwd-<c>: <c> is the
+//    visit's pin campaign if it came from Pinterest (utm_source=pinterest,
+//    as the badges require) and fits, or else the style's id.
+//    It opens the phone's share sheet with that link; without one it copies
+//    the link, and failing that shows it to select by hand.
+//
+// It only changes where links on this page point, and what the visitor
+// chooses to share. No cookie, no storage, nothing sent anywhere: the
+// stores see the campaign only if someone taps a store link, as with every
+// other link on the site.
 ---
 <script is:inline>
   (function () {
     var params = new URLSearchParams(location.search);
     var source = params.get('utm_source');
     var name = params.get('utm_campaign') || '';
-    var medium;
+    var medium = null;
     if (source === 'app' && /^share-[a-z0-9-]{1,34}$/.test(name)) medium = 'share';
     else if (source === 'pinterest' && /^pin-[a-z0-9-]{1,36}$/.test(name)) medium = 'social';
-    else return;
-    var links = document.querySelectorAll('a[href^="https://apps.apple.com/"], a[href^="https://play.google.com/"]');
-    for (var i = 0; i < links.length; i++) {
-      var url = new URL(links[i].href);
-      if (url.hostname === 'apps.apple.com') {
-        url.searchParams.set('ct', name);
-      } else {
-        url.searchParams.set('referrer', 'utm_source=' + source + '&utm_medium=' + medium + '&utm_campaign=' + name);
+    else if (source === 'share' && /^fwd-[a-z0-9-]{1,36}$/.test(name)) medium = 'web';
+    if (medium) {
+      var links = document.querySelectorAll('a[href^="https://apps.apple.com/"], a[href^="https://play.google.com/"]');
+      for (var i = 0; i < links.length; i++) {
+        var url = new URL(links[i].href);
+        if (url.hostname === 'apps.apple.com') {
+          url.searchParams.set('ct', name);
+        } else {
+          url.searchParams.set('referrer', 'utm_source=' + source + '&utm_medium=' + medium + '&utm_campaign=' + name);
+        }
+        links[i].href = url.toString();
       }
-      links[i].href = url.toString();
     }
+
+    var box = document.querySelector('[data-share-id]');
+    if (!box) return;
+    var button = box.querySelector('button');
+    var status = box.querySelector('.share-status');
+    var timer = null;
+    var say = function (text, brief) {
+      clearTimeout(timer);
+      status.textContent = text;
+      if (brief) timer = setTimeout(function () { status.textContent = ''; }, 4000);
+    };
+    // Read at the tap, not at load: the address is whatever it is now.
+    var shareLink = function () {
+      var now = new URLSearchParams(location.search);
+      var current = now.get('utm_campaign') || '';
+      var fromPin = now.get('utm_source') === 'pinterest' && /^pin-[a-z0-9-]+$/.test(current) && ('fwd-' + current).length <= 40;
+      var c = fromPin ? current : box.getAttribute('data-share-id');
+      var canonical = document.querySelector('link[rel="canonical"]');
+      var link = new URL(canonical ? canonical.href : location.origin + location.pathname);
+      link.search = '';
+      link.hash = '';
+      link.searchParams.set('utm_source', 'share');
+      link.searchParams.set('utm_medium', 'web');
+      link.searchParams.set('utm_campaign', 'fwd-' + c);
+      return link.toString();
+    };
+    var copy = function (link) {
+      var show = function () { say(link, false); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(function () { say('Link copied', true); }, show);
+      } else {
+        show();
+      }
+    };
+    button.addEventListener('click', function () {
+      var link = shareLink();
+      var data = { title: box.getAttribute('data-share-title'), text: box.getAttribute('data-share-text'), url: link };
+      if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+        navigator.share(data).then(null, function (error) {
+          // Closing the share sheet is not a failure.
+          if (!error || error.name !== 'AbortError') copy(link);
+        });
+      } else {
+        copy(link);
+      }
+    });
+    box.hidden = false;
   })();
 </script>

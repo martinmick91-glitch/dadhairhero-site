@@ -9,6 +9,7 @@ import Photo from '../../../components/Photo.astro';
 import StyleCards from '../../../components/StyleCards.astro';
 import SummaryCard from '../../../components/SummaryCard.astro';
 import StoreBadges from '../../../components/StoreBadges.astro';
+import ShareButton from '../../../components/ShareButton.astro';
 import AppBlock from '../../../components/AppBlock.astro';
 import Author from '../../../components/Author.astro';
 import Faq from '../../../components/Faq.astro';
@@ -144,7 +145,7 @@ if (free) {
   <p class="lede">{sentence(style.oneLiner)}</p>
   <Author locale={locale} />
   <p class="summary-cta">{style.pack ? t(locale, 'Full steps in the free app, in Beyond the Ponytail.') : t(locale, 'Follow it step by step in the free app.')}</p>
-  <StoreBadges campaignName={campaign(locale, 'style', style.id)} />
+  <StoreBadges campaignName={campaign(locale, 'style', style.id)}><ShareButton style={style} /></StoreBadges>
 
   <SummaryCard locale={locale} style={style} kit={kit} curlyExtra={curlyExtra} />
 

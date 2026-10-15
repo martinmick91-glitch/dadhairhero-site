@@ -370,6 +370,13 @@ export function playUrl(campaignName) {
   return `https://play.google.com/store/apps/details?id=${PLAY_PACKAGE}&referrer=${encodeURIComponent(referrer)}`;
 }
 
+// What "Send this to him" shares with the link, in the style's own name for
+// this language.
+export const shareText = (style) =>
+  style.pack
+    ? `Here's ${style.name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free: no ads, no account.`
+    : `Here's the ${style.name} step by step, written for dads. The app is free: no ads, no account.`;
+
 // ─── Words ───────────────────────────────────────────────────────────────────
 
 export const minutes = (n) => (n === 1 ? '1 minute' : `${n} minutes`);

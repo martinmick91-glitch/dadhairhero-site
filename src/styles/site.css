@@ -88,6 +88,19 @@ main { padding-top: 1.5rem; padding-bottom: 3rem; }
 .badges a { display: inline-block; border-radius: 8px; }
 .badges img { height: 44px; width: auto; }
 
+/* "Send this to him", in the badge row on a style page: the same pill as
+   the app bar's store buttons, at the badges' height. */
+.share { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 0.75rem; }
+.share[hidden] { display: none; }
+.share-button {
+  min-height: 44px; background: var(--apricot); color: var(--indigo); border: 0; border-radius: 999px;
+  padding: 0.5rem 1.1rem; font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer;
+}
+.share-button:hover { background: #fca65a; }
+.share-button:focus-visible { outline: 3px solid var(--apricot-text); outline-offset: 2px; }
+.share-status { font-size: 0.9rem; color: var(--indigo-70); overflow-wrap: anywhere; user-select: all; }
+.share-status:empty { display: none; }
+
 /* ── Cards and panels ──────────────────────────────────────────────────── */
 
 .panel { background: var(--surface); border: 1px solid var(--indigo-10); border-radius: var(--radius); padding: 1.25rem; }
