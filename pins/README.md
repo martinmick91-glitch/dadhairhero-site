@@ -21,4 +21,4 @@ upload (Edit Pin > Alt text).
 
 ### batch-1.csv
 
-1. halloween-hair-in-ten-minutes.png: Three mannequin heads from behind wearing space buns, a bubble ponytail and a top knot, under the headline Halloween hair in ten minutes.
+1. halloween-hair-in-ten-minutes.png: Three mannequin heads from behind wearing a high ponytail, two even pigtails and a half-up, half-down, under the headline Halloween hair in ten minutes.

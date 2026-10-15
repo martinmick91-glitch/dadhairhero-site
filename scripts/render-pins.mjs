@@ -27,7 +27,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const file = (...parts) => pathToFileURL(path.join(ROOT, ...parts)).href;
 const SERIF = file('node_modules', '@fontsource', 'instrument-serif', 'files', 'instrument-serif-latin-400-normal.woff2');
 const SANS = file('node_modules', '@fontsource-variable', 'hanken-grotesk', 'files', 'hanken-grotesk-latin-wght-normal.woff2');
-const photo = (slug) => file('public', 'images', 'styles', `${slug}-finished-800.webp`);
+// A style's finished-look picture, as the export names it (Half-Up,
+// Half-Down's is its last step).
+const US_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'src', 'data', 'en-US.json'), 'utf8'));
+const photo = (id) => {
+  const style = US_DATA.styles.find((s) => s.id === id);
+  if (!style || style.pack) throw new Error(`${id}: not a free style in the export`);
+  return file('public', `${style.image.base}-800.webp`);
+};
 
 // The site's colours (src/styles/site.css).
 const BASE_CSS = `
@@ -41,12 +48,13 @@ const BASE_CSS = `
   .site { color: #a85a28; font-weight: 600; letter-spacing: 0.02em; }
 `;
 
-// Three of the five looks, the ones done in ten minutes or less, so the
-// pin's headline holds for every look it shows.
+// The first three free looks in the guide (HALLOWEEN in src/lib/site.js),
+// each done in ten minutes or less, so the pin's headline holds for every
+// look it shows. US English: the pin is for the US page.
 const LOOKS = [
-  { slug: 'space-buns', label: 'Ears' },
-  { slug: 'bubble-ponytail', label: 'A tail' },
-  { slug: 'top-knot', label: 'A ballerina bun' },
+  { id: 'high-ponytail', label: 'A tail' },
+  { id: 'two-even-bunches', label: 'Pigtails' },
+  { id: 'half-up-half-down', label: 'Under a hat' },
 ];
 
 const images = [
@@ -64,7 +72,7 @@ const images = [
       </style>
       <h1>Easy Halloween hairstyles</h1>
       <p class="site">dadhairhero.com</p>
-      <div class="row">${LOOKS.map((l) => `<img src="${photo(l.slug)}" alt="">`).join('')}</div>`,
+      <div class="row">${LOOKS.map((l) => `<img src="${photo(l.id)}" alt="">`).join('')}</div>`,
   },
   {
     out: path.join('public', 'pins', 'halloween-hair-in-ten-minutes.png'),
@@ -86,8 +94,8 @@ const images = [
       </style>
       <h1>Halloween hair in ten minutes</h1>
       <p class="sub">Easy looks made from simple styles.</p>
-      <div class="grid">${LOOKS.map((l) => `<figure><img src="${photo(l.slug)}" alt=""><figcaption>${l.label}</figcaption></figure>`).join('')}
-        <div class="note"><h2>Ears, a tail or a bun</h2><p>5 to 10 minutes each, from styles you can learn.</p></div></div>
+      <div class="grid">${LOOKS.map((l) => `<figure><img src="${photo(l.id)}" alt=""><figcaption>${l.label}</figcaption></figure>`).join('')}
+        <div class="note"><h2>Free, step by step</h2><p>4 to 6 minutes each, every step on dadhairhero.com.</p></div></div>
       <p class="site">dadhairhero.com</p>`,
   },
 ];

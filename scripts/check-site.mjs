@@ -527,6 +527,12 @@ function checkSeasonalGuides() {
     if (/[£$€]\s?\d/.test(main.text)) fail(page, 'a seasonal guide must not show prices');
     if (/"(HowTo|FAQPage)"/.test(doc.toString())) fail(page, 'a seasonal guide carries no HowTo or FAQ structured data');
     if (Number(meta(doc, 'meta[property="og:image:width"]')) < 1200) fail(page, 'the share image must be at least 1200 pixels wide');
+    // Its ItemList is the free looks: each one a style page with every step.
+    const list = doc.querySelectorAll('script[type="application/ld+json"]').map((s) => JSON.parse(s.text)).find((d) => d['@type'] === 'ItemList');
+    for (const item of list?.itemListElement ?? []) {
+      const target = pages.get(item.url.slice(SITE.length));
+      if (!target?.querySelector('.steps')) fail(page, `ItemList lists ${item.url}, which is not a free style with its steps`);
+    }
     const entry = sitemap.match(new RegExp(`<loc>${SITE}${page}</loc>\\s*<lastmod>\\d{4}-\\d{2}-\\d{2}</lastmod>`));
     if (!entry) fail('/sitemap.xml', `${page} has no lastmod`);
   }

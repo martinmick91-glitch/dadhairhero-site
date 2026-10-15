@@ -151,7 +151,7 @@ export const HUBS = [
     techniques: ['making-a-part', 'holding-tension'],
     fixes: ['entry-looks-wrong'],
     // Near the top of the hub: the seasonal guide built from these styles.
-    guide: { kind: 'halloween-hair', lead: 'For Halloween:', link: 'five easy Halloween hairstyles', after: ', from cat ears to a witch\'s plaits.' },
+    guide: { kind: 'halloween-hair', lead: 'For Halloween:', link: 'easy Halloween hairstyles', after: ', from a unicorn tail to scarecrow bunches, free step by step.' },
     ctaHeading: 'Practise it first, in the app',
     cta: 'Dad Hair Hero keeps a diary of what you have done and how it went, so the party style is one you have already tried. Free, no account, no tracking.',
   },
@@ -161,16 +161,21 @@ export const hubByKind = (kind) => HUBS.find((hub) => hub.kind === kind);
 
 // ─── Seasonal guides ─────────────────────────────────────────────────────────
 //
-// Halloween: five looks, each one a style the app already has. The address
-// has no year in it, so the page builds up over seasons; each September,
-// refresh the wording and dateModified and keep the address.
+// Halloween: looks made from styles the app already has, described as looks
+// and never as characters. The free styles come first, with every step on
+// this site; a toddler look follows, then two more from Beyond the Ponytail,
+// marked as pack styles. The address has no year in it, so the page builds
+// up over seasons; each September, refresh the wording and dateModified and
+// keep the address.
 //
 // The sentences are the guide's own, written in UK English and passed
 // through t() for the US page, except where the two are searched for in
-// different words (title, description, opening). How each look goes is
-// told from the style's own description and step titles, the only parts of
-// a pack style the export carries. The Fix It answers are read from the
-// export by node id, so they are always the app's own words.
+// different words (title, description, opening). How a free look goes is
+// told from its steps; a pack look from its description and step titles,
+// the only parts of a pack style the export carries. The "for the evening"
+// lines are adapted from each style's make-it-last line in the app, with
+// nothing added. The Fix It answers are read from the export by node id, so
+// they are always the app's own words.
 
 export const HALLOWEEN = {
   kind: 'halloween-hair',
@@ -182,26 +187,70 @@ export const HALLOWEEN = {
     us: 'Easy Halloween hairstyles for girls | Dad Hair Hero',
   },
   description: {
-    uk: 'Halloween hairstyles for girls: cat ears, witch plaits and more, each from one simple style in 5 to 15 minutes. The Dad Hair Hero app is free.',
-    us: 'Easy Halloween hairstyles for girls: cat ears, witch braids and more, each from one simple style in 5 to 15 minutes. The Dad Hair Hero app is free.',
+    uk: 'Halloween hairstyles for girls: a unicorn tail, scarecrow bunches and more, each from one simple style in 6 minutes or less. Every step free.',
+    us: 'Easy Halloween hairstyles for girls: a unicorn tail, scarecrow pigtails and more, each from one simple style in 6 minutes or less. Every step free.',
   },
   // The first two sentences answer the search.
   lede: {
-    uk: 'Five easy Halloween hairstyles for girls, each made from one simple style and done in 5 to 15 minutes. They are written for anyone who hasn\'t done much hair: what each look is, how long it takes and how it goes.',
-    us: 'Five easy Halloween hairstyles for girls, each made from one simple style and done in 5 to 15 minutes. They are written for anyone who hasn\'t done much hair: what each look is, how long it takes and how it goes.',
+    uk: 'Four easy Halloween hairstyles for girls, each made from one simple style in 6 minutes or less, with every step free on this site and in the Dad Hair Hero app. They are written for anyone who hasn\'t done much hair, and two more looks from the app\'s optional pack come after them.',
+    us: 'Four easy Halloween hairstyles for girls, each made from one simple style in 6 minutes or less, with every step free on this site and in the Dad Hair Hero app. They are written for anyone who hasn\'t done much hair, and two more looks from the app\'s optional pack come after them.',
   },
   intro: {
-    uk: 'Easy Halloween hair for kids starts from styles you may already know: buns, plaits, bunches and a ponytail. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
-    us: 'Halloween hairstyles for kids can start from styles you may already know: buns, braids, pigtails and a ponytail. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
+    uk: 'Easy Halloween hair for kids starts from styles you may already know: a ponytail, bunches and a half-up. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
+    us: 'Halloween hairstyles for kids can start from styles you may already know: a ponytail, pigtails and a half-up. The costume does the rest, so none of these needs a wig, and each one has a line on making it last the evening.',
   },
-  // The 1200×630 collage and the 2:3 pin are made by scripts/render-pins.mjs.
+  // The 1200×630 collage and the 2:3 pin are made by scripts/render-pins.mjs,
+  // from the first three free looks.
   ogImage: '/images/guides/halloween-hairstyles-1200x630.jpg',
   ogImageSize: { width: 1200, height: 630 },
   datePublished: '2026-10-15',
   dateModified: '2026-10-15',
-  // `idea` is the line on the style's own page: "A Halloween idea: …".
+  // `section`: 'free' looks lead the page, 'toddler' sits with the under-three
+  // line, 'pack' is "More looks in Beyond the Ponytail". `idea` is the line
+  // on the style's own page: "A Halloween idea: …".
   looks: [
     {
+      section: 'free',
+      anchor: 'animal-tail',
+      styleId: 'high-ponytail',
+      heading: 'A horse, lion or unicorn tail from a high ponytail',
+      alt: 'all the hair gathered into one ponytail at the very top of the head, back view',
+      how: 'Sweep all the hair up to the very top of her head and check it sits right at the crown. Smooth the sides up to your holding hand with a soft brush, then loop the elastic around at least four times, asking her after the third wrap whether it feels tight.',
+      last: 'Very clean, silky hair slides out of an elastic. A light mist of water before you gather gives it grip for the evening.',
+      idea: 'a high ponytail makes a tail for a horse, a lion or a unicorn.',
+    },
+    {
+      section: 'free',
+      anchor: 'scarecrow-bunches',
+      styleId: 'two-even-bunches',
+      heading: 'Scarecrow or rag doll bunches',
+      alt: 'hair parted down the middle into two ponytails, one each side level with the ears, back view',
+      how: 'Draw a centre parting from her hairline to the back of her neck and lay one side over her shoulder. Gather each side level with the top of her ear, holding both at once so they match, and wrap each elastic at least three times. Check from the front that they are level.',
+      last: 'Sit the bunches above her ears, not behind them, so a car seat on the way doesn\'t rub them loose.',
+      idea: 'two even bunches for a scarecrow or a rag doll.',
+    },
+    {
+      section: 'free',
+      anchor: 'under-a-hat',
+      styleId: 'half-up-half-down',
+      heading: 'Half-up, half-down under a witch\'s hat or ears on a headband',
+      alt: 'the top half of the hair gathered high on the back of the head, the bottom half loose, back view',
+      how: 'Part the hair from ear to ear across the top of her head and gather everything above the line. Smooth the sides back, loop an elastic around it at least three times high on the back of her head, and let the bottom half hang loose.',
+      last: 'The loose half tangles first. Brush it through when you get home, before it knots against her collar.',
+      idea: 'a half-up, half-down under a witch\'s hat, or with ears on a headband.',
+    },
+    {
+      section: 'toddler',
+      anchor: 'toddler-wisps',
+      styleId: 'clip-back-baby-wisps',
+      heading: 'Wisps clipped back for a toddler\'s costume',
+      alt: 'fine wisps at the front swept back and held with one soft snap clip, side view',
+      how: 'Dampen the front wisps with a wet comb and sweep them back off her forehead without pulling. Slide a fabric-lined clip over them, front to back, with a finger underneath as it snaps shut.',
+      last: 'Clip the wisps while they are still a little damp. They dry flat under the clip and hold it in.',
+      idea: 'clip the wisps back for a toddler\'s costume.',
+    },
+    {
+      section: 'pack',
       anchor: 'cat-ears',
       styleId: 'space-buns',
       heading: 'Cat, bear or mouse ears from space buns',
@@ -211,40 +260,14 @@ export const HALLOWEEN = {
       idea: 'two space buns make cat, bear or mouse ears.',
     },
     {
+      section: 'pack',
       anchor: 'witch-plaits',
       styleId: 'plaited-pigtails',
-      heading: 'Witch or pioneer plaits from plaited bunches',
+      heading: 'Witch plaits from plaited bunches',
       alt: 'two three-strand plaits, one each side of a centre parting, back view',
       how: 'Draw a centre parting and move the right side clear. Gather and plait the left side, plait the right side to match, then check both sides together.',
       last: 'Plaits survive a night\'s sleep, so an evening of trick-or-treating is no trouble.',
-      idea: 'two plaits for a witch or a pioneer.',
-    },
-    {
-      anchor: 'animal-tail',
-      styleId: 'bubble-ponytail',
-      heading: 'An animal tail from a bubble ponytail',
-      alt: 'a ponytail with elastics spaced down its length and a rounded bubble between each, back view',
-      how: 'Make a ponytail, then add elastics evenly down its length and pinch each gap outward into a rounded bubble. Repeat to the end and even them up.',
-      last: 'Pull the bubbles a little fuller than looks right: they settle flatter as the evening goes on.',
-      idea: 'a bubble ponytail makes a tail for any animal costume.',
-    },
-    {
-      anchor: 'ballerina-bun',
-      styleId: 'top-knot',
-      heading: 'A ballerina or princess bun from a top knot',
-      alt: 'all the hair wound into one bun at the very top of the head, back view',
-      how: 'Gather all the hair to the very top of her head and secure it with an elastic. Twist the ponytail into a rope, wind it around the base, then secure it with a second elastic and pin any loose ends.',
-      last: 'Hair washed the day before holds a bun better than freshly washed hair. Take the bun down at bedtime.',
-      idea: 'a top knot for a ballerina or a princess.',
-    },
-    {
-      anchor: 'under-a-hat',
-      styleId: 'criss-cross-bands',
-      heading: 'Criss-cross bands under a hat or ears',
-      alt: 'rows of small banded bunches joined diagonally into a lattice down the head, back view',
-      how: 'Small bunches are banded in rows and joined diagonally with their neighbours. Make the front row, split and cross each bunch into the next row, add one more row, then finish the ends and check the edges.',
-      last: 'It can last a few days, so it will see out the evening. Take it out sooner if she says it feels tight or sore.',
-      idea: 'criss-cross bands under a hat or a pair of ears.',
+      idea: 'two plaits for a witch.',
     },
   ],
   // If it goes wrong: the question is the guide's, the answer is the Fix It
