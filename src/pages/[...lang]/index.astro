@@ -18,6 +18,14 @@ export function getStaticPaths() {
 const locale = localeFromParam(Astro.params.lang);
 const free = locale.data.styles.filter((s) => !s.pack);
 const screenshot = locale === US ? '/assets/screenshot-01-us.webp' : '/assets/screenshot-01.webp';
+// On desktop the hero shows the bare app screen in a CSS phone frame
+// instead of the store graphic. Phones keep the store graphic.
+const phoneScreen = locale === US ? '/assets/phone-step-us.webp' : '/assets/phone-step.webp';
+const how = [
+  ['how-time', 'How long you have', 'Two, five, ten or fifteen minutes and up. Each style says how long it takes.', 'The app’s Today screen: “How long have you got?” with 2, 5, 10 and 15 minutes.'],
+  ['how-hair', 'Her hair today', 'Straight, wavy, thick, curly or coily. The app picks a style that fits.', 'The app’s Today screen: “Her hair today” with Straight, Wavy, Thick, Curly and Coily.'],
+  ['how-step', 'One step at a time', 'One action per screen, with a picture and a check before you move on.', 'A step in the app: Step 1 of 6, Detangle first, and what to do.'],
+].map(([image, heading, text, alt]) => ({ image: `/assets/${image}.webp`, heading: t(locale, heading), text: t(locale, text), alt: t(locale, alt) }));
 
 const title = 'Dad Hair Hero: Easy hairstyles for girls, step by step';
 const description = t(locale, 'Step-by-step hairstyles for dads. Ponytails, bunches and more, timed for a school morning. Free on the App Store and Google Play.');
@@ -52,30 +60,45 @@ const jsonld = [
   },
 ];
 ---
-<Base locale={locale} kind="home" title={title} description={description} jsonld={jsonld}>
+<Base locale={locale} kind="home" title={title} description={description} jsonld={jsonld} wide>
   <div class="home-top">
     <div>
-      <h1>Dad Hair Hero</h1>
+      <h1>{t(locale, 'Nobody taught you how to do her hair. This does.')}</h1>
       <p class="lede">
         {t(locale, 'Hairstyles for girls, written for dads. Step by step, one picture at a time, and timed for a school morning.')}
       </p>
-      <p>{t(locale, 'Nobody taught you how to do her hair. This does.')}</p>
-      <StoreBadges campaignName={campaign(locale, 'home')} />
+      <div id="get-the-app">
+        <StoreBadges campaignName={campaign(locale, 'home')} />
+        <p class="badge-note">{t(locale, 'Free · No account · Nothing sent to Dad Hair Hero')}</p>
+      </div>
     </div>
-    <img
-      class="screenshot"
-      src={screenshot}
-      width="540"
-      height="960"
-      fetchpriority="high"
-      alt="Dad Hair Hero on a phone: step 1 of 6, Detangle first, with a picture of hair being combed from the ends up and the check “No catching from top to bottom”."
-    />
+    <picture>
+      <source media="(min-width: 64rem)" srcset={phoneScreen} width="600" height="1287" />
+      <img
+        class="screenshot"
+        src={screenshot}
+        width="540"
+        height="960"
+        fetchpriority="high"
+        alt="Dad Hair Hero on a phone: step 1 of 6, Detangle first, with a picture of hair being combed from the ends up and the check “No catching from top to bottom”."
+      />
+    </picture>
   </div>
 
   <h2>{t(locale, 'How it works')}</h2>
-  <p>
+  <p class="how-text">
     {t(locale, 'Say how long you have (2, 5, 10 or 15 minutes and up) and what her hair is like today: straight, wavy, thick, curly or coily. The app picks a style that fits. Then it takes you through it one action at a time, with a picture of what your hands should be doing and a line that tells you what it should look and feel like before you move on.')}
   </p>
+  {/* Desktop only, in place of the paragraph above. Lazy, so a phone never fetches the pictures. */}
+  <ol class="how">
+    {how.map((step) => (
+      <li>
+        <img src={step.image} alt={step.alt} width="540" height="210" loading="lazy" />
+        <h3>{step.heading}</h3>
+        <p>{step.text}</p>
+      </li>
+    ))}
+  </ol>
 
   <h2>{t(locale, 'Free, and it stays free')}</h2>
   <ul>

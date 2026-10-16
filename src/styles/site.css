@@ -288,3 +288,79 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 @media (min-width: 42rem) {
   .about-story { grid-template-columns: 280px 1fr; gap: 2rem; }
 }
+
+/* ── Desktop, from 64rem ───────────────────────────────────────────────────
+   Everything for laptops and wider is in this block. Below 64rem nothing
+   here applies: the rules just above the media query only hide elements
+   that exist for desktop, and keep the home picture's wrapper out of the
+   layout. */
+
+.get-app, .badge-note, .how { display: none; }
+.home-top picture { display: contents; }
+.home-top source { display: none; }
+
+@media (min-width: 64rem) {
+  :root { --wide: 72rem; }
+
+  /* One content width for the header, the home page and the footer, with
+     the same left and right edges. Reading pages keep their 42rem column. */
+  .site-header .column, .site-footer .column, main.wide { max-width: var(--wide); padding-left: 2rem; padding-right: 2rem; }
+
+  .site-header { background: #fffcf8; border-bottom: 1px solid var(--indigo-10); }
+  .site-header .bar { flex-wrap: nowrap; align-items: center; gap: 2rem; padding-top: 0.85rem; padding-bottom: 0.85rem; }
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 1.55rem; line-height: 1; }
+  .brand:hover { color: var(--indigo); }
+  /* The app icon, beside the wordmark. Drawn in CSS so phones carry no extra markup. */
+  .brand::before { content: ""; width: 32px; height: 32px; flex: none; background: url(/favicon.svg) center / contain no-repeat; }
+  .site-header nav { margin-left: auto; gap: 0 1.6rem; }
+  .site-header nav a { font-size: 0.88rem; letter-spacing: 0.04em; padding: 0.35rem 0; }
+  .site-header nav a:hover, .site-header nav a[aria-current='page'] {
+    color: var(--indigo); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.4em;
+  }
+  .get-app {
+    display: inline-block; flex: none; background: var(--apricot); color: var(--indigo); font-weight: 600;
+    font-size: 0.88rem; text-decoration: none; border-radius: 999px; padding: 0.5rem 1.05rem; line-height: 1.2;
+  }
+  .get-app:hover { background: #fca65a; color: var(--indigo); }
+
+  /* The home page. Text keeps a reading measure inside the wide column;
+     grids use the whole width. */
+  main.wide { padding-top: 0; }
+  /* Reading pages: room between the header border and the breadcrumb. */
+  main.column:not(.wide) { padding-top: 2rem; }
+  main.wide > p, main.wide > ul:not(.rows):not(.cards), main.wide > h2 { max-width: 42rem; }
+  main.wide > h2 { margin-top: 4.5rem; }
+
+  .home-top {
+    grid-template-columns: minmax(0, 1fr) 19rem; gap: 5rem; align-items: start;
+    padding-top: 4rem;
+  }
+  .home-top h1 { font-size: 4rem; line-height: 1.04; letter-spacing: -0.01em; margin: 0 0 1.5rem; max-width: 13ch; }
+  .home-top .lede { font-size: 1.3rem; max-width: 30rem; margin-bottom: 1.75rem; }
+  .home-top .badges { margin: 0 0 0.75rem; }
+  .badge-note { display: block; font-size: 0.9rem; color: var(--indigo-70); letter-spacing: 0.01em; margin: 0; }
+
+  /* The app screen in a plain phone frame, its top level with the headline. */
+  .home-top picture { display: block; }
+  .home-top .screenshot {
+    max-width: none; width: 19rem; border-radius: 2.6rem; border: 0.6rem solid var(--indigo);
+    background: var(--indigo); box-shadow: 0 24px 48px -20px rgba(30, 41, 59, 0.35);
+  }
+
+  .how-text { display: none; }
+  .how {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem;
+    list-style: none; padding: 0; margin: 1.5rem 0 0;
+  }
+  .how li { margin: 0; }
+  .how img {
+    width: 100%; border-radius: 14px; border: 1px solid var(--indigo-10); background: var(--surface);
+    margin-bottom: 1rem;
+  }
+  .how h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; margin-bottom: 0.4rem; }
+  .how p { color: var(--indigo-70); margin: 0; }
+
+  main.wide .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  main.wide .rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+  main.wide .rows li:nth-last-child(2) { border-bottom: 1px solid var(--indigo-10); }
+}

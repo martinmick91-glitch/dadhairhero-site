@@ -27,6 +27,9 @@ const {
   // The phone bar is on every page a reader lands on from a search. The
   // 404 and privacy pages do without.
   appBar = true,
+  // The home page uses the full desktop width; every reading page (styles,
+  // techniques, Fix It) keeps the narrow column.
+  wide = false,
 } = Astro.props;
 
 const canonical = absolute(pathname);
@@ -85,10 +88,12 @@ const nav = [
             <a href={path(locale, item.kind)} aria-current={item.kind === kind ? 'page' : undefined}>{item.label}</a>
           ))}
         </nav>
+        {/* Desktop only: CSS shows it from 64rem, where the phone app bar is long gone. */}
+        <a class="get-app" href={`${path(locale, 'home')}#get-the-app`}>Get the app</a>
       </div>
     </header>
 
-    <main class="column">
+    <main class={wide ? 'column wide' : 'column'}>
       {trail.length > 1 && (
         <nav class="crumbs" aria-label="Breadcrumb">
           {trail.map((crumb, i) => (
