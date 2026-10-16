@@ -63,12 +63,10 @@ const jsonld = [
 <Base locale={locale} kind="home" title={title} description={description} jsonld={jsonld} wide>
   <div class="home-top">
     <div>
-      {/* One h1. Phones show the name; desktop shows the headline (CSS, from 64rem). */}
-      <h1><span class="h1-phone">Dad Hair Hero</span><span class="h1-desktop">{t(locale, 'Nobody taught you how to do her hair. This does.')}</span></h1>
+      <h1>{t(locale, 'Nobody taught you how to do her hair. This does.')}</h1>
       <p class="lede">
         {t(locale, 'Hairstyles for girls, written for dads. Step by step, one picture at a time, and timed for a school morning.')}
       </p>
-      <p class="home-tagline">{t(locale, 'Nobody taught you how to do her hair. This does.')}</p>
       <div id="get-the-app">
         <StoreBadges campaignName={campaign(locale, 'home')} />
         <p class="badge-note">{t(locale, 'Free · No account · Nothing sent to Dad Hair Hero')}</p>

@@ -290,12 +290,12 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 }
 
 /* ── Desktop, from 64rem ───────────────────────────────────────────────────
-   Everything for laptops and wider is in this block. Below 64rem the site
-   is exactly as it was: the rules just above the media query only hide
-   elements that exist for desktop, and keep the home picture's wrapper out
-   of the layout. */
+   Everything for laptops and wider is in this block. Below 64rem nothing
+   here applies: the rules just above the media query only hide elements
+   that exist for desktop, and keep the home picture's wrapper out of the
+   layout. */
 
-.get-app, .h1-desktop, .badge-note, .how { display: none; }
+.get-app, .badge-note, .how { display: none; }
 .home-top picture { display: contents; }
 .home-top source { display: none; }
 
@@ -326,7 +326,9 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
   /* The home page. Text keeps a reading measure inside the wide column;
      grids use the whole width. */
   main.wide { padding-top: 0; }
-  main.wide > p, main.wide > ul:not(.rows):not(.cards), main.wide > h2 { max-width: 44rem; }
+  /* Reading pages: room between the header border and the breadcrumb. */
+  main.column:not(.wide) { padding-top: 2rem; }
+  main.wide > p, main.wide > ul:not(.rows):not(.cards), main.wide > h2 { max-width: 42rem; }
   main.wide > h2 { margin-top: 4.5rem; }
 
   .home-top {
@@ -334,8 +336,6 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
     padding-top: 4rem;
   }
   .home-top h1 { font-size: 4rem; line-height: 1.04; letter-spacing: -0.01em; margin: 0 0 1.5rem; max-width: 13ch; }
-  .h1-phone, .home-tagline { display: none; }
-  .h1-desktop { display: inline; }
   .home-top .lede { font-size: 1.3rem; max-width: 30rem; margin-bottom: 1.75rem; }
   .home-top .badges { margin: 0 0 0.75rem; }
   .badge-note { display: block; font-size: 0.9rem; color: var(--indigo-70); letter-spacing: 0.01em; margin: 0; }
