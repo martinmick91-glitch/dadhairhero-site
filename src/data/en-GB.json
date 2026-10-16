@@ -1,8 +1,8 @@
 {
   "locale": "en-GB",
-  "contentVersion": "2af64a00aab1d487",
+  "contentVersion": "f334a639dd496a40",
   "appVersion": "1.2.0",
-  "appCommit": "6c3ca39",
+  "appCommit": "7668222",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -426,7 +426,7 @@
         {
           "title": "Set the height",
           "instruction": "Position the height. A classic ponytail sits level with the tops of her ears. Adjust your gathering hand up or down to find that exact sweet spot.",
-          "endState": "The bundle is centered and level with the tops of her ears.",
+          "endState": "The bundle is centred and level with the tops of her ears.",
           "why": null,
           "techniqueId": null,
           "photo": {
@@ -581,7 +581,7 @@
         "mist-bottle"
       ],
       "commonFailure": "The ponytail leans to one side.",
-      "theFix": "Undo and regather. Before securing, stand directly behind her and look down from above to check the bundle is centered. A mirror in front of her also lets you check from the front.",
+      "theFix": "Undo and regather. Before securing, stand directly behind her and look down from above to check the bundle is centred. A mirror in front of her also lets you check from the front.",
       "steps": [
         {
           "title": "Detangle first",
@@ -827,7 +827,7 @@
           "title": "Detangle all the hair",
           "instruction": "Comb it all through before you touch the parting.",
           "endState": "Runs freely everywhere.",
-          "why": "Both sides need to start from smooth hair or the part will look uneven.",
+          "why": "Both sides need to start from smooth hair or the parting will look uneven.",
           "techniqueId": "detangling",
           "photo": {
             "base": "/images/styles/two-even-bunches-step-1",
@@ -855,7 +855,7 @@
           }
         },
         {
-          "title": "Draw the center part",
+          "title": "Draw the centre parting",
           "instruction": "Put the pointed end of the tail comb where her hair starts, in the middle above her nose. Draw it straight back to the middle of the back of her neck. Go slowly, lining it up with her nose from the front.",
           "endState": "Roughly equal hair each side.",
           "why": null,
@@ -1400,7 +1400,7 @@
       "id": "plaited-pigtails",
       "slug": "plaited-pigtails",
       "name": "Plaited Pigtails",
-      "description": "Two three-strand plaits, one on each side of a center part.",
+      "description": "Two three-strand plaits, one on each side of a centre parting.",
       "oneLiner": "Two plaits, double the checking",
       "herJob": "She holds the second elastic ready for her other side.",
       "ageBands": [
@@ -1474,7 +1474,7 @@
           "title": "Detangle all the hair"
         },
         {
-          "title": "Draw the center part"
+          "title": "Draw the centre parting"
         },
         {
           "title": "Move the right side clear"
@@ -2484,7 +2484,7 @@
       ],
       "howToCheck": [
         "Running a fingertip along the parting from front to back, it sits on the seam the whole way.",
-        "A part that wanders half a centimetre, which is invisible to everyone but you."
+        "A parting that wanders half a centimetre, which is invisible to everyone but you."
       ],
       "commonMistakes": [
         "Judging the line by eye instead of feeling for the seam first. This is the single biggest reason a parting drifts off-centre.",
@@ -2779,8 +2779,8 @@
             "id": "tail-comb",
             "slug": "tail-comb",
             "name": "Tail comb",
-            "use": "Creating a clean, straight part through the hair. The pointed handle end draws the part line; the comb end smooths the separated sections.",
-            "avoid": "Not for detangling: the teeth are too fine and close together. Use the wide-tooth comb first, then switch to the tail comb only for making the part.",
+            "use": "Creating a clean, straight parting through the hair. The pointed handle end draws the parting; the comb end smooths the separated sections.",
+            "avoid": "Not for detangling: the teeth are too fine and close together. Use the wide-tooth comb first, then switch to the tail comb only for making the parting.",
             "buyingNote": "A simple plastic tail comb with a smooth, rounded pointed handle. Run the pointed end along the back of your hand. It should feel smooth, not sharp. Avoid any with a metal-tipped handle.",
             "image": {
               "base": "/images/kit/tail-comb",
@@ -2998,8 +2998,8 @@
               "widths": [
                 400
               ],
-              "width": 400,
-              "height": 404
+              "width": 396,
+              "height": 400
             },
             "buyUrl": "https://www.amazon.co.uk/dp/B008MJ0X3U?tag=dadhairhero-21"
           },
@@ -3282,6 +3282,7 @@
         "type": "outcome",
         "title": "Spray the whole length, divide into sections, start at the nape",
         "body": "Sleep tangles are dry tangles. Moisture is the first fix. Spray throughout and let it absorb for a full minute before touching. Divide the hair into three sections. The nape will be worst. Do that first. Work each section from the ends upward before moving to the next. Trying to work through the whole head at once takes longer and hurts more.",
+        "tonight": "a loose plait at the back of her neck, or a satin bonnet or pillowcase, stops most of these tangles forming.",
         "link": {
           "type": "equipment",
           "id": "wide-tooth-comb",

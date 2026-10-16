@@ -1,5 +1,5 @@
 {
-  "contentVersion": "2af64a00aab1d487",
+  "contentVersion": "f334a639dd496a40",
   "words": {
     "plait": "braid",
     "plaits": "braids",
@@ -29,7 +29,9 @@
     "practises": "practices",
     "practised": "practiced",
     "practising": "practicing",
-    "backwards": "backward"
+    "backwards": "backward",
+    "cot": "crib",
+    "cots": "cribs"
   },
   "phrases": {
     "hair grip": "bobby pin",

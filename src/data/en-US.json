@@ -1,8 +1,8 @@
 {
   "locale": "en-US",
-  "contentVersion": "2af64a00aab1d487",
+  "contentVersion": "f334a639dd496a40",
   "appVersion": "1.2.0",
-  "appCommit": "6c3ca39",
+  "appCommit": "7668222",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -2779,7 +2779,7 @@
             "id": "tail-comb",
             "slug": "tail-comb",
             "name": "Tail comb",
-            "use": "Creating a clean, straight part through the hair. The pointed handle end draws the part line; the comb end smooths the separated sections.",
+            "use": "Creating a clean, straight part through the hair. The pointed handle end draws the part; the comb end smooths the separated sections.",
             "avoid": "Not for detangling: the teeth are too fine and close together. Use the wide-tooth comb first, then switch to the tail comb only for making the part.",
             "buyingNote": "A simple plastic tail comb with a smooth, rounded pointed handle. Run the pointed end along the back of your hand. It should feel smooth, not sharp. Avoid any with a metal-tipped handle.",
             "image": {
@@ -2998,8 +2998,8 @@
               "widths": [
                 400
               ],
-              "width": 400,
-              "height": 404
+              "width": 396,
+              "height": 400
             },
             "buyUrl": "https://www.amazon.com/dp/B00MMRFUG8?tag=dadhairhero-20"
           },
@@ -3282,6 +3282,7 @@
         "type": "outcome",
         "title": "Spray the whole length, divide into sections, start at the nape",
         "body": "Sleep tangles are dry tangles. Moisture is the first fix. Spray throughout and let it absorb for a full minute before touching. Divide the hair into three sections. The nape will be worst. Do that first. Work each section from the ends upward before moving to the next. Trying to work through the whole head at once takes longer and hurts more.",
+        "tonight": "a loose braid at the back of her neck, or a satin bonnet or pillowcase, stops most of these tangles forming.",
         "link": {
           "type": "equipment",
           "id": "wide-tooth-comb",
