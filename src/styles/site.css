@@ -302,9 +302,9 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 @media (min-width: 64rem) {
   :root { --wide: 72rem; }
 
-  /* One content width for the header, the home page and the footer, with
-     the same left and right edges. Reading pages keep their 42rem column. */
-  .site-header .column, .site-footer .column, main.wide { max-width: var(--wide); padding-left: 2rem; padding-right: 2rem; }
+  /* One content width for the header, every page and the footer, with the
+     same left and right edges. */
+  .site-header .column, .site-footer .column, main.column { max-width: var(--wide); padding-left: 2rem; padding-right: 2rem; }
 
   .site-header { background: #fffcf8; border-bottom: 1px solid var(--indigo-10); }
   .site-header .bar { flex-wrap: nowrap; align-items: center; gap: 2rem; padding-top: 0.85rem; padding-bottom: 0.85rem; }
@@ -360,7 +360,76 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
   .how h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; margin-bottom: 0.4rem; }
   .how p { color: var(--indigo-70); margin: 0; }
 
-  main.wide .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  main.wide .rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
-  main.wide .rows li:nth-last-child(2) { border-bottom: 1px solid var(--indigo-10); }
+  main.column .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  main.column .rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+  main.column .rows li:nth-last-child(2) { border-bottom: 1px solid var(--indigo-10); }
+
+  /* Every other page. Text keeps the 42rem reading width, left-aligned with
+     the header; pictures, card grids and panels use the whole width. */
+  /* Zero specificity, so a picture's own max-width still wins. */
+  :where(main.column:not(.wide)) > :where(:not(.cards, .rows, .steps, .kit, .summary, .related, .about-story, .look, .app-block)) { max-width: 42rem; }
+
+  /* Text on the left, its picture on the right: style steps, the Halloween
+     looks and the app block. The text goes down the first column in order;
+     the picture spans every row, and the last, flexible row takes up any
+     height the picture has beyond the text, so the text rows don't spread.
+     Grid items don't collapse margins, so the gaps come from bottom margins
+     alone. */
+  .steps > li:has(> .photo), .look {
+    display: grid; grid-template-columns: minmax(0, 42rem) minmax(0, 1fr); column-gap: 3rem;
+    grid-template-rows: repeat(10, auto) 1fr; align-items: start;
+  }
+  .steps > li:has(> .photo) > *, .look > * { grid-column: 1; margin-top: 0; }
+  .steps > li > .photo, .look > .photo { grid-column: 2; grid-row: 1 / -1; max-width: 24rem; margin: 0; }
+  .steps > li { margin-bottom: 2rem; }
+  .look { margin-top: 3.5rem; }
+
+  /* The curly and coily version, inside a step: its own picture, smaller, beside it. */
+  .curly:has(> .photo) {
+    display: grid; grid-template-columns: minmax(0, 1fr) 11rem; column-gap: 1.25rem;
+    grid-template-rows: repeat(6, auto) 1fr; align-items: start;
+  }
+  .curly:has(> .photo) > * { grid-column: 1; margin-top: 0; }
+  .curly > .photo { grid-column: 2; grid-row: 1 / -1; margin: 0; }
+
+  .app-block {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 4rem;
+    grid-template-rows: repeat(6, auto) 1fr; align-items: start; padding: 2.25rem 2.5rem;
+  }
+  .app-block > * { grid-column: 1; }
+  .app-block > ul { grid-column: 2; grid-row: 1 / -1; margin: 0; }
+  .app-block > :last-child { margin-bottom: 0; }
+
+  /* A style page: the finished look beside the facts. */
+  .summary { grid-template-columns: 20rem minmax(0, 1fr); gap: 2.5rem; padding: 1.5rem; align-items: center; margin: 2rem 0; }
+  .summary .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  .summary .facts div { padding: 1rem 1.1rem; }
+  .summary .facts dd { font-size: 1.1rem; }
+  .summary-kit { max-width: 42rem; }
+
+  /* A technique page, and the curly finished look on a style page: the
+     picture on the right, beside the text. */
+  .technique-photo, .summary ~ .hero-photo { float: right; width: calc(100% - 45rem); max-width: 24rem; margin: 0.5rem 0 2rem 3rem; }
+  :is(.technique-photo, .hero-photo) ~ :is(.steps, .rows, .cards, .faq, .app-block, .related) { clear: both; }
+
+  main.column .technique-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.5rem; margin-top: 2rem; }
+
+  /* Fix It: the problems as cards. */
+  main.column .fix-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+  main.column .fix-list li {
+    border: 1px solid var(--indigo-10); border-radius: 12px; background: var(--surface); padding: 1rem 1.25rem;
+  }
+  .fix-list a { font-size: 1.1rem; }
+  .fix-list span { margin-top: 0.25rem; }
+
+  /* The Kit: a card for each item. */
+  .kit { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+  .kit > li {
+    display: block; border: 1px solid var(--indigo-10); border-radius: var(--radius); background: var(--surface);
+    padding: 1.25rem;
+  }
+  .kit > li > div:first-child img { width: 7rem; height: 7rem; object-fit: contain; margin-bottom: 1rem; }
+  .kit p { margin-bottom: 0.5rem; }
+
+  .about-story { grid-template-columns: 280px minmax(0, 42rem); gap: 3rem; }
 }

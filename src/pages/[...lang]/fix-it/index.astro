@@ -32,7 +32,7 @@ const list = entries.map((e) => ({ name: e.label, path: path(locale, 'fix', e.id
   <p class="summary-cta">{t(locale, 'In the app it is one tap from any step.')}</p>
   <StoreBadges campaignName={campaign(locale, 'fixIt')} />
 
-  <ul class="rows">
+  <ul class="rows fix-list">
     {entries.map((entry) => {
       const styles = stylesForFix(locale, entry.id);
       return (

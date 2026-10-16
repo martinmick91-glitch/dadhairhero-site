@@ -108,7 +108,7 @@ const jsonld = [
   <StoreBadges campaignName={campaign(locale, 'technique', technique.id)} />
 
   {technique.image && (
-    <figure class="photo hero-photo">
+    <figure class="photo hero-photo technique-photo">
       <Photo photo={technique.image} alt={`${technique.title}: ${lower(sentence(technique.description)).replace(/\.$/, '')}, shown on a model head`} eager />
     </figure>
   )}
