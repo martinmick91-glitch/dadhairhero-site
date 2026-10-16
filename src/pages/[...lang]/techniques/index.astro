@@ -35,7 +35,7 @@ const entries = techniques.map((tq) => ({ name: tq.title, path: path(locale, 'te
   <p class="summary-cta">{t(locale, 'All eight are free in the app, a tap from the step that uses them.')}</p>
   <StoreBadges campaignName={campaign(locale, 'techniques')} />
 
-  <ul class="cards">
+  <ul class="cards technique-cards">
     {techniques.map((technique, i) => (
       <li>
         <a class="card" href={path(locale, 'technique', technique.id)}>
