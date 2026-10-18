@@ -18,7 +18,8 @@
 //                other page, not only from the header or footer
 // and five rules of this site's own:
 //   - Amazon links are rel="sponsored", only on the Kit page, on the right
-//     country's store, and after the disclosure;
+//     country's store (or amazon.ie for the "Shopping from Ireland?" link)
+//     with that store's tag from the export, and after the disclosure;
 //   - every store badge link carries its campaign name;
 //   - a Beyond the Ponytail page shows step titles and nothing more;
 //   - the sitemap lists exactly the pages that should be indexed;
@@ -365,10 +366,14 @@ function checkOutboundLinks(page, doc) {
     if (/^https?:\/\/([a-z0-9-]+\.)*(amazon\.[a-z.]+|amzn\.to)\//i.test(href)) {
       amazon += 1;
       const host = new URL(href).hostname.replace(/^www\./, '');
+      // The tags come from the export (the app's affiliate-tags.ts).
+      const { stores } = content[isUS(page) ? 'us' : 'uk'].kit;
+      const ireland = host === 'amazon.ie';
       const expected = isUS(page) ? 'amazon.com' : 'amazon.co.uk';
-      const tag = isUS(page) ? 'dadhairhero-20' : 'dadhairhero-21';
+      const tag = ireland ? stores.ireland.tag : stores.main.tag;
       if (!kitPage) fail(page, `Amazon link outside the Kit page: ${href}`);
-      if (host !== expected) fail(page, `Amazon link goes to ${host}; this page's readers get ${expected}`);
+      if (!ireland && host !== expected) fail(page, `Amazon link goes to ${host}; this page's readers get ${expected}`);
+      if (ireland && !/^Shopping from Ireland\? Use Amazon\.ie$/.test(a.text.trim())) fail(page, `amazon.ie link that isn't the "Shopping from Ireland?" link: ${href}`);
       if (new URL(href).searchParams.get('tag') !== tag) fail(page, `Amazon link without the ${tag} tag: ${href}`);
       if (!(a.getAttribute('rel') ?? '').split(/\s+/).includes('sponsored')) fail(page, `Amazon link without rel="sponsored": ${href}`);
     }

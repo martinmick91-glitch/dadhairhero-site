@@ -3,21 +3,25 @@
 // app. The disclosure comes before the first link, and every Buy link is
 // rel="sponsored". A UK English reader gets amazon.co.uk links and a US
 // English reader amazon.com ones, straight from the export; an item with no
-// link for that store has no button.
+// link for that store has no button. Under each button, a small "Shopping
+// from Ireland?" link opens the same search on amazon.ie, the app's Ireland
+// store. The store names and tags come from the export, which takes them
+// from the app's src/config/affiliate-tags.ts.
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import AppBlock from '../../components/AppBlock.astro';
-import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, kitItems, campaign, t, US } from '../../lib/site.js';
+import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, kitItems, campaign, t } from '../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
 }
 
 const locale = localeFromParam(Astro.params.lang);
-const { sections, associateNotice } = locale.data.kit;
+const { sections, associateNotice, stores } = locale.data.kit;
 const items = kitItems(locale);
-const store = locale === US ? 'Amazon.com' : 'Amazon.co.uk';
+const store = stores.main.name;
+const ireland = stores.ireland.name;
 const hasLinks = items.some((item) => item.buyUrl);
 
 // The styles that list an item, for "Used in".
@@ -96,6 +100,12 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
                     </a>
                     <span class="buy-note">{t(locale, `Affiliate link. Opens ${store}.`)}</span>
                   </>
+                )}
+                {item.ieBuyUrl && (
+                  <span class="buy-ie">
+                    <a href={item.ieBuyUrl} rel="sponsored nofollow noopener" target="_blank">{`Shopping from Ireland? Use ${ireland}`}</a>
+                    {' '}(affiliate link)
+                  </span>
                 )}
               </div>
             </li>
