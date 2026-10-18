@@ -172,6 +172,8 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 }
 .buy:hover { color: var(--indigo); text-decoration: underline; }
 .buy-note { display: block; font-size: 0.85rem; color: var(--indigo-70); margin-top: 0.35rem; }
+.buy-ie { display: block; font-size: 0.85rem; color: var(--indigo-70); margin-top: 0.25rem; }
+.buy-ie a { color: var(--indigo); }
 
 @media (max-width: 26rem) {
   .kit > li { grid-template-columns: 4.5rem 1fr; }
