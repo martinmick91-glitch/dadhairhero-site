@@ -1,8 +1,8 @@
 {
   "locale": "en-US",
-  "contentVersion": "f334a639dd496a40",
-  "appVersion": "1.2.0",
-  "appCommit": "7668222",
+  "contentVersion": "2cbaf2aec35f9f5f",
+  "appVersion": "1.3.0",
+  "appCommit": "6e51f9c",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -19,6 +19,7 @@
       "coily": "Coily"
     },
     "hairLengths": {
+      "very-short": "Very short",
       "short": "Short",
       "medium": "Medium",
       "long": "Long"
@@ -36,7 +37,8 @@
     "twisted-bunches",
     "criss-cross-bands",
     "pull-through-plait",
-    "space-buns"
+    "space-buns",
+    "mini-top-knot"
   ],
   "nextStyleOrder": [
     "tangle-free-brushing",
@@ -45,8 +47,12 @@
     "high-ponytail",
     "half-up-half-down",
     "two-even-bunches",
+    "twist-back-sides",
+    "top-sprout",
+    "side-swept-clip",
     "bubble-ponytail",
     "puffs",
+    "mini-top-knot",
     "three-strand-plait",
     "top-knot",
     "sports-bun",
@@ -90,11 +96,12 @@
         "curly",
         "coily"
       ],
-      "minLength": "short",
+      "minLength": "very-short",
       "pack": false,
       "curlyOnly": false,
       "buildsOn": null,
       "leadsTo": [
+        "twist-back-sides",
         "classic-ponytail"
       ],
       "relatedFixIds": [
@@ -313,6 +320,7 @@
       "curlyOnly": false,
       "buildsOn": "tangle-free-brushing",
       "leadsTo": [
+        "top-sprout",
         "high-ponytail",
         "half-up-half-down",
         "two-even-bunches",
@@ -962,7 +970,7 @@
       "id": "half-up-half-down",
       "slug": "half-up-half-down",
       "name": "Half-Up, Half-Down",
-      "description": "The top half of the hair gathered and clipped at the very top of her head; the bottom half left loose.",
+      "description": "The top half of the hair gathered and tied high up on the back of her head; the bottom half left loose.",
       "oneLiner": "Looks harder than it is",
       "herJob": "She chooses what goes on top: a clip or an elastic.",
       "ageBands": [
@@ -996,7 +1004,7 @@
         "entry-too-short"
       ],
       "image": {
-        "base": "/images/styles/half-up-half-down-step-6",
+        "base": "/images/styles/half-up-half-down-finished",
         "widths": [
           800,
           400
@@ -1005,7 +1013,7 @@
         "height": 800
       },
       "curlyImage": {
-        "base": "/images/styles/half-up-half-down-step-6-curly-hair",
+        "base": "/images/styles/half-up-half-down-finished-curly-hair",
         "widths": [
           800,
           400
@@ -1016,6 +1024,7 @@
       "equipmentIds": [
         "wide-tooth-comb",
         "detangling-brush",
+        "tail-comb",
         "snag-free-elastic",
         "soft-bristle-brush",
         "detangler-spray"
@@ -1023,6 +1032,7 @@
       "curlyEquipmentIds": [
         "wide-tooth-comb",
         "detangling-brush",
+        "tail-comb",
         "snag-free-elastic",
         "soft-bristle-brush",
         "detangler-spray",
@@ -1035,7 +1045,7 @@
         {
           "title": "Detangle all the hair",
           "instruction": "Comb it all through before you split anything.",
-          "endState": "The brush runs freely everywhere.",
+          "endState": "The comb runs freely everywhere.",
           "why": null,
           "techniqueId": "detangling",
           "photo": {
@@ -1065,7 +1075,7 @@
         },
         {
           "title": "Find the dividing line",
-          "instruction": "Part the hair. Put your finger on the top of her right ear. Run the comb straight across the top of her head to her left ear.",
+          "instruction": "Part the hair. Put your finger on the top of her right ear. Run the pointed end of the tail comb straight across the top of her head to her left ear.",
           "endState": "A clear part line running from ear to ear.",
           "why": null,
           "techniqueId": "making-a-part",
@@ -1129,7 +1139,7 @@
           }
         },
         {
-          "title": "Secure at the very top of her head",
+          "title": "Secure high up on the back of her head",
           "instruction": "Secure the ponytail. Hold the smoothed bundle firmly and loop an elastic around it at least three times. Position it high up on the back of her head.",
           "endState": "The elastic sits snug and does not slide down.",
           "why": null,
@@ -1144,7 +1154,7 @@
             "height": 800
           },
           "curly": {
-            "title": "Secure at the very top of her head",
+            "title": "Secure high up on the back of her head",
             "instruction": "Secure the ponytail. Hold the smoothed bundle firmly and loop an elastic around it at least three times, without dragging the part line tight to get it there.",
             "endState": "The elastic sits snug and does not slide down, with the part line soft, not strained.",
             "techniqueId": null,
@@ -1201,7 +1211,7 @@
         "curly",
         "coily"
       ],
-      "minLength": "short",
+      "minLength": "very-short",
       "pack": false,
       "curlyOnly": false,
       "buildsOn": null,
@@ -1289,6 +1299,629 @@
           "techniqueId": null,
           "photo": {
             "base": "/images/styles/clip-back-baby-wisps-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        }
+      ]
+    },
+    {
+      "id": "twist-back-sides",
+      "slug": "twist-back-sides",
+      "name": "Twist-Back Sides",
+      "description": "The front hair on each side twisted back along the hairline and clipped above the ear. Made for chin-length hair, and for front hair that's growing out.",
+      "oneLiner": "Out of her eyes, all day",
+      "herJob": "She holds the second clip until you need it.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "everyday",
+        "school",
+        "party"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 4,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "short",
+      "pack": false,
+      "curlyOnly": false,
+      "buildsOn": "tangle-free-brushing",
+      "leadsTo": [
+        "side-swept-clip"
+      ],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-wont-sit"
+      ],
+      "image": {
+        "base": "/images/styles/twist-back-sides-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/twist-back-sides-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "snap-clip"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "snap-clip",
+        "leave-in-conditioner"
+      ],
+      "commonFailure": "The twist unwinds as soon as you let go.",
+      "theFix": "Twist further than looks necessary, and clip right at the end of the twist, not partway along it. On very silky hair, mist it first so it has some grip.",
+      "steps": [
+        {
+          "title": "Comb the front and sides",
+          "instruction": "Comb through the front and sides, from the hairline to the ends.",
+          "endState": "The comb runs from her hairline to the ends with no catching.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-1",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Detangle it damp",
+            "instruction": "Mist her hair until it's damp, not dripping, and smooth a little leave-in through with your fingers. Work in sections, ends first, fingers then the wide-tooth comb.",
+            "endState": "Your fingers slide through each section, root to tip.",
+            "techniqueId": "detangling-curly-coily",
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-1-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Find her part",
+          "instruction": "Use the part she already has. If there isn't one, draw one with the pointed end of the tail comb from the middle of her hairline straight back, about two fingers' length.",
+          "endState": "A clear line runs back from the middle of her hairline.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-2",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Find her part",
+            "instruction": "Use the part she already has. If there isn't one, draw one with the pointed end of the tail comb from the middle of her hairline straight back, about two fingers' length. Smooth the curls either side of it with your fingers.",
+            "endState": "A clear line runs back from the middle of her hairline, with the curls lying to either side.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-2-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Take the first strip",
+          "instruction": "Stand in front of her. On her right side (your left), use the tail comb to take a strip of hair two fingers wide along her hairline, from the part to just above her ear. Hold its end between your fingers.",
+          "endState": "One flat strip is lifted away from her hairline, and the rest of her hair hangs loose beneath it.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Take the first strip",
+            "instruction": "Stand in front of her. On her right side (your left), use the tail comb to take a strip of curls two fingers wide along her hairline, from the part to just above her ear. Mist it if it has dried, and hold its end between your fingers.",
+            "endState": "One strip of curls is lifted away from her hairline, and the rest hangs loose beneath it.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-3-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Twist it back",
+          "instruction": "Turn the strip so it rolls back, away from her face, like turning a key, without adding any more hair. Keep turning until it is a firm rope lying against her head, running back towards the top of her ear.",
+          "endState": "The rope lies along her hairline and stays twisted while you hold the end.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-4",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Twist it back",
+            "instruction": "Split the strip into two halves and twist them round each other, away from her face, without adding any more hair. A two-strand twist holds on curly and coily hair where a single twist springs open.",
+            "endState": "A neat two-strand twist runs from the part to above her ear.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-4-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Clip it",
+          "instruction": "Hold the end of the rope just above her ear. Slide a snap clip over it, pointing towards the back of her head, catching a little of the hair underneath as well so the clip has something to grip. Keep one finger under the clip as you snap it shut.",
+          "endState": "The clip points back, lies flat and doesn't pinch, and the rope stays twisted when you let go.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-5",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Clip it",
+            "instruction": "Hold the end of the twist just above her ear. Slide a snap clip over it, pointing towards the back of her head, catching a few curls underneath as well so the clip has something to grip. Keep one finger under the clip as you snap it shut.",
+            "endState": "The clip points back, lies flat and doesn't pinch, and the twist holds when you let go.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-5-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Do the other side to match",
+          "instruction": "On her left side (your right), take the same strip, twist it back away from her face, and clip it at the same height with the second clip.",
+          "endState": "Seen from the front, both clips sit at the same height.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/twist-back-sides-step-6",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Do the other side to match",
+            "instruction": "On her left side (your right), take the same strip, split it into two halves and twist them round each other, away from her face. Clip it at the same height with the second clip.",
+            "endState": "Seen from the front, both twists and both clips sit at the same height.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/twist-back-sides-step-6-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "top-sprout",
+      "slug": "top-sprout",
+      "name": "Top Sprout",
+      "description": "The front and top hair gathered into one small ponytail on top of her head, so it stands up like a sprout. Made for very short hair and hair that's growing out.",
+      "oneLiner": "Tiny, and out of her eyes",
+      "herJob": "She holds the elastic ready on her finger.",
+      "ageBands": [
+        "toddler",
+        "young-child"
+      ],
+      "occasions": [
+        "everyday"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 2,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "very-short",
+      "pack": false,
+      "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [
+        "mini-top-knot"
+      ],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-too-short",
+        "entry-hurts"
+      ],
+      "image": {
+        "base": "/images/styles/top-sprout-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/top-sprout-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "mist-bottle",
+        "mini-elastic"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "mist-bottle",
+        "mini-elastic",
+        "leave-in-conditioner"
+      ],
+      "commonFailure": "The short bits at the front slip out of the elastic.",
+      "theFix": "Gather from a little further forward, so the shortest hair at her hairline is in your hand before the elastic goes on. Mist the front first so short hair holds together.",
+      "steps": [
+        {
+          "title": "Mist the front and top",
+          "instruction": "Mist the front and top of her hair until it's damp, not dripping.",
+          "endState": "The hair feels damp and lies flat.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/top-sprout-step-1",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Detangle it damp",
+            "instruction": "Mist her hair until it's damp, not dripping, and smooth a little leave-in through with your fingers. Work in sections, ends first, fingers then the wide-tooth comb.",
+            "endState": "Your fingers slide through each section, root to tip.",
+            "techniqueId": "detangling-curly-coily",
+            "photo": {
+              "base": "/images/styles/top-sprout-step-1-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Gather the top",
+          "instruction": "Put your fingertips at her hairline and comb the front and top hair back and up to the top of her head, between her forehead and her crown. Hold it in one hand.",
+          "endState": "All the hair from her hairline to the top of her head is in your hand.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/top-sprout-step-2",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Gather the top",
+            "instruction": "Gather the front and top hair up to the top of her head with your fingertips, not the comb, without dragging at her hairline. Hold it in one hand.",
+            "endState": "All the hair from her hairline to the top of her head is in your hand, and her hairline is soft, not pulled.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/top-sprout-step-2-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Wrap the elastic",
+          "instruction": "Wrap a mini elastic round the gathered hair two or three times, close to her head.",
+          "endState": "The sprout stands up on its own when you let go.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/top-sprout-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Wrap the elastic",
+            "instruction": "Wrap a mini elastic round the gathered hair two or three times, close to her head.",
+            "endState": "The sprout sits up in a puff on its own when you let go.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/top-sprout-step-3-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Check from the front",
+          "instruction": "Stand in front of her and look.",
+          "endState": "Her forehead is clear and the sprout sits in the middle.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/top-sprout-finished",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        }
+      ]
+    },
+    {
+      "id": "side-swept-clip",
+      "slug": "side-swept-clip",
+      "name": "Side-Swept Clip",
+      "description": "The front hair swept across from a side part and clipped flat above one ear. Made for short hair and a fringe that's growing out.",
+      "oneLiner": "One clip, out of her eyes",
+      "herJob": "She chooses which clip.",
+      "ageBands": [
+        "toddler",
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "everyday",
+        "school"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 2,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "short",
+      "pack": false,
+      "curlyOnly": false,
+      "buildsOn": "twist-back-sides",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
+      "image": {
+        "base": "/images/styles/side-swept-clip-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/side-swept-clip-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "snap-clip"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "snap-clip",
+        "leave-in-conditioner"
+      ],
+      "commonFailure": "The front hair springs back into her eyes.",
+      "theFix": "The clip is holding too little hair, or it sits too far forward. Take a little more of the front hair into the clip, and clip it just above her ear, not at her temple. On very silky hair, mist it first so it has some grip.",
+      "steps": [
+        {
+          "title": "Comb the front through",
+          "instruction": "Comb the front hair from her hairline to the ends.",
+          "endState": "The comb runs through with no catching.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/side-swept-clip-step-1",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Detangle it damp",
+            "instruction": "Mist her hair until it's damp, not dripping, and smooth a little leave-in through with your fingers. Work in sections, ends first, fingers then the wide-tooth comb.",
+            "endState": "Your fingers slide through each section, root to tip.",
+            "techniqueId": "detangling-curly-coily",
+            "photo": {
+              "base": "/images/styles/side-swept-clip-step-1-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Make a side part",
+          "instruction": "Use the pointed end of the tail comb to draw a part on her left side, straight back from her hairline above the outer corner of her left eye, about two fingers' length.",
+          "endState": "A clear line runs back from her hairline on her left side.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/side-swept-clip-step-2",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Sweep the front across",
+          "instruction": "With the comb, sweep the front hair from the part across the top of her forehead towards her right ear.",
+          "endState": "The front hair lies flat across her forehead, clear of her eyes.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/side-swept-clip-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Sweep the front across",
+            "instruction": "Sweep the front hair across towards her right ear with your fingertips, not the comb, so the curls keep their shape.",
+            "endState": "The curls lie across her forehead, clear of her eyes.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/side-swept-clip-step-3-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Clip it above her ear",
+          "instruction": "Hold the swept hair just above her right ear. Slide a snap clip over it, catching a little of the hair underneath so it grips. Keep one finger under the clip as you snap it shut.",
+          "endState": "The clip lies flat and doesn't pinch.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/side-swept-clip-step-4",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Check from the front",
+          "instruction": "Stand in front of her and look.",
+          "endState": "Her eyes are clear and the clip doesn't show above her hairline.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/side-swept-clip-finished",
             "widths": [
               800,
               400
@@ -1795,7 +2428,7 @@
       "id": "sports-bun",
       "slug": "sports-bun",
       "name": "Sports Bun",
-      "description": "A high bun built to stay secure through a full match, using a double-anchored base, tight rope-winding, and perimeter pins.",
+      "description": "A bun built to stay secure through a full match, using a double-anchored base, tight rope-winding, and perimeter pins.",
       "oneLiner": "Built to survive a match",
       "herJob": "She keeps her water bottle capped and ready for after.",
       "ageBands": [
@@ -2182,14 +2815,18 @@
       },
       "curlyImage": null,
       "equipmentIds": [
+        "wide-tooth-comb",
         "tail-comb",
         "soft-scrunchie",
+        "snag-free-elastic",
         "mist-bottle",
         "sectioning-clip"
       ],
       "curlyEquipmentIds": [
+        "wide-tooth-comb",
         "tail-comb",
         "soft-scrunchie",
+        "snag-free-elastic",
         "mist-bottle",
         "sectioning-clip",
         "leave-in-conditioner"
@@ -2374,6 +3011,92 @@
         },
         {
           "title": "Check from the back"
+        }
+      ]
+    },
+    {
+      "id": "mini-top-knot",
+      "slug": "mini-top-knot",
+      "name": "Mini Top Knot",
+      "description": "The top section of her hair twisted into one small knot on top of her head, with the sides and back loose. Made for short hair.",
+      "oneLiner": "A little knot, all her own",
+      "herJob": "She tells you where on top it goes.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "everyday",
+        "school",
+        "sport",
+        "dance"
+      ],
+      "difficulty": "normal",
+      "targetMinutes": 4,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "short",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "top-sprout",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-hurts"
+      ],
+      "image": {
+        "base": "/images/styles/mini-top-knot-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/mini-top-knot-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mini-elastic",
+        "mist-bottle"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mini-elastic",
+        "mist-bottle",
+        "leave-in-conditioner"
+      ],
+      "steps": [
+        {
+          "title": "Comb it through"
+        },
+        {
+          "title": "Section the top"
+        },
+        {
+          "title": "Make the ponytail"
+        },
+        {
+          "title": "Twist it into a rope"
+        },
+        {
+          "title": "Wind it and secure it"
         }
       ]
     }
@@ -2606,6 +3329,9 @@
         "high-ponytail",
         "two-even-bunches",
         "half-up-half-down",
+        "twist-back-sides",
+        "top-sprout",
+        "side-swept-clip",
         "three-strand-plait",
         "plaited-pigtails",
         "top-knot",
@@ -2615,7 +3341,8 @@
         "bubble-ponytail",
         "twisted-bunches",
         "criss-cross-bands",
-        "pull-through-plait"
+        "pull-through-plait",
+        "mini-top-knot"
       ],
       "impliesHairType": "curly",
       "note": null
@@ -2700,6 +3427,9 @@
         "two-even-bunches",
         "half-up-half-down",
         "clip-back-baby-wisps",
+        "twist-back-sides",
+        "top-sprout",
+        "side-swept-clip",
         "three-strand-plait",
         "plaited-pigtails",
         "top-knot",
@@ -2711,7 +3441,8 @@
         "twisted-bunches",
         "criss-cross-bands",
         "pull-through-plait",
-        "space-buns"
+        "space-buns",
+        "mini-top-knot"
       ],
       "impliesHairType": null,
       "note": "If you notice broken hairs or thinning along her hairline, give her hair a rest from tight styles, and speak to your doctor if it doesn't improve."
@@ -2739,7 +3470,8 @@
               "width": 267,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B0FDBC6B3R?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=wide+tooth+comb+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=wide+tooth+comb+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "snag-free-elastic",
@@ -2756,7 +3488,26 @@
               "width": 400,
               "height": 366
             },
-            "buyUrl": "https://www.amazon.com/dp/B00AWD0OOC?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=girls+hair+ties+no+metal&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=girls+hair+bobbles+no+metal&tag=dadhairhero-21"
+          },
+          {
+            "id": "mini-elastic",
+            "slug": "mini-elastic",
+            "name": "Mini elastics",
+            "use": "Tiny elastics for short hair and small sections: mini ponytails, and the ends of small braids and twists.",
+            "avoid": "Not for a full ponytail. They are made for small sections and snap under the weight of a whole head of hair. Roll them off rather than pulling, so they don't take hair with them.",
+            "buyingNote": "Soft, snag-free ones, in a color close to her hair. A pack of a few hundred lasts months.",
+            "image": {
+              "base": "/images/kit/mini-elastic",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=mini+hair+elastics+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=mini+hair+elastics+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "soft-bristle-brush",
@@ -2773,7 +3524,8 @@
               "width": 385,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B0D1NBL8YW?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=soft+bristle+hair+brush+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=soft+bristle+hair+brush+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "tail-comb",
@@ -2790,7 +3542,8 @@
               "width": 400,
               "height": 267
             },
-            "buyUrl": "https://www.amazon.com/dp/B006EI1DPS?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=tail+comb&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=tail+comb&tag=dadhairhero-21"
           },
           {
             "id": "bobby-pin",
@@ -2807,7 +3560,8 @@
               "width": 400,
               "height": 267
             },
-            "buyUrl": "https://www.amazon.com/dp/B005IMHEVS?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=bobby+pins&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=bobby+pins&tag=dadhairhero-21"
           },
           {
             "id": "snap-clip",
@@ -2824,7 +3578,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B07G2WY7VZ?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=snap+hair+clips+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=snap+hair+clips+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "detangling-brush",
@@ -2841,7 +3596,8 @@
               "width": 400,
               "height": 267
             },
-            "buyUrl": "https://www.amazon.com/dp/B09WZKXX6B?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=detangling+brush+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=detangling+brush+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "detangler-spray",
@@ -2858,7 +3614,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B08GLM12PY?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=detangling+spray+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=detangling+spray+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "mist-bottle",
@@ -2875,7 +3632,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B093KXK6RN?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=fine+mist+spray+bottle+for+hair&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=fine+mist+spray+bottle+for+hair&tag=dadhairhero-21"
           },
           {
             "id": "sectioning-clip",
@@ -2892,7 +3650,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B0C61RWMYH?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=hair+sectioning+clips&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=hair+sectioning+clips&tag=dadhairhero-21"
           },
           {
             "id": "leave-in-conditioner",
@@ -2909,7 +3668,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B018USXC4Y?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=leave+in+conditioner+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=leave+in+conditioner+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "soft-scrunchie",
@@ -2926,7 +3686,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B07WJBFDHJ?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=soft+scrunchies+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=soft+scrunchies+for+kids&tag=dadhairhero-21"
           }
         ]
       },
@@ -2950,7 +3711,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B07VRZK1DN?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=satin+bonnet+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=satin+bonnet+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "claw-clip",
@@ -2967,7 +3729,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B08ZMJJ279?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=small+claw+clips+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=small+claw+clips+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "mirror",
@@ -2984,7 +3747,8 @@
               "width": 400,
               "height": 398
             },
-            "buyUrl": "https://www.amazon.com/dp/B0BCG13T6X?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=handheld+mirror&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=handheld+mirror&tag=dadhairhero-21"
           },
           {
             "id": "hair-dryer",
@@ -3001,7 +3765,8 @@
               "width": 396,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B00MMRFUG8?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=hair+dryer&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=hair+dryer&tag=dadhairhero-21"
           },
           {
             "id": "shampoo-conditioner-set",
@@ -3018,7 +3783,8 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B0CB6TNZXC?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=kids+shampoo+and+conditioner+set&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=kids+shampoo+and+conditioner+set&tag=dadhairhero-21"
           },
           {
             "id": "hair-towel",
@@ -3035,13 +3801,24 @@
               "width": 400,
               "height": 400
             },
-            "buyUrl": "https://www.amazon.com/dp/B0BC87BJMB?tag=dadhairhero-20"
+            "buyUrl": "https://www.amazon.com/s?k=hair+towel+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=hair+towel+for+kids&tag=dadhairhero-21"
           }
         ]
       }
     ],
     "topNotice": "Photos show the type of item, not the exact product. Buy one links go to Amazon.com; if you buy through them, this app earns a small commission at no extra cost to you.",
-    "associateNotice": "As an Amazon Associate, Dad Hair Hero earns from qualifying purchases."
+    "associateNotice": "As an Amazon Associate, Dad Hair Hero earns from qualifying purchases.",
+    "stores": {
+      "main": {
+        "name": "Amazon.com",
+        "tag": "dadhairhero-20"
+      },
+      "ireland": {
+        "name": "Amazon.ie",
+        "tag": "dadhairhero-21"
+      }
+    }
   },
   "fixIt": {
     "entries": [
