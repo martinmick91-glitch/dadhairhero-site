@@ -418,7 +418,8 @@ export function hairTypes(locale, style) {
 }
 
 const LENGTH_WORDS = {
-  short: 'Any length, short hair included',
+  'very-short': 'Very short hair, above her ears, upwards',
+  short: 'Hair between her ears and her chin, or longer',
   medium: 'Hair that touches her shoulders, or longer',
   long: 'Long hair',
 };
@@ -562,7 +563,7 @@ export function styleFaq(locale, style) {
   } else {
     faq.push({
       q: `What age is ${name} for?`,
-      a: `${ages(style)}, and ${lower(hairLength(style))}. In the app her age and hair length put the styles written for her first, and never hide one.`,
+      a: `${ages(style)}, and ${lower(hairLength(style))}. In the app, Today suggests the styles written for her age and hair length, and Browse shows every style.`,
     });
   }
   return faq.slice(0, 5);
