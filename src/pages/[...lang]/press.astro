@@ -1,0 +1,76 @@
+---
+// Press and partners (2026-11-04, for Martin's outreach to press, parenting
+// groups and dads' groups): what the app is in one paragraph to copy, the
+// facts, pictures to use, and who to ask. Every fact is one the app or
+// the About page already states; the counts come from the export, so they
+// follow the app. No price: the pack is "optional, one-time".
+import Base from '../../layouts/Base.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import {
+  LOCALES, EMAIL, COUNTS, capitalised, langParam, localeFromParam, path, breadcrumbs, campaign, t,
+} from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Press'), path: path(locale, 'press') },
+];
+const title = 'Press and partners | Dad Hair Hero';
+const description = t(locale, 'Dad Hair Hero for journalists, parenting groups and dads\' groups: what the app is, the facts, pictures you can use, and who to ask.');
+
+// The paragraph to copy: plain, and true of the app as it is.
+const blurb = t(locale, `Dad Hair Hero is a free app that teaches dads to do their daughters' hair, one step at a time. Each step shows what your hands should be doing and how to tell it's right before you move on. It has ${COUNTS.styles} styles, from a two-minute brush to plaits, written for straight, wavy, thick, curly and coily hair, and for babies to pre-teens. It was made by Martin, a dad in Dublin who couldn't do his daughter's hair.`);
+
+const shots = [
+  { file: 'dad-hair-hero-step-by-step', alt: 'The app on a phone: a step of a hairstyle, with a picture of the hands and a check before moving on, under the words "Her hair, one calm step at a time".' },
+  { file: 'dad-hair-hero-technique', alt: 'The app on a phone: the guide to holding tension, with its picture and steps, under the words "Learn the moves behind every style".' },
+  { file: 'dad-hair-hero-today', alt: 'The app on a phone: the Today screen, which suggests a style for the time there is and her hair, under the words "Build your skills, style by style".' },
+];
+---
+<Base locale={locale} kind="press" title={title} description={description} trail={trail} jsonld={[breadcrumbs(trail)]}>
+  <h1>{t(locale, 'Press and partners')}</h1>
+  <p class="lede">{t(locale, 'Writing about Dad Hair Hero, or telling a group of parents about it? Everything you need is on this page, and the pictures are free to use.')}</p>
+
+  <h2>{t(locale, 'In one paragraph')}</h2>
+  <p class="panel">{blurb}</p>
+
+  <h2>{t(locale, 'The facts')}</h2>
+  <ul>
+    <li>{t(locale, 'Free on the App Store and Google Play, in UK or US English.')}</li>
+    <li>{t(locale, `${capitalised(COUNTS.styles)} styles. ${capitalised(COUNTS.free)} are free, with every step; ${COUNTS.pack} more are in Beyond the Ponytail, an optional one-time pack. All ${COUNTS.techniques} technique guides are free.`)}</li>
+    <li>{t(locale, 'Every step has a picture of what the hands should be doing and a check to make before moving on. Steps can be read aloud, so his eyes can stay on her hair.')}</li>
+    <li>{t(locale, 'Written for straight, wavy, thick, curly and coily hair, with its own steps for curly and coily hair where the method changes.')}</li>
+    <li>{t(locale, 'Privacy-friendly: no account, no analytics and no tracking. What a parent enters stays on the phone and is never sent to Dad Hair Hero.')}</li>
+    <li>{t(locale, 'Paid for by the optional pack and by the Kit, a list of things worth having whose Buy links are Amazon affiliate links and say so.')}</li>
+    <li>{t(locale, 'Made by Martin, a dad in Dublin, Ireland.')} <a href={path(locale, 'about')}>{t(locale, 'Why he made it')}</a>.</li>
+  </ul>
+
+  <h2>{t(locale, 'Pictures you can use')}</h2>
+  <p>{t(locale, 'Free to use in coverage of Dad Hair Hero. Tap a picture for the full size.')}</p>
+  <ul class="press-shots">
+    {shots.map((shot) => (
+      <li>
+        <a href={`/press/${shot.file}.png`}>
+          <img src={`/press/${shot.file}-480.webp`} width="480" height="853" alt={t(locale, shot.alt)} loading="lazy" decoding="async" />
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p>
+    <a href="/press/dad-hair-hero-icon-512.png">
+      <img class="press-icon" src="/press/dad-hair-hero-icon-160.webp" width="80" height="80" alt={t(locale, 'The Dad Hair Hero app icon')} loading="lazy" decoding="async" />
+    </a>
+    {' '}{t(locale, 'The app icon, 512 pixels square.')} <a href="/press/dad-hair-hero-icon-512.png">{t(locale, 'Download it')}</a>.
+  </p>
+
+  <h2>{t(locale, 'Questions and interviews')}</h2>
+  <p>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'Martin reads every email. Ask for a different picture, a quote, or a link with your own name on it, so you can see how many people it sent to the app.')}
+  </p>
+
+  <StoreBadges campaignName={campaign(locale, 'press')} />
+</Base>

@@ -16,6 +16,8 @@ module.exports = {
         'http://localhost/fix-it/falls-out/',
         'http://localhost/kit/',
         'http://localhost/about/',
+        'http://localhost/press/',
+        'http://localhost/us/tell-us/',
       ],
       numberOfRuns: 1,
     },
