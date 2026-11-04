@@ -247,7 +247,7 @@ const EXPECTED_TYPES = [
   [/^(\/us)?\/techniques\/[^/]+\/$/, () => ['HowTo', 'FAQPage']],
   [/^(\/us)?\/about\/$/, () => ['Person', 'Organization']],
   [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization', 'WebSite']],
-  [/^(\/us)?\/halloween-hairstyles\/$/, () => ['Article', 'BreadcrumbList', 'ItemList']],
+  [/^(\/us)?\/(halloween|christmas-party)-hairstyles\/$/, () => ['Article', 'BreadcrumbList', 'ItemList']],
 ];
 
 function checkStructuredData(page, doc, indexed) {
@@ -648,15 +648,26 @@ async function checkShareButton() {
 
 // ─── Seasonal guides ─────────────────────────────────────────────────────────
 
-// The Halloween guide links to the Kit for anything to buy, and carries no
-// prices, no shop links, and no HowTo or FAQ structured data. Its share
-// image is at least 1200 pixels wide, as an Article image should be, and
-// its sitemap entry has a lastmod.
+// The seasonal guides (Halloween, Christmas) link to the Kit for anything
+// to buy, and carry no prices, no shop links, and no HowTo or FAQ
+// structured data. Each share image is at least 1200 pixels wide, as an
+// Article image should be, and each sitemap entry has a lastmod.
+// Each is held to the seasonal SEO rules too: a title under 60 characters,
+// a description under 155, and an h1 that names the season's hairstyles.
+const SEASONAL_GUIDES = [
+  { segment: 'halloween-hairstyles', h1: 'Halloween hairstyles' },
+  { segment: 'christmas-party-hairstyles', h1: 'Christmas hairstyles' },
+];
 function checkSeasonalGuides() {
   const sitemap = fs.existsSync(path.join(DIST, 'sitemap.xml')) ? fs.readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8') : '';
-  for (const page of ['/halloween-hairstyles/', '/us/halloween-hairstyles/']) {
+  for (const [page, guide] of SEASONAL_GUIDES.flatMap((g) => [[`/${g.segment}/`, g], [`/us/${g.segment}/`, g]])) {
     const doc = pages.get(page);
     if (!doc) { fail(page, 'not built'); continue; }
+    const title = doc.querySelector('title')?.text.trim() ?? '';
+    if (title.length >= 60) fail(page, `a seasonal guide's title is under 60 characters; this one is ${title.length}`);
+    const description = meta(doc, 'meta[name="description"]') ?? '';
+    if (description.length >= 155) fail(page, `a seasonal guide's description is under 155 characters; this one is ${description.length}`);
+    if (!doc.querySelector('h1')?.text.includes(guide.h1)) fail(page, `a seasonal guide's h1 says "${guide.h1}"`);
     const main = doc.querySelector('main');
     const links = main.querySelectorAll('a[href]').map((a) => a.getAttribute('href'));
     if (links.some((href) => /amazon\.|amzn\.|[?&]tag=/.test(href))) fail(page, 'a seasonal guide must not carry shop links');
@@ -722,6 +733,11 @@ function checkPins(indexedPages) {
     const [header, ...rows] = parseCsv(fs.readFileSync(path.join(dir, name), 'utf8'));
     if (header.join() !== PIN_COLUMNS.join()) { fail(where, `columns must be Pinterest's: ${PIN_COLUMNS.join(', ')}`); continue; }
     const dates = [];
+    // A seasonal file (batch-1.csv for Halloween, christmas.csv) publishes
+    // on upload: every Publish date in it is empty. A scheduled file dates
+    // every row, so a date left out of one is a mistake, not a pin to
+    // publish at once.
+    const onUpload = rows.every((cells) => !cells[PIN_COLUMNS.indexOf('Publish date')]);
     rows.forEach((cells, i) => {
       const row = Object.fromEntries(PIN_COLUMNS.map((key, j) => [key, cells[j] ?? '']));
       const at = `${where} row ${i + 1}`;
@@ -730,7 +746,8 @@ function checkPins(indexedPages) {
       if (images.has(row['Media URL'])) fail(at, `${row['Media URL']} is already pinned in ${images.get(row['Media URL'])}`);
       images.set(row['Media URL'], at);
       const date = row['Publish date'];
-      if (!date) return;
+      if (onUpload) return;
+      if (!date) { fail(at, 'no publish date, in a file whose other pins are scheduled'); return; }
       if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(date)) { fail(at, `publish date "${date}" must be YYYY-MM-DDTHH:MM:SS (UTC)`); return; }
       const when = new Date(`${date}Z`);
       const local = dublin.format(when);

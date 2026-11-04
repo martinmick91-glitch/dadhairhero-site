@@ -1,0 +1,13 @@
+---
+// The Christmas guide, UK and US. What it says is in CHRISTMAS in
+// lib/site.js; how it is laid out is components/SeasonalGuide.astro.
+import SeasonalGuide from '../../components/SeasonalGuide.astro';
+import { LOCALES, CHRISTMAS, langParam, localeFromParam } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+---
+<SeasonalGuide locale={locale} guide={CHRISTMAS} />

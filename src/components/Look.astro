@@ -1,11 +1,12 @@
 ---
 // One look in a seasonal guide: the finished picture, the style it is made
-// from, the time, how it goes, a line for the evening, and the link to the
-// style. A free style's page has every step; a pack style's page shows what
-// the steps cover, and says so in the link.
+// from, the time, how it goes, a line on making it last (`lastLabel`: "For
+// the evening:" at Halloween), and the link to the style. A free style's
+// page has every step; a pack style's page shows what the steps cover, and
+// says so in the link.
 import Photo from './Photo.astro';
 import { path, minutes, t } from '../lib/site.js';
-const { locale, look, level = 'h2' } = Astro.props;
+const { locale, look, level = 'h2', lastLabel = 'For the evening:' } = Astro.props;
 const { style } = look;
 const Heading = level;
 ---
@@ -20,7 +21,7 @@ const Heading = level;
     <div><dt>{t(locale, 'Time')}</dt><dd>{t(locale, `About ${minutes(style.targetMinutes)}`)}</dd></div>
   </dl>
   <p>{t(locale, look.how)}</p>
-  <p><strong>{t(locale, 'For the evening:')}</strong> {t(locale, look.last)}</p>
+  <p><strong>{t(locale, lastLabel)}</strong> {t(locale, look.last)}</p>
   {style.pack ? (
     <p class="small"><a href={path(locale, 'style', style.id)}>{t(locale, 'What the steps cover')}</a>: {t(locale, `the finished look and what ${style.name} needs. The full steps are in the app, in Beyond the Ponytail.`)}</p>
   ) : (

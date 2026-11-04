@@ -8,7 +8,7 @@ import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import AppBlock from '../../components/AppBlock.astro';
-import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, kitItems, campaign, t, US } from '../../lib/site.js';
+import { LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, kitItems, campaign, t, US, COUNTS, capitalised } from '../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
@@ -29,7 +29,7 @@ const trail = [
   { name: 'The Kit', path: path(locale, 'kit') },
 ];
 const title = 'The Kit: what you need to do her hair | Dad Hair Hero';
-const description = t(locale, "Eighteen things worth having for a girl's hair, from a wide-tooth comb to a satin bonnet: what each one is for, what to avoid and what to look for.");
+const description = t(locale, `${capitalised(COUNTS.kit)} things worth having for a girl's hair, from a wide-tooth comb to a satin bonnet: what each one is for, what to avoid and what to look for.`);
 const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitItem', item.id) }));
 ---
 <Base
@@ -42,7 +42,7 @@ const entries = items.map((item) => ({ name: item.name, path: path(locale, 'kitI
 >
   <h1>{t(locale, 'The Kit')}</h1>
   <p class="lede">
-    {t(locale, "Eighteen things worth having, and what each one is for. You don't need all of them: the essentials cover every style.")}
+    {t(locale, `${capitalised(COUNTS.kit)} things worth having, and what each one is for. You don't need all of them: the essentials cover every style.`)}
   </p>
   <p class="summary-cta">{t(locale, 'Each style in the free app lists what it needs before you start.')}</p>
   <StoreBadges campaignName={campaign(locale, 'kit')} />
