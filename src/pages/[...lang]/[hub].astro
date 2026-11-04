@@ -8,7 +8,7 @@ import StoreBadges from '../../components/StoreBadges.astro';
 import AppBlock from '../../components/AppBlock.astro';
 import {
   LOCALES, HUBS, langParam, localeFromParam, hubByKind, path, breadcrumbs, itemList, techniqueById,
-  fixEntryById, sentence, campaign, t, minutes, ages,
+  fixEntryById, sentence, campaign, t, minutes, ages, COUNTS,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -107,6 +107,6 @@ const entries = styles.map((s) => ({ name: s.name, path: path(locale, 'style', s
     <a href={path(locale, 'curly')}>{t(locale, 'curly and coily hair')}</a>,{' '}
     {HUBS.filter((h) => h.kind !== hub.kind).map((h, i, arr) => (
       <>{i > 0 && (i === arr.length - 1 ? ' and ' : ', ')}<a href={path(locale, h.kind)}>{t(locale, h.name).toLowerCase()}</a></>
-    ))}, {t(locale, 'or')} <a href={path(locale, 'styles')}>{t(locale, 'all eighteen styles')}</a>.
+    ))}, {t(locale, 'or')} <a href={path(locale, 'styles')}>{t(locale, `all ${COUNTS.styles} styles`)}</a>.
   </p>
 </Base>

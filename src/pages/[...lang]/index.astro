@@ -8,7 +8,7 @@ import StoreBadges from '../../components/StoreBadges.astro';
 import StyleCards from '../../components/StyleCards.astro';
 import {
   LOCALES, US, HUBS, SITE, EMAIL, APP_STORE_ID, PLAY_PACKAGE, langParam, localeFromParam, path, campaign, t,
-  ORGANIZATION,
+  ORGANIZATION, COUNTS, capitalised, assertNames,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -17,6 +17,9 @@ export function getStaticPaths() {
 
 const locale = localeFromParam(Astro.params.lang);
 const free = locale.data.styles.filter((s) => !s.pack);
+// The two lists below name every free style and every pack style.
+assertNames('home: free styles', ['tangle-free-brushing', 'classic-ponytail', 'high-ponytail', 'two-even-bunches', 'half-up-half-down', 'clip-back-baby-wisps', 'twist-back-sides', 'top-sprout', 'side-swept-clip'], free);
+assertNames('home: Beyond the Ponytail', ['three-strand-plait', 'french-plait', 'dutch-plait', 'plaited-pigtails', 'pull-through-plait', 'top-knot', 'mini-top-knot', 'sports-bun', 'space-buns', 'bubble-ponytail', 'puffs', 'twisted-bunches', 'criss-cross-bands'], locale.data.styles.filter((s) => s.pack));
 const screenshot = locale === US ? '/assets/screenshot-01-us.webp' : '/assets/screenshot-01.webp';
 // On desktop the hero shows the bare app screen in a CSS phone frame
 // instead of the store graphic. Phones keep the store graphic.
@@ -102,7 +105,7 @@ const jsonld = [
 
   <h2>{t(locale, 'Free, and it stays free')}</h2>
   <ul>
-    <li>{t(locale, 'Six everyday styles: tangle-free brushing, a classic ponytail, a high ponytail, two even bunches, half-up half-down, and a clip-back for baby and toddler wisps.')}</li>
+    <li>{t(locale, `${capitalised(COUNTS.free)} styles: tangle-free brushing, a classic ponytail, a high ponytail, two even bunches, half-up half-down, a clip-back for baby and toddler wisps, and three for short hair: twist-back sides, a top sprout and a side-swept clip.`)}</li>
     <li>
       {t(locale, 'Eight')} <a href={path(locale, 'techniques')}>{t(locale, 'technique guides')}</a>{t(locale, ', including holding tension, detangling without tears, making a parting, choosing elastics and keeping her still.')}
     </li>
@@ -112,7 +115,7 @@ const jsonld = [
     </li>
   </ul>
   <p>
-    {t(locale, 'Ponytails and bunches are where most dads start, and each style says how long it takes. The quickest is one minute. All six are on this site in full, under')}
+    {t(locale, `Ponytails and bunches are where most dads start, and each style says how long it takes. The quickest is one minute. All ${COUNTS.free} are on this site in full, under`)}
     {' '}<a href={path(locale, 'easy')}>{t(locale, 'easy hairstyles for girls')}</a>.
   </p>
   <StyleCards locale={locale} styles={free} />
@@ -131,20 +134,20 @@ const jsonld = [
   </p>
 
   <h2>{t(locale, 'Beyond the Ponytail (optional)')}</h2>
-  <p>{t(locale, 'When ponytails are easy and you want more, Beyond the Ponytail adds twelve styles in one pack:')}</p>
+  <p>{t(locale, `When ponytails are easy and you want more, Beyond the Ponytail adds ${COUNTS.pack} styles in one pack:`)}</p>
   <ul>
     <li>{t(locale, 'Plaits: a three-strand plait, a French plait, a Dutch plait, plaited pigtails and a pull-through plait.')}</li>
-    <li>{t(locale, 'Buns: a top knot, a sports bun and space buns.')}</li>
+    <li>{t(locale, 'Buns: a top knot, a mini top knot, a sports bun and space buns.')}</li>
     <li>{t(locale, 'And a bubble ponytail, puffs, twisted bunches and criss-cross bands.')}</li>
   </ul>
   <p>
     {t(locale, 'You pay once and the styles are yours to keep. There is no subscription. You can see every style in the pack, with its picture and its steps listed, before you decide.')}
-    {' '}<a href={path(locale, 'styles')}>{t(locale, 'See all eighteen styles')}</a>.
+    {' '}<a href={path(locale, 'styles')}>{t(locale, `See all ${COUNTS.styles} styles`)}</a>.
   </p>
 
   <h2>{t(locale, 'The Kit')}</h2>
   <p>
-    {t(locale, 'Eighteen things worth having, from a wide-tooth comb to a satin bonnet, sorted into Essential and Nice to have, with a photo of each and what it is for. The Buy links on the Kit screen are affiliate links, and the screen says so. Nothing is sold anywhere else in the app.')}
+    {t(locale, `${capitalised(COUNTS.kit)} things worth having, from a wide-tooth comb to a satin bonnet, sorted into Essential and Nice to have, with a photo of each and what it is for. The Buy links on the Kit screen are affiliate links, and the screen says so. Nothing is sold anywhere else in the app.`)}
     {' '}<a href={path(locale, 'kit')}>{t(locale, 'See the Kit')}</a>.
   </p>
 

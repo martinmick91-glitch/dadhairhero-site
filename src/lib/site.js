@@ -77,6 +77,41 @@ export function toUS(text) {
 // A sentence of the site's own, in this language.
 export const t = (locale, text) => (locale === US ? toUS(text) : text);
 
+// ─── Counts ──────────────────────────────────────────────────────────────────
+//
+// How many styles, pack styles and Kit things there are, counted from the
+// export and written in words, so a sentence can't fall behind the app
+// ("all eighteen styles" outlived 1.3 on six pages). Both languages count
+// the same things.
+
+const NUMBER_WORDS = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+  'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five', 'twenty-six', 'twenty-seven', 'twenty-eight', 'twenty-nine', 'thirty',
+];
+export function inWords(n) {
+  if (!NUMBER_WORDS[n]) throw new Error(`inWords: no word for ${n}`);
+  return NUMBER_WORDS[n];
+}
+export const capitalised = (text) => text[0].toUpperCase() + text.slice(1);
+
+export const COUNTS = {
+  styles: inWords(gb.styles.length),
+  free: inWords(gb.styles.filter((s) => !s.pack).length),
+  pack: inWords(gb.styles.filter((s) => s.pack).length),
+  kit: inWords(gb.kit.sections.reduce((n, section) => n + section.items.length, 0)),
+  techniques: inWords(gb.techniques.length),
+};
+
+// A sentence that names styles one by one can't be counted, so its page
+// lists the ids it names and the build stops when they are no longer the
+// export's: a style added to the app, or one moved in or out of the pack.
+export function assertNames(page, ids, styles) {
+  const named = [...ids].sort().join();
+  const actual = styles.map((s) => s.id).sort().join();
+  if (named !== actual) throw new Error(`${page}: the styles named in its text (${named}) are not the export's (${actual})`);
+}
+
 // ─── Lookups ─────────────────────────────────────────────────────────────────
 
 export const styleById = (locale, id) => locale.data.styles.find((s) => s.id === id);
@@ -104,7 +139,7 @@ export const HUBS = [
     title: 'School hairstyles for girls, timed for mornings | Dad Hair Hero',
     description: 'Hairstyles for school that a dad can do before the bus: each one says how long it takes, and the free ones are here step by step with a picture for every step.',
     lede: 'The styles that get through a school day, quickest first. Each one says how long it takes.',
-    intro: 'A school morning has a clock on it, so every style here is tagged for school in the app and listed by time. The six free ones are on this site in full. The rest are in Beyond the Ponytail, an optional one-time pack in the app, and their pages show what you would need and what the steps cover.',
+    intro: 'A school morning has a clock on it, so every style here is tagged for school in the app and listed by time. The free ones are on this site in full. The rest are in Beyond the Ponytail, an optional one-time pack in the app, and their pages show what you would need and what the steps cover.',
     select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('school'))),
     ctaHeading: 'Pick by the clock, in the app',
     cta: 'Tell Dad Hair Hero how many minutes you have and it shows the styles that fit, with her hair type taken into account. Free, no account, no tracking.',
@@ -216,7 +251,7 @@ export const HALLOWEEN = {
   lastLabel: 'For the evening:',
   ideaLead: 'A Halloween idea:',
   moreLead: 'More for dressing up:',
-  allStyles: 'all eighteen styles',
+  allStyles: `all ${COUNTS.styles} styles`,
   // `section`: 'free' looks lead the page, 'toddler' sits with the under-three
   // line, 'pack' is "More looks in Beyond the Ponytail". `idea` is the line
   // on the style's own page: "A Halloween idea: …".

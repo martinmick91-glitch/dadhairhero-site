@@ -3,7 +3,7 @@
 // read, and the store links. A pack preview uses it with its own heading
 // and the first paragraph swapped for the pack's terms.
 import StoreBadges from './StoreBadges.astro';
-import { campaign, t } from '../lib/site.js';
+import { COUNTS, campaign, t } from '../lib/site.js';
 const {
   locale,
   kind,
@@ -29,6 +29,6 @@ const points = [
   <ul>
     {points.map(([strong, text]) => <li><strong>{strong}</strong> {text}</li>)}
   </ul>
-  <p>{t(locale, 'Free, with six everyday styles and all eight techniques. No account, no ads, no tracking.')}</p>
+  <p>{t(locale, `Free, with ${COUNTS.free} styles and all ${COUNTS.techniques} techniques. No account, no ads, no tracking.`)}</p>
   <StoreBadges campaignName={campaign(locale, kind, id)} />
 </section>

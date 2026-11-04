@@ -27,8 +27,8 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   current content version differs. In CI the app check runs when the
   `APP_REPO_TOKEN` secret gives the workflow read access to the private
   app repository; without it the comparison is skipped and the log says so.
-- **The six free styles and the eight techniques are published in full.**
-  The twelve Beyond the Ponytail styles are previews: finished look, time,
+- **The free styles and the techniques are published in full.**
+  The Beyond the Ponytail styles are previews: finished look, time,
   kit and step titles. The export never writes their instructions or step
   photos, and `npm run check` fails if it ever does.
 - **Two languages, one glossary.** UK English at the root, US English under
@@ -39,9 +39,14 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   words (`/styles/french-plait/`, `/us/styles/french-braid/`).
   `src/lib/site.js` holds the addresses and the hreflang pairs, and the
   sitemap (with images and videos) is built from the same list.
-- **Pages.** Home; the six free style guides and twelve pack previews;
-  eight technique guides; hubs for easy hairstyles, curly and coily hair,
-  school, toddlers, sport and parties (`HUBS` in `src/lib/site.js`, built
+- **No count is typed in.** How many styles, pack styles and Kit things
+  there are comes from the export (`COUNTS` in `src/lib/site.js`), so the
+  pages follow the app. Where a sentence names styles one by one (the home
+  page), `assertNames` stops the build when the list no longer matches.
+- **Pages.** Home; the free style guides and the pack previews; the
+  technique guides; the seasonal guides (Halloween, Christmas); hubs for
+  easy hairstyles, curly and coily hair, school, toddlers, sport and
+  parties (`HUBS` in `src/lib/site.js`, built
   from the app's occasion and age tags); Fix It, one page per problem from
   the app's tree; the Kit; About; privacy; 404.
 - **Videos.** `npm run videos` renders a 30 to 45 second vertical video for
