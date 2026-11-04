@@ -120,11 +120,13 @@ const nav = [
           <a href={path(locale, 'fixIt')}>Fix It</a>
           <a href={path(locale, 'kit')}>The Kit</a>
           <a href={path(locale, 'about')}>About</a>
+          <a href={path(locale, 'tellUs')}>Tell us what to fix</a>
+          <a href={path(locale, 'press')}>Press</a>
           <a href="/privacy/">Privacy policy</a>
         </nav>
         {paired && (
           <p class="language">
-            This page is in {locale.label}.
+            This page is in {locale.label}.{' '}
             <a href={path(other, kind, id)} hreflang={other.code} lang={other.code}>Read it in {other.label}</a>
           </p>
         )}

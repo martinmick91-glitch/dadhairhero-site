@@ -453,7 +453,8 @@ function checkSitemap(indexedPages) {
 // A page opened from the app's "Send the steps" passes its share-<style>
 // campaign on to the store links, a page opened from a Pinterest pin its
 // pin-<id> campaign, and one opened from the site's own "Send this to him"
-// its fwd-<id> campaign (src/components/ShareCampaign.astro). Every page
+// its fwd-<id> campaign, and an outreach link its out-<name> campaign
+// (src/components/ShareCampaign.astro). Every page
 // carries the script; run here against a page's real store links, it
 // rewrites them for those and leaves them alone for anything else.
 // It touches no cookie and no storage.
@@ -487,6 +488,7 @@ function checkShareCampaign() {
     return links.map((l) => l.href);
   };
   const longestFwd = 'fwd-' + 'b'.repeat(36);
+  const longestOut = 'out-' + 'c'.repeat(36);
   const longest = 'pin-' + 'a'.repeat(36); // 40 characters, the most allowed
   const carried = [
     ['?utm_source=app&utm_campaign=share-classic-ponytail', 'share-classic-ponytail', 'share'],
@@ -499,6 +501,9 @@ function checkShareCampaign() {
     ['?utm_source=share&utm_medium=web&utm_campaign=fwd-pin-halloween-hair', 'fwd-pin-halloween-hair', 'web'],
     ['?utm_source=share&utm_medium=web&utm_campaign=fwd-classic-ponytail', 'fwd-classic-ponytail', 'web'],
     [`?utm_source=share&utm_campaign=${longestFwd}`, longestFwd, 'web'],
+    // An outreach link (a press contact, a parents' group), and the longest.
+    ['?utm_source=outreach&utm_medium=referral&utm_campaign=out-one-family', 'out-one-family', 'referral'],
+    [`?utm_source=outreach&utm_campaign=${longestOut}`, longestOut, 'referral'],
   ];
   for (const [search, campaign, medium] of carried) {
     const source = new URLSearchParams(search).get('utm_source');
@@ -526,6 +531,12 @@ function checkShareCampaign() {
     `?utm_source=share&utm_campaign=${longestFwd}b`, '?utm_source=share&utm_campaign=Fwd-Classic',
     '?utm_source=share&utm_campaign=fwd-%22%3E%3Cscript%3E', '?utm_source=share&utm_campaign=fwd-',
     '?utm_source=share&utm_campaign=share-classic-ponytail',
+    // An outreach campaign from another source or none, one too long, and
+    // malformed ones: capitals, markup, no name, another prefix.
+    '?utm_campaign=out-one-family', '?utm_source=app&utm_campaign=out-one-family', '?utm_source=Outreach&utm_campaign=out-one-family',
+    `?utm_source=outreach&utm_campaign=${longestOut}c`, '?utm_source=outreach&utm_campaign=Out-One-Family',
+    '?utm_source=outreach&utm_campaign=out-%22%3E%3Cscript%3E', '?utm_source=outreach&utm_campaign=out-',
+    '?utm_source=outreach&utm_campaign=pin-one-family',
   ]) {
     if (run(search).some((href, i) => href !== original[i])) fail(page[0], `store links changed for "${search}"`);
   }

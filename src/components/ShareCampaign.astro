@@ -5,10 +5,13 @@
 //    ?utm_source=app&utm_campaign=share-<style id>, one opened from a
 //    Pinterest pin ?utm_source=pinterest&utm_campaign=pin-<id>, and one
 //    opened from this site's own "Send this to him" button
-//    ?utm_source=share&utm_campaign=fwd-<id>. The script passes that
-//    campaign on to the page's store links, so App Store Connect and Play
-//    Console count the install under it rather than the page's own
-//    campaign. Anything that isn't exactly one of those three is ignored.
+//    ?utm_source=share&utm_campaign=fwd-<id>, and a link Martin sends in
+//    outreach (a press contact, a parents' group: docs/outreach-links.md in
+//    the app's repository) ?utm_source=outreach&utm_campaign=out-<name>.
+//    The script passes that campaign on to the page's store links, so App
+//    Store Connect and Play Console count the install under it rather than
+//    the page's own campaign. Anything that isn't exactly one of those four
+//    is ignored.
 //
 // 2. On a style page, "Send this to him" (ShareButton.astro). At the tap it
 //    builds the page's own address with utm_campaign=fwd-<c>: <c> is the
@@ -31,6 +34,7 @@
     if (source === 'app' && /^share-[a-z0-9-]{1,34}$/.test(name)) medium = 'share';
     else if (source === 'pinterest' && /^pin-[a-z0-9-]{1,36}$/.test(name)) medium = 'social';
     else if (source === 'share' && /^fwd-[a-z0-9-]{1,36}$/.test(name)) medium = 'web';
+    else if (source === 'outreach' && /^out-[a-z0-9-]{1,36}$/.test(name)) medium = 'referral';
     if (medium) {
       var links = document.querySelectorAll('a[href^="https://apps.apple.com/"], a[href^="https://play.google.com/"]');
       for (var i = 0; i < links.length; i++) {

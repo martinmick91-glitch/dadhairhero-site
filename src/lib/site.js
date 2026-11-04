@@ -468,6 +468,10 @@ const FIXED = {
   easy: '/easy-hairstyles/',
   fixIt: '/fix-it/',
   about: '/about/',
+  // For outreach (2026-11-04): a page for journalists and groups, and one
+  // asking what to fix, which opens the visitor's own email app.
+  press: '/press/',
+  tellUs: '/tell-us/',
   ...Object.fromEntries(HUBS.map((hub) => [hub.kind, `/${hub.segment}/`])),
   ...Object.fromEntries(SEASONAL_GUIDES.map((guide) => [guide.kind, `/${guide.segment}/`])),
 };

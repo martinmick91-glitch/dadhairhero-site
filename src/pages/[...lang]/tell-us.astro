@@ -1,0 +1,58 @@
+---
+// Tell us what to fix (2026-11-04, Martin): for the dads who try the app
+// after outreach. No form and nothing collected here: the button opens the
+// visitor's own email app with a short template, to hello@dadhairhero.com.
+// The app's own "Send feedback" (Us tab) adds the app version and phone.
+import Base from '../../layouts/Base.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
+import { LOCALES, US, EMAIL, COUNTS, langParam, localeFromParam, path, breadcrumbs, campaign, t } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Tell us what to fix'), path: path(locale, 'tellUs') },
+];
+const title = 'Tell us what to fix | Dad Hair Hero';
+const description = t(locale, 'Tried Dad Hair Hero? Tell us what didn\'t work: a step, a picture, a word, or the first time you opened it. Every email is read.');
+
+// What the email starts with: the questions that make a report useful.
+const subject = 'What to fix in Dad Hair Hero';
+const body = [
+  t(locale, 'What happened:'),
+  '',
+  '',
+  t(locale, 'The style and step, if it was a style:'),
+  '',
+  t(locale, 'iPhone or Android:'),
+  '',
+  locale === US ? '(Sent from the US site)' : '(Sent from the UK site)',
+].join('\n');
+const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+---
+<Base locale={locale} kind="tellUs" title={title} description={description} trail={trail} jsonld={[breadcrumbs(trail)]}>
+  <h1>{t(locale, 'Tell us what to fix')}</h1>
+  <p class="lede">{t(locale, 'Dad Hair Hero is made by one dad, and it gets better every time someone says what didn\'t work. Every email is read.')}</p>
+
+  <p><a class="button" href={mailto}>{t(locale, 'Email what to fix')}</a></p>
+  <p class="small">{t(locale, 'It opens your own email app, addressed to')} <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'There is no form, and this page records nothing.')}</p>
+
+  <h2>{t(locale, 'What helps most')}</h2>
+  <ul>
+    <li>{t(locale, 'A step that didn\'t work: which style, which step, and what happened.')}</li>
+    <li>{t(locale, 'A picture that doesn\'t match its step.')}</li>
+    <li>{t(locale, 'Anything that confused you the first time you opened the app.')}</li>
+    <li>{t(locale, 'A style you\'d like, for her age or her hair.')}</li>
+    <li>{t(locale, 'A word that\'s wrong in your English.')}</li>
+  </ul>
+
+  <h2>{t(locale, 'From the app')}</h2>
+  <p>{t(locale, 'On the Us tab, Send feedback opens an email with the app\'s version and your phone\'s model already in it, which helps with anything that went wrong.')}</p>
+
+  <h2>{t(locale, 'Not tried it yet?')}</h2>
+  <p>{t(locale, `It is free, with ${COUNTS.free} styles step by step.`)} <a href={path(locale, 'easy')}>{t(locale, 'The easy hairstyles')}</a> {t(locale, 'are a good place to start.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'tell-us')} />
+</Base>
