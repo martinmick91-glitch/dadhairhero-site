@@ -534,8 +534,8 @@ export function playUrl(campaignName) {
 // this language.
 export const shareText = (style) =>
   style.pack
-    ? `Here's ${style.name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free: no ads, no account.`
-    : `Here's the ${style.name} step by step, written for dads. The app is free: no ads, no account.`;
+    ? `Here's ${style.name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free and privacy-friendly, with no account.`
+    : `Here's the ${style.name} step by step, written for dads. The app is free and privacy-friendly, with no account.`;
 
 // ─── Words ───────────────────────────────────────────────────────────────────
 
