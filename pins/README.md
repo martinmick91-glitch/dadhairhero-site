@@ -19,7 +19,7 @@ ids are lowercase letters, digits and hyphens, at most 36 characters after
 
 | File | What it is | Upload |
 |---|---|---|
-| `batch-1.csv` | The Halloween pin. | Already published. Keep it as the record; don't upload it again. |
+| `batch-1.csv` | The Halloween pin. | Already published. Keep it as the record; don't upload it again. Its live description ends "no ads, no account.": edit it on Pinterest to "Free, privacy-friendly app for iPhone and Android, with no account." |
 | `batch-1-part-1.csv` | Batch 1, weeks 1 to 4: 12 pins, Mon 19 Oct to Fri 13 Nov. | After this branch is merged and deployed, and before 8pm Irish time on Monday 19 October. |
 | `batch-1-part-2.csv` | Batch 1, weeks 5 and 6: 6 pins, Mon 16 Nov to Fri 27 Nov. | Between 1 and 15 November. |
 | `christmas.csv` | The Christmas pin, for the Christmas guide. Its publish date is empty, so it publishes on upload. | After the Christmas guide is merged and deployed. |
@@ -32,6 +32,8 @@ Pinterest schedules pins up to about 30 days ahead, so the schedule is in two
 files. Part 2 can't go up before 28 October (27 November would be more than
 30 days away) and must go up before its first pin on 16 November. Neither
 part file has the Halloween row, so uploading them can't duplicate it.
+
+No pin says "no ads": the Kit has affiliate links, so pins say "privacy-friendly" (check-site fails on "no ads" in any file but `batch-1.csv`). The part files were regenerated on 4 November with that wording. Nothing here records whether part 1 or part 2 has been uploaded; if part 1 already was, its live pins still end "no ads, no account." and can be edited on Pinterest.
 
 After each upload, check under Scheduled Pins that every row became a pin
 with its date and board, then add each pin's alt text (below).

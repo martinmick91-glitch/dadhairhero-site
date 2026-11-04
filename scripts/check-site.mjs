@@ -354,6 +354,13 @@ function checkPlaceholders(page, doc) {
   if (/\[PLACEHOLDER/.test(doc.querySelector('main')?.text ?? '')) warnings.push(`${page}: has a [PLACEHOLDER] still to be written`);
 }
 
+// The app is privacy-friendly, but the Kit has affiliate links, so neither
+// the site nor a pin ever says it has no ads (Martin, 2026-11-04).
+const NO_ADS = /\bno ads\b|\bad-free\b|\bno adverts\b|\bno advertising\b/i;
+function checkNoAdsClaim(page, doc) {
+  if (NO_ADS.test(doc.toString())) fail(page, 'says "no ads": say privacy-friendly instead, since the Kit has affiliate links');
+}
+
 // ─── This site's own rules ───────────────────────────────────────────────────
 
 function checkOutboundLinks(page, doc) {
@@ -536,8 +543,8 @@ function checkShareCampaign() {
 const SHARE_LABEL = 'Send this to him';
 // A free style's page has every step; a pack style's says where it is.
 const shareText = (name, pack = false) => (pack
-  ? `Here's ${name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free: no ads, no account.`
-  : `Here's the ${name} step by step, written for dads. The app is free: no ads, no account.`);
+  ? `Here's ${name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free and privacy-friendly, with no account.`
+  : `Here's the ${name} step by step, written for dads. The app is free and privacy-friendly, with no account.`);
 async function checkShareButton() {
   const isStyle = (url) => /^(\/us)?\/styles\/[^/]+\/$/.test(url);
   for (const [url, doc] of pages) {
@@ -768,6 +775,9 @@ function checkPins(indexedPages) {
       if (!row.Description || row.Description.length >= 500) fail(at, 'description must be under 500 characters');
       if (!row['Pinterest board']) fail(at, 'no board');
       if (/#\w|[£$€]\s?\d/.test(`${row.Title} ${row.Description}`)) fail(at, 'no hashtags or prices');
+      // batch-1.csv is the record of the Halloween pin as published on
+      // 15 October, before the rule; every other file is still to upload.
+      if (name !== 'batch-1.csv' && NO_ADS.test(`${row.Title} ${row.Description}`)) fail(at, 'says "no ads": say privacy-friendly instead');
       let link;
       try { link = new URL(row.Link); } catch { fail(at, `link "${row.Link}" is not an address`); return; }
       if (link.origin !== SITE || !indexedPages.includes(link.pathname)) fail(at, `link ${row.Link} is not an indexed page`);
@@ -806,6 +816,7 @@ for (const [page, doc] of pages) {
   checkStructuredData(page, doc, indexed);
   checkOutboundLinks(page, doc);
   checkPlaceholders(page, doc);
+  checkNoAdsClaim(page, doc);
 }
 // Every video in the manifest is on its style's page. The build once read
 // the manifest from a path that didn't exist and every page quietly lost

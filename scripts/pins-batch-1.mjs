@@ -13,7 +13,7 @@
 // US spelling), quoted whole. Two Even Pigtails' line ends with the app's
 // "Under three, take them out before a nap.", kept word for word.
 
-const END = 'Free app for iPhone and Android, no ads, no account.';
+const END = 'Free, privacy-friendly app for iPhone and Android, with no account.';
 const SEND = "Send him the page, or tap 'Send this to him' on it.";
 
 // Boards, as named on Pinterest.
