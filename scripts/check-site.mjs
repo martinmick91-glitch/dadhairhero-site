@@ -356,7 +356,7 @@ function checkPlaceholders(page, doc) {
 
 // The app is privacy-friendly, but the Kit has affiliate links, so neither
 // the site nor a pin ever says it has no ads (Martin, 2026-11-04).
-const NO_ADS = /\bno ads\b|\bad-free\b|\bno adverts\b/i;
+const NO_ADS = /\bno ads\b|\bad-free\b|\bno adverts\b|\bno advertising\b/i;
 function checkNoAdsClaim(page, doc) {
   if (NO_ADS.test(doc.toString())) fail(page, 'says "no ads": say privacy-friendly instead, since the Kit has affiliate links');
 }
