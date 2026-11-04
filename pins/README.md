@@ -22,6 +22,11 @@ ids are lowercase letters, digits and hyphens, at most 36 characters after
 | `batch-1.csv` | The Halloween pin. | Already published. Keep it as the record; don't upload it again. |
 | `batch-1-part-1.csv` | Batch 1, weeks 1 to 4: 12 pins, Mon 19 Oct to Fri 13 Nov. | After this branch is merged and deployed, and before 8pm Irish time on Monday 19 October. |
 | `batch-1-part-2.csv` | Batch 1, weeks 5 and 6: 6 pins, Mon 16 Nov to Fri 27 Nov. | Between 1 and 15 November. |
+| `christmas.csv` | The Christmas pin, for the Christmas guide. Its publish date is empty, so it publishes on upload. | After the Christmas guide is merged and deployed. |
+
+A seasonal file publishes on upload: every publish date in it is empty.
+check-site allows that only when the whole file is empty, so a scheduled
+file with one date left out fails rather than publishing that pin at once.
 
 Pinterest schedules pins up to about 30 days ahead, so the schedule is in two
 files. Part 2 can't go up before 28 October (27 November would be more than
@@ -97,6 +102,10 @@ upload (Edit Pin > Alt text).
 ### batch-1.csv
 
 1. halloween-hair-in-ten-minutes.png: Three mannequin heads from behind wearing a high ponytail, two even pigtails and a half-up, half-down, under the headline Halloween hair in ten minutes.
+
+### christmas.csv
+
+1. christmas-concert-hair-in-minutes.png: Three mannequin heads from behind wearing a half-up, half-down, a high ponytail and two even pigtails, each with a pink elastic, under the headline Christmas concert hair in minutes.
 
 ### batch-1-part-1.csv and batch-1-part-2.csv, in publishing order
 

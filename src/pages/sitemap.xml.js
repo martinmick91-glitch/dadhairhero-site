@@ -2,10 +2,10 @@
 // its photos (an image sitemap, in the same file), and the privacy page.
 // Built from the same list of pages and the same alternates() the page
 // heads use, so the two can't disagree.
-import { LOCALES, UK, HALLOWEEN, absolute, alternates, pairedRoutes, path, styleById, techniqueById, videoFor } from '../lib/site.js';
+import { LOCALES, UK, SEASONAL_GUIDES, absolute, alternates, pairedRoutes, path, styleById, techniqueById, videoFor } from '../lib/site.js';
 
 // Pages that carry a date of their own: a seasonal guide's dateModified.
-const LASTMOD = { [HALLOWEEN.kind]: HALLOWEEN.dateModified };
+const LASTMOD = Object.fromEntries(SEASONAL_GUIDES.map((guide) => [guide.kind, guide.dateModified]));
 
 const escape = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const photoUrl = (photo) => absolute(`${photo.base}-${Math.max(...photo.widths)}.webp`);

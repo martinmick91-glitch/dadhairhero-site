@@ -6,8 +6,9 @@
 //   node scripts/render-pins.mjs [name …]
 //
 // Writes:
-//   public/images/guides/halloween-hairstyles-1200x630.jpg  the guide's og:image
-//   public/pins/halloween-hair-in-ten-minutes.png           a 1000×1500 pin
+//   public/images/guides/<guide>-1200x630.jpg               each seasonal guide's og:image
+//   public/pins/halloween-hair-in-ten-minutes.png           the Halloween pin, 1000×1500
+//   public/pins/christmas-concert-hair-in-minutes.png       the Christmas pin, 1000×1500
 //   public/pins/<file>                                      batch 1's pins, 1000×1500
 //                                                           (scripts/pins-batch-1.mjs)
 //
@@ -24,7 +25,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { PINS } from './pins-batch-1.mjs';
-import { stylePin, stepStrip } from './pin-designs.mjs';
+import { stylePin, stepStrip, guideCollage, guidePin } from './pin-designs.mjs';
 
 const require = createRequire(import.meta.url);
 const puppeteer = require('puppeteer-core');
@@ -55,14 +56,57 @@ const BASE_CSS = `
   .site { color: #a85a28; font-weight: 600; letter-spacing: 0.02em; }
 `;
 
-// The first three free looks in the guide (HALLOWEEN in src/lib/site.js),
-// each done in ten minutes or less, so the pin's headline holds for every
-// look it shows. US English: the pin is for the US page.
-const LOOKS = [
-  { id: 'high-ponytail', label: 'A tail' },
-  { id: 'two-even-bunches', label: 'Pigtails' },
-  { id: 'half-up-half-down', label: 'Under a hat' },
+// Each seasonal guide's first three free looks (HALLOWEEN and CHRISTMAS in
+// src/lib/site.js), each done in ten minutes or less, so the pin's
+// headline holds for every look it shows. US English: the pins are for the
+// US pages. The Christmas pictures are the app's, with no ribbon, so their
+// labels name the style rather than the ribbon.
+const GUIDES = [
+  {
+    slug: 'halloween-hairstyles',
+    pin: 'halloween-hair-in-ten-minutes.png',
+    collage: 'Easy Halloween hairstyles',
+    headline: 'Halloween hair in ten minutes',
+    looks: [
+      { id: 'high-ponytail', label: 'A tail' },
+      { id: 'two-even-bunches', label: 'Pigtails' },
+      { id: 'half-up-half-down', label: 'Under a hat' },
+    ],
+  },
+  {
+    slug: 'christmas-party-hairstyles',
+    pin: 'christmas-concert-hair-in-minutes.png',
+    collage: 'Easy Christmas hairstyles',
+    headline: 'Christmas concert hair in minutes',
+    looks: [
+      { id: 'half-up-half-down', label: 'Half-up' },
+      { id: 'high-ponytail', label: 'High ponytail' },
+      { id: 'two-even-bunches', label: 'Pigtails' },
+    ],
+  },
 ];
+const guideImages = GUIDES.flatMap((guide) => [
+  {
+    out: path.join('public', 'images', 'guides', `${guide.slug}-1200x630.jpg`),
+    width: 1200,
+    height: 630,
+    type: 'jpeg',
+    html: guideCollage(BASE_CSS, { headline: guide.collage, pictures: guide.looks.map((l) => photo(l.id)) }),
+  },
+  {
+    out: path.join('public', 'pins', guide.pin),
+    width: 1000,
+    height: 1500,
+    type: 'png',
+    html: guidePin(BASE_CSS, {
+      headline: guide.headline,
+      sub: 'Easy looks made from simple styles.',
+      looks: guide.looks.map((l) => ({ picture: photo(l.id), label: l.label })),
+      note: 'Free, step by step',
+      noteSub: '4 to 6 minutes each, every step on dadhairhero.com.',
+    }),
+  },
+]);
 
 // Batch 1: free styles only, so every picture is one the site already
 // shows on that style's page.
@@ -82,46 +126,7 @@ const batch1 = PINS.map((pin) => {
 });
 
 const images = [
-  {
-    out: path.join('public', 'images', 'guides', 'halloween-hairstyles-1200x630.jpg'),
-    width: 1200,
-    height: 630,
-    type: 'jpeg',
-    html: `
-      <style>${BASE_CSS}
-        body { padding: 46px 48px 0; }
-        h1 { font-size: 92px; }
-        .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 34px; height: 410px; }
-        .site { position: absolute; right: 48px; top: 76px; font-size: 26px; }
-      </style>
-      <h1>Easy Halloween hairstyles</h1>
-      <p class="site">dadhairhero.com</p>
-      <div class="row">${LOOKS.map((l) => `<img src="${photo(l.id)}" alt="">`).join('')}</div>`,
-  },
-  {
-    out: path.join('public', 'pins', 'halloween-hair-in-ten-minutes.png'),
-    width: 1000,
-    height: 1500,
-    type: 'png',
-    html: `
-      <style>${BASE_CSS}
-        body { padding: 84px 70px 0; display: flex; flex-direction: column; }
-        h1 { font-size: 132px; }
-        .sub { font-size: 38px; margin-top: 26px; color: rgba(30, 41, 59, 0.78); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px; margin-top: 46px; height: 860px; }
-        .grid figure { position: relative; margin: 0; }
-        .note { background: #fff; border-radius: 28px; padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
-        .note h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 64px; line-height: 1.02; }
-        .note p { font-size: 30px; margin-top: 18px; color: rgba(30, 41, 59, 0.78); }
-        figcaption { position: absolute; left: 16px; bottom: 16px; background: #fff; border-radius: 999px; padding: 8px 20px; font-size: 28px; font-weight: 600; }
-        .site { margin-top: auto; margin-bottom: 52px; text-align: center; font-size: 34px; }
-      </style>
-      <h1>Halloween hair in ten minutes</h1>
-      <p class="sub">Easy looks made from simple styles.</p>
-      <div class="grid">${LOOKS.map((l) => `<figure><img src="${photo(l.id)}" alt=""><figcaption>${l.label}</figcaption></figure>`).join('')}
-        <div class="note"><h2>Free, step by step</h2><p>4 to 6 minutes each, every step on dadhairhero.com.</p></div></div>
-      <p class="site">dadhairhero.com</p>`,
-  },
+  ...guideImages,
   ...batch1,
 ];
 

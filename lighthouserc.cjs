@@ -12,6 +12,7 @@ module.exports = {
         'http://localhost/techniques/holding-tension/',
         'http://localhost/school-hairstyles/',
         'http://localhost/halloween-hairstyles/',
+        'http://localhost/christmas-party-hairstyles/',
         'http://localhost/fix-it/falls-out/',
         'http://localhost/kit/',
         'http://localhost/about/',

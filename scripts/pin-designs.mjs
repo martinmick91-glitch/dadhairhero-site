@@ -1,6 +1,7 @@
 // The layouts of the style, step-strip and handoff pins (pins/batch-1.mjs
-// says which pins there are). Each returns the HTML for one 1000×1500 page,
-// which render-pins.mjs screenshots. `css` is render-pins.mjs's BASE_CSS:
+// says which pins there are), and of a seasonal guide's share image and
+// pin. Each returns the HTML for one page, which render-pins.mjs
+// screenshots. `css` is render-pins.mjs's BASE_CSS:
 // the site's fonts and colours.
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -43,4 +44,43 @@ export function stepStrip(css, { headline, steps }) {
       <li class="${s.done ? 'done' : ''}"><img src="${s.picture}" alt=""><span class="n">${s.done ? '✓' : i + 1}</span><p>${esc(s.title)}</p></li>`).join('')}
     </ol>
     <p class="site">dadhairhero.com</p>`;
+}
+
+// A seasonal guide's share image, 1200×630: the headline, the address,
+// and the guide's first three free looks in a row.
+export function guideCollage(css, { headline, pictures }) {
+  return `
+      <style>${css}
+        body { padding: 46px 48px 0; }
+        h1 { font-size: 92px; }
+        .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 34px; height: 410px; }
+        .site { position: absolute; right: 48px; top: 76px; font-size: 26px; }
+      </style>
+      <h1>${esc(headline)}</h1>
+      <p class="site">dadhairhero.com</p>
+      <div class="row">${pictures.map((p) => `<img src="${p}" alt="">`).join('')}</div>`;
+}
+
+// A seasonal guide's pin, 1000×1500 (the Halloween pin's design): the
+// headline and a line under it, three free looks with a label each, a
+// panel saying they are free, and the address.
+export function guidePin(css, { headline, sub, looks, note, noteSub }) {
+  return `
+      <style>${css}
+        body { padding: 84px 70px 0; display: flex; flex-direction: column; }
+        h1 { font-size: 132px; }
+        .sub { font-size: 38px; margin-top: 26px; color: rgba(30, 41, 59, 0.78); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px; margin-top: 46px; height: 860px; }
+        .grid figure { position: relative; margin: 0; }
+        .note { background: #fff; border-radius: 28px; padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+        .note h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 64px; line-height: 1.02; }
+        .note p { font-size: 30px; margin-top: 18px; color: rgba(30, 41, 59, 0.78); }
+        figcaption { position: absolute; left: 16px; bottom: 16px; background: #fff; border-radius: 999px; padding: 8px 20px; font-size: 28px; font-weight: 600; }
+        .site { margin-top: auto; margin-bottom: 52px; text-align: center; font-size: 34px; }
+      </style>
+      <h1>${esc(headline)}</h1>
+      <p class="sub">${esc(sub)}</p>
+      <div class="grid">${looks.map((l) => `<figure><img src="${l.picture}" alt=""><figcaption>${esc(l.label)}</figcaption></figure>`).join('')}
+        <div class="note"><h2>${esc(note)}</h2><p>${esc(noteSub)}</p></div></div>
+      <p class="site">dadhairhero.com</p>`;
 }
