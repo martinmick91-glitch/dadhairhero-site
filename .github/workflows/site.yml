@@ -12,6 +12,10 @@
 # access token with read access to it as the secret APP_REPO_TOKEN; with
 # the secret set, a stale export fails the build here as it does locally.
 # Without it the comparison is skipped and the log says so.
+#
+# The app is checked out at the ref named in app-ref.txt (normally master;
+# an older commit only while master is ahead of the version in the stores),
+# so the export is compared with the app as it is at that ref.
 
 name: Site
 
@@ -34,10 +38,14 @@ jobs:
       HAS_APP_TOKEN: ${{ secrets.APP_REPO_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
+      # The first line of app-ref.txt that isn't blank or a comment.
+      - id: app-ref
+        run: echo "ref=$(grep -v -e '^[[:space:]]*#' -e '^[[:space:]]*$' app-ref.txt | head -n 1 | tr -d '[:space:]')" >> "$GITHUB_OUTPUT"
       - if: env.HAS_APP_TOKEN == 'true'
         uses: actions/checkout@v4
         with:
           repository: martinmick91-glitch/dad-hair-hero
+          ref: ${{ steps.app-ref.outputs.ref }}
           token: ${{ secrets.APP_REPO_TOKEN }}
           path: app
       - uses: actions/setup-node@v4
