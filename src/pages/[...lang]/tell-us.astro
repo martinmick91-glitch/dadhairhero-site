@@ -53,6 +53,6 @@ const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${en
   <p>{t(locale, 'On the Us tab, Send feedback opens an email with the app\'s version and your phone\'s model already in it, which helps with anything that went wrong.')}</p>
 
   <h2>{t(locale, 'Not tried it yet?')}</h2>
-  <p>{t(locale, `It is free, with ${COUNTS.free} styles step by step.`)} <a href={path(locale, 'easy')}>{t(locale, 'The easy hairstyles')}</a> {t(locale, 'are a good place to start.')}</p>
+  <p>{t(locale, `It is free to download, with ${COUNTS.free} styles free step by step and an optional one-time pack of ${COUNTS.pack} more.`)} <a href={path(locale, 'easy')}>{t(locale, 'The easy hairstyles')}</a> {t(locale, 'are a good place to start.')}</p>
   <StoreBadges campaignName={campaign(locale, 'tell-us')} />
 </Base>

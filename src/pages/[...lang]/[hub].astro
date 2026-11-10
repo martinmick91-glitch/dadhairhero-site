@@ -8,7 +8,7 @@ import StoreBadges from '../../components/StoreBadges.astro';
 import AppBlock from '../../components/AppBlock.astro';
 import {
   LOCALES, HUBS, langParam, localeFromParam, hubByKind, path, breadcrumbs, itemList, techniqueById,
-  fixEntryById, sentence, campaign, t, minutes, ages, COUNTS,
+  fixEntryById, guideById, sentence, campaign, t, minutes, ages, COUNTS, FREE_TO_DOWNLOAD,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -24,7 +24,9 @@ const free = styles.filter((s) => !s.pack);
 const pack = styles.filter((s) => s.pack);
 const techniques = (hub.techniques ?? []).map((id) => techniqueById(locale, id));
 const fixes = (hub.fixes ?? []).map((id) => fixEntryById(locale, id));
-if ([...techniques, ...fixes].some((entry) => !entry) || styles.length === 0) {
+// The app's care routines for these days (1.4.0), free and in full here.
+const guides = (hub.guides ?? []).map((id) => guideById(locale, id));
+if ([...techniques, ...fixes, ...guides].some((entry) => !entry || entry.hold) || styles.length === 0) {
   throw new Error(`${hub.kind}: a technique or Fix It entry named for this hub is no longer in the export, or no style matches`);
 }
 
@@ -44,9 +46,9 @@ const entries = styles.map((s) => ({ name: s.name, path: path(locale, 'style', s
 >
   <h1>{t(locale, hub.h1)}</h1>
   <p class="lede">{t(locale, hub.lede)}</p>
-  <p class="summary-cta">{t(locale, 'Every style here is in the free app, with the steps for her hair.')}</p>
+  <p class="summary-cta">{t(locale, 'Every style here is in the app, with the steps for her hair.')} {t(locale, FREE_TO_DOWNLOAD)}</p>
   <StoreBadges campaignName={campaign(locale, hub.kind)} />
-  {(hub.guides ?? []).map((guide) => (
+  {(hub.seasonal ?? []).map((guide) => (
     <p><strong>{t(locale, guide.lead)}</strong> <a href={path(locale, guide.kind)}>{t(locale, guide.link)}</a>{t(locale, guide.after)}</p>
   ))}
   <p>{t(locale, hub.intro)}</p>
@@ -71,6 +73,21 @@ const entries = styles.map((s) => ({ name: s.name, path: path(locale, 'style', s
       <h2>{t(locale, 'In Beyond the Ponytail')}</h2>
       <p>{t(locale, 'The finished look, the time and what you need are on each page. The full steps are in the app, in an optional one-time pack. No subscription.')}</p>
       <StyleCards locale={locale} styles={pack} />
+    </>
+  )}
+
+  {guides.length > 0 && (
+    <>
+      <h2>{t(locale, guides.length > 1 ? 'Care routines for these days' : 'A care routine for the day')}</h2>
+      <p>{t(locale, 'Free in the app for everyone, and on this site in full, step by step.')}</p>
+      <ul class="rows">
+        {guides.map((guide) => (
+          <li>
+            <a href={path(locale, 'guide', guide.id)}>{guide.name}</a>
+            <span>{sentence(guide.description)}</span>
+          </li>
+        ))}
+      </ul>
     </>
   )}
 

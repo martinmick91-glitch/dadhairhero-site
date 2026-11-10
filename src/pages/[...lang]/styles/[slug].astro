@@ -19,6 +19,7 @@ import {
   LOCALES, langParam, localeFromParam, path, absolute, minutes, offersCurly, sentence, kitItemById,
   techniqueById, fixEntryById, pageTitle, pageDescription, breadcrumbs, imageUrl, lower, t, campaign,
   relatedStyles, techniquesUsed, hubsForStyle, styleFaq, faqPage, videoFor, AUTHORSHIP, seasonalLooksForStyle, COUNTS,
+  SLEEP_NOTE, SLEEPS_IN_IT_FREE_STYLES,
 } from '../../../lib/site.js';
 
 export function getStaticPaths() {
@@ -144,7 +145,7 @@ if (free) {
   <h1>{style.name}</h1>
   <p class="lede">{sentence(style.oneLiner)}</p>
   <Author locale={locale} />
-  <p class="summary-cta">{style.pack ? t(locale, 'Full steps in the free app, in Beyond the Ponytail.') : t(locale, 'Follow it step by step in the free app.')}</p>
+  <p class="summary-cta">{style.pack ? t(locale, 'Full steps in the app, in Beyond the Ponytail, an optional one-time pack.') : t(locale, 'Follow it step by step in the app, free to download.')}</p>
   <StoreBadges campaignName={campaign(locale, 'style', style.id)}><ShareButton style={style} /></StoreBadges>
 
   <SummaryCard locale={locale} style={style} kit={kit} curlyExtra={curlyExtra} />
@@ -192,6 +193,7 @@ if (free) {
               <p class="step-number">{t(locale, `Step ${i + 1} of ${style.steps.length}`)}</p>
               <h3>{step.title}</h3>
               <p>{step.instruction}</p>
+              {step.withHer && <p class="with-her"><strong>{t(locale, 'With her:')}</strong> {step.withHer}</p>}
               {step.photo && (
                 <figure class="photo">
                   <Photo photo={step.photo} alt={stepAlt(step, i, false)} />
@@ -242,6 +244,12 @@ if (free) {
         </>
       )}
 
+      {SLEEPS_IN_IT_FREE_STYLES.includes(style.id) && (
+        <div class="panel">
+          <p><strong>{t(locale, SLEEP_NOTE.heading)}</strong> {t(locale, SLEEP_NOTE.body)}</p>
+        </div>
+      )}
+
       <Faq faq={faq} heading={t(locale, 'Common questions')} />
 
       <AppBlock locale={locale} kind="style" id={style.id} />
@@ -258,7 +266,7 @@ if (free) {
 
       <AppBlock locale={locale} kind="style" id={style.id} heading="Full steps in the app">
         <p>
-          {t(locale, `Beyond the Ponytail is an optional one-time pack of ${COUNTS.pack} styles in the Dad Hair Hero app. You pay once and they are yours to keep. There is no subscription, and you can see every style in the pack before you decide. Once it is yours, the app does four things this page cannot:`)}
+          {t(locale, `Beyond the Ponytail is an optional one-time pack of ${COUNTS.pack} styles in the Dad Hair Hero app. You pay once and they are yours to keep. There is no subscription, and you can see every style in the pack before you decide. Once it is yours, the app does five things this page cannot:`)}
         </p>
       </AppBlock>
     </>

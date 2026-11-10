@@ -18,6 +18,8 @@ module.exports = {
         'http://localhost/about/',
         'http://localhost/press/',
         'http://localhost/us/tell-us/',
+        'http://localhost/guides/night-and-bonnets/',
+        'http://localhost/us/guides/',
       ],
       numberOfRuns: 1,
     },

@@ -160,6 +160,7 @@ figcaption { font-size: 0.9rem; color: var(--indigo-70); margin-top: 0.4rem; }
 .check p { margin: 0; }
 .check .eyebrow { margin-bottom: 0.15rem; }
 .why { color: var(--indigo-70); }
+.with-her { color: var(--indigo-70); }
 .curly { background: var(--surface); border: 1px solid var(--indigo-10); border-left: 4px solid var(--apricot); border-radius: 12px; padding: 1rem; margin-top: 1.25rem; }
 .curly h4 { margin: 0 0 0.35rem; font-size: 1.05rem; }
 .curly > :last-child { margin-bottom: 0; }

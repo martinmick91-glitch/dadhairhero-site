@@ -8,7 +8,7 @@ import StoreBadges from '../../components/StoreBadges.astro';
 import StyleCards from '../../components/StyleCards.astro';
 import {
   LOCALES, US, HUBS, SITE, EMAIL, APP_STORE_ID, PLAY_PACKAGE, langParam, localeFromParam, path, campaign, t,
-  ORGANIZATION, COUNTS, capitalised, assertNames,
+  ORGANIZATION, COUNTS, capitalised, assertNames, say, publishedGuides,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -18,8 +18,14 @@ export function getStaticPaths() {
 const locale = localeFromParam(Astro.params.lang);
 const free = locale.data.styles.filter((s) => !s.pack);
 // The two lists below name every free style and every pack style.
-assertNames('home: free styles', ['tangle-free-brushing', 'classic-ponytail', 'high-ponytail', 'two-even-bunches', 'half-up-half-down', 'clip-back-baby-wisps', 'twist-back-sides', 'top-sprout', 'side-swept-clip'], free);
-assertNames('home: Beyond the Ponytail', ['three-strand-plait', 'french-plait', 'dutch-plait', 'plaited-pigtails', 'pull-through-plait', 'top-knot', 'mini-top-knot', 'sports-bun', 'space-buns', 'bubble-ponytail', 'puffs', 'twisted-bunches', 'criss-cross-bands'], locale.data.styles.filter((s) => s.pack));
+assertNames('home: free styles', ['tangle-free-brushing', 'classic-ponytail', 'high-ponytail', 'two-even-bunches', 'half-up-half-down', 'clip-back-baby-wisps', 'twist-back-sides', 'top-sprout', 'two-little-sprouts', 'side-swept-clip', 'bedtime-pineapple'], free);
+assertNames('home: Beyond the Ponytail', ['three-strand-plait', 'french-plait', 'dutch-plait', 'fishtail-plait', 'plaited-pigtails', 'pull-through-plait', 'top-knot', 'mini-top-knot', 'loop-bun', 'half-up-bun', 'sports-bun', 'space-buns', 'bubble-ponytail', 'wrapped-ponytail', 'rope-ponytail', 'puffs', 'twisted-bunches', 'criss-cross-bands'], locale.data.styles.filter((s) => s.pack));
+// The care routines the "Care routines, free" paragraph names, in the
+// app's order (src/data/routines/, 1.4.0).
+const guides = publishedGuides(locale);
+if (guides.map((g) => g.id).join() !== 'wash-day,night,swim-day,sport-day,dance-day,nits-day,holidays') {
+  throw new Error(`home: the care routines named in its text are not the export's (${guides.map((g) => g.id).join()})`);
+}
 const screenshot = locale === US ? '/assets/screenshot-01-us.webp' : '/assets/screenshot-01.webp';
 // On desktop the hero shows the bare app screen in a CSS phone frame
 // instead of the store graphic. Phones keep the store graphic.
@@ -31,7 +37,7 @@ const how = [
 ].map(([image, heading, text, alt]) => ({ image: `/assets/${image}.webp`, heading: t(locale, heading), text: t(locale, text), alt: t(locale, alt) }));
 
 const title = 'Dad Hair Hero: Easy hairstyles for girls, step by step';
-const description = t(locale, 'Step-by-step hairstyles for dads. Ponytails, bunches and more, timed for a school morning. Free on the App Store and Google Play.');
+const description = t(locale, 'Step-by-step hairstyles for dads. Ponytails, bunches and more, timed for a school morning. Free to download for iPhone and Android.');
 
 const jsonld = [
   {
@@ -72,7 +78,7 @@ const jsonld = [
       </p>
       <div id="get-the-app">
         <StoreBadges campaignName={campaign(locale, 'home')} />
-        <p class="badge-note">{t(locale, 'Free · No account · Nothing sent to Dad Hair Hero')}</p>
+        <p class="badge-note">{t(locale, 'Free to download · Optional one-time pack · No account · Nothing sent to Dad Hair Hero')}</p>
       </div>
     </div>
     <picture>
@@ -90,7 +96,7 @@ const jsonld = [
 
   <h2>{t(locale, 'How it works')}</h2>
   <p class="how-text">
-    {t(locale, 'Say how long you have (2, 5, 10 or 15 minutes and up) and what her hair is like today: straight, wavy, thick, curly or coily. The app picks a style that fits. Then it takes you through it one action at a time, with a picture of what your hands should be doing and a line that tells you what it should look and feel like before you move on.')}
+    {t(locale, 'Say how long you have (2, 5, 10 or 15 minutes and up), what the day is (an ordinary school day, sport, a party or bedtime) and what her hair is like today: straight, wavy, thick, curly or coily. The app picks a style that suits her age, hair type and length. Then it takes you through it one action at a time, with a picture of what your hands should be doing and a line that tells you what it should look and feel like before you move on.')}
   </p>
   {/* Desktop only, in place of the paragraph above. Lazy, so a phone never fetches the pictures. */}
   <ol class="how">
@@ -105,11 +111,14 @@ const jsonld = [
 
   <h2>{t(locale, 'Free, and it stays free')}</h2>
   <ul>
-    <li>{t(locale, `${capitalised(COUNTS.free)} styles: tangle-free brushing, a classic ponytail, a high ponytail, two even bunches, half-up half-down and a clip-back for baby and toddler wisps, plus three for short hair (twist-back sides, a top sprout and a side-swept clip).`)}</li>
+    <li>{t(locale, `${capitalised(COUNTS.free)} styles: tangle-free brushing, a classic ponytail, a high ponytail, two even bunches, half-up half-down and a clip-back for baby and toddler wisps; four for short hair (twist-back sides, a top sprout, two little sprouts and a side-swept clip); and a bedtime pineapple that keeps curly hair ready for the morning.`)}</li>
     <li>
-      {t(locale, 'Eight')} <a href={path(locale, 'techniques')}>{t(locale, 'technique guides')}</a>{t(locale, ', including holding tension, detangling without tears, making a parting, choosing elastics and keeping her still.')}
+      {t(locale, capitalised(COUNTS.techniques))} <a href={path(locale, 'techniques')}>{t(locale, 'technique guides')}</a>{t(locale, ', including holding tension, detangling without tears, making a parting, choosing elastics and keeping her still.')}
     </li>
-    <li>{t(locale, 'All the guidance for her hair type.')}</li>
+    <li>{t(locale, 'All the guidance for her hair type: straight, wavy, thick, curly or coily.')}</li>
+    <li>
+      <a href={path(locale, 'guides')}>{t(locale, `${capitalised(COUNTS.guides)} care routines`)}</a>{t(locale, ' for the days around a hairstyle (below).')}
+    </li>
     <li>
       <a href={path(locale, 'fixIt')}>Fix It</a>{t(locale, ": quick fixes for when something isn't right. It won't stay in, her hair is badly knotted, or she won't sit still.")}
     </li>
@@ -127,6 +136,24 @@ const jsonld = [
     ))}
   </ul>
 
+  <h2>{t(locale, 'Care routines, free')}</h2>
+  <p>
+    {say(locale,
+      'Wash day without tears, a bonnet for the night, before and after swimming, hair that stays put for PE and under a helmet, a ballet bun with the pins pointing the right way, checking for nits, and holiday hair that lasts. Each one runs step by step like a style, with the curly and coily method where it differs, and every one is free.',
+      'Wash day without tears, a bonnet for the night, before and after swimming, hair that stays put for gym class and under a helmet, a ballet bun with the pins pointing the right way, checking for lice, and vacation hair that lasts. Each one runs step by step like a style, with the curly and coily method where it differs, and every one is free.')}
+    {' '}<a href={path(locale, 'guides')}>{t(locale, 'See the care routines')}</a>.
+  </p>
+
+  <h2>{t(locale, 'Hands free, and easy to see')}</h2>
+  <ul>
+    <li>{t(locale, "Every step can be read aloud in your phone's own voice, so your eyes can stay on her hair.")}</li>
+    <li>{say(locale,
+      'Hands full? Say "next", "back" or "repeat" instead of tapping. It is off until you turn it on, your phone does the listening, and nothing is recorded or sent. (On phones that recognise speech themselves.)',
+      'Hands full? Say "next", "back" or "repeat" instead of tapping. It is off until you turn it on, your phone does the listening, and nothing is recorded or sent. (On phones that recognize speech themselves.)')}</li>
+    <li>{t(locale, "Text grows with your phone's text size, and is drawn in strong contrast.")}</li>
+    <li>{say(locale, 'Buttons are labelled for screen readers.', 'Buttons are labeled for screen readers.')}</li>
+  </ul>
+
   <h2>{t(locale, 'Curly and coily hair')}</h2>
   <p>
     {t(locale, 'Choose Curly or Coily under “her hair today” and the steps and pictures change to the method that suits curly hair: detangling it damp, working in sections, and keeping tension gentle at her edges. Three of the technique guides cover detangling curly and coily hair, the two-strand twist, and protecting her edges. All of it is free. Start with')}
@@ -136,9 +163,10 @@ const jsonld = [
   <h2>{t(locale, 'Beyond the Ponytail (optional)')}</h2>
   <p>{t(locale, `When ponytails are easy and you want more, Beyond the Ponytail adds ${COUNTS.pack} styles in one pack:`)}</p>
   <ul>
-    <li>{t(locale, 'Plaits: a three-strand plait, a French plait, a Dutch plait, plaited pigtails and a pull-through plait.')}</li>
-    <li>{t(locale, 'Buns: a top knot, a mini top knot, a sports bun and space buns.')}</li>
-    <li>{t(locale, 'And a bubble ponytail, puffs, twisted bunches and criss-cross bands.')}</li>
+    <li>{t(locale, 'Plaits: a three-strand plait, a French plait, a Dutch plait, a fishtail plait, plaited pigtails and a pull-through plait.')}</li>
+    <li>{t(locale, 'Buns and knots: a top knot, a mini top knot, a loop bun, a half-up bun, a sports bun and space buns.')}</li>
+    <li>{t(locale, 'Ponytails: a bubble ponytail, a wrapped ponytail for school photos and a rope ponytail for sport.')}</li>
+    <li>{t(locale, 'And puffs, twisted bunches and criss-cross bands.')}</li>
   </ul>
   <p>
     {t(locale, 'You pay once and the styles are yours to keep. There is no subscription. You can see every style in the pack, with its picture and its steps listed, before you decide.')}
@@ -147,13 +175,13 @@ const jsonld = [
 
   <h2>{t(locale, 'The Kit')}</h2>
   <p>
-    {t(locale, `${capitalised(COUNTS.kit)} things worth having, from a wide-tooth comb to a satin bonnet, sorted into Essential and Nice to have, with a photo of each and what it is for. The Buy links on the Kit screen are affiliate links, and the screen says so. Nothing is sold anywhere else in the app.`)}
+    {t(locale, `${capitalised(COUNTS.kit)} things worth having, from a wide-tooth comb to a satin bonnet, with a photo of each and what it is for. The Buy links on the Kit screen are Amazon affiliate links, and the screen says so. Nothing is sold anywhere else in the app.`)}
     {' '}<a href={path(locale, 'kit')}>{t(locale, 'See the Kit')}</a>.
   </p>
 
-  <h2>{t(locale, 'Your diary')}</h2>
+  <h2>{t(locale, 'Her stars, your diary, your skills')}</h2>
   <p>
-    {t(locale, 'Add a photo and a note when you finish a style, and say how it went. The diary keeps a plain record: the styles you have done, how often, and what to try next. No points and no levels.')}
+    {t(locale, 'When you finish, she rates the style with stars, and you can add her photo to the Wall of Fame. The diary records the styles you have done and how they went, and the Us tab shows the skills you are building, from Beginner to Pro.')}
   </p>
 
   <h2>{t(locale, 'Privacy-friendly')}</h2>
@@ -166,7 +194,7 @@ const jsonld = [
 
   <h2>{t(locale, 'Who it is for')}</h2>
   <p>
-    {t(locale, "Dads, and anyone else who does a girl's hair in the morning. The styles suit toddlers through to pre-teens. No experience is needed. The app is in UK or US English, whichever you choose.")}
+    {t(locale, "Dads, and anyone else who does a girl's hair in the morning. The styles suit babies through to pre-teens. No experience is needed. The app is in UK or US English, whichever you choose.")}
     {' '}<a href={path(locale, 'about')}>{t(locale, 'About the dad who made it')}</a>.
   </p>
 </Base>

@@ -19,16 +19,19 @@ const points = [
   ['A check before every step.', 'Each step ends with what it should look and feel like, so you know it is right before you move on.'],
   ['Fix It, mid-style.', 'When something is not right, "Something\'s not right" opens the fix for it without leaving the step.'],
   ['The diary.', 'Add a photo and a note when you finish, and see what you have done and what to try next.'],
-].map(([strong, text]) => [t(locale, strong), t(locale, text)]);
+  ['Hands free.', 'Each step can be read aloud in your phone\'s own voice, and on phones that recognise speech themselves you can say "next", "back" or "repeat" instead of tapping. That is off until you turn it on, it is recognised on your phone, and nothing is recorded or sent.'],
+].map(([strong, text]) => [t(locale, strong), t(locale, text)])
+  // The glossary has no recognise → recognize.
+  .map(([strong, text]) => [strong, locale.code === 'en-US' ? text.replace(/recognis/g, 'recogniz') : text]);
 ---
 <section class="app-block" id="app">
   <h2>{t(locale, heading)}</h2>
   <slot>
-    <p>{lead ?? t(locale, 'The page tells you how. The app does four things a page cannot:')}</p>
+    <p>{lead ?? t(locale, 'The page tells you how. The app does five things a page cannot:')}</p>
   </slot>
   <ul>
     {points.map(([strong, text]) => <li><strong>{strong}</strong> {text}</li>)}
   </ul>
-  <p>{t(locale, `Free, with ${COUNTS.free} styles and all ${COUNTS.techniques} techniques. Privacy-friendly: no account and no tracking.`)}</p>
+  <p>{t(locale, `Free to download, with ${COUNTS.free} free styles, all ${COUNTS.techniques} techniques and all ${COUNTS.guides} care routines, and an optional one-time pack of ${COUNTS.pack} more styles. Privacy-friendly: no account and no tracking.`)}</p>
   <StoreBadges campaignName={campaign(locale, kind, id)} />
 </section>

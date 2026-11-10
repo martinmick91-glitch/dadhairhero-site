@@ -1,0 +1,66 @@
+---
+// The care routines (1.4.0): every routine the export carries, free in the
+// app (Browse → Care) and in full on this site. Routines are never counted
+// as styles, as in the app (src/data/care.ts in the app's repository).
+import Base from '../../../layouts/Base.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import {
+  LOCALES, langParam, localeFromParam, path, breadcrumbs, itemList, sentence, minutes, campaign, t, say,
+  publishedGuides, COUNTS, capitalised,
+} from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const guides = publishedGuides(locale);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Care routines'), path: path(locale, 'guides') },
+];
+const title = say(locale, 'Hair care routines for dads: wash day to nits | Dad Hair Hero', 'Hair care routines for dads: wash day to lice | Dad Hair Hero');
+const description = say(
+  locale,
+  `${capitalised(COUNTS.guides)} free hair care routines for dads: wash day, night and bonnets, swimming, PE, dance, nits and holiday hair, step by step.`,
+  `${capitalised(COUNTS.guides)} free hair care routines for dads: wash day, night and bonnets, swimming, gym class, dance, lice and vacation hair, step by step.`,
+);
+const entries = guides.map((g) => ({ name: g.name, path: path(locale, 'guide', g.id) }));
+---
+<Base
+  locale={locale}
+  kind="guides"
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={[breadcrumbs(trail), itemList(t(locale, 'Care routines'), entries)]}
+>
+  <h1>{t(locale, 'Care routines')}</h1>
+  <p class="lede">{t(locale, `${capitalised(COUNTS.guides)} routines for the days around a hairstyle, written for dads like the styles are: one action at a time, with what to check before you move on.`)}</p>
+  <p class="summary-cta">{t(locale, 'All of them are free in the app, under Browse → Care, for everyone. They are not part of the pack.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'guides')} />
+
+  <ul class="rows">
+    {guides.map((guide) => {
+      const total = guide.parts.reduce((n, p) => n + p.targetMinutes, 0);
+      return (
+        <li>
+          <a href={path(locale, 'guide', guide.id)}>{guide.name}</a>
+          <span>{sentence(guide.oneLiner)} {t(locale, `${guide.parts.length === 1 ? 'One part' : `${guide.parts.length} parts`}, about ${minutes(total)} in all.`)}</span>
+          <span>{sentence(guide.description)}</span>
+        </li>
+      );
+    })}
+  </ul>
+
+  <p>
+    {t(locale, 'Each routine has the curly and coily method where it differs, and suggests styles that suit the day. For the styles themselves, start with the')}{' '}
+    <a href={path(locale, 'easy')}>{t(locale, 'easy hairstyles')}</a>{t(locale, ', or the')}{' '}
+    <a href={path(locale, 'sports')}>{t(locale, 'sports hairstyles')}</a>.
+  </p>
+
+  <AppBlock locale={locale} kind="guides" heading="Step by step, in the app">
+    <p>{t(locale, 'In Dad Hair Hero each routine runs one step at a time, like a style, and saves nothing. Then:')}</p>
+  </AppBlock>
+</Base>

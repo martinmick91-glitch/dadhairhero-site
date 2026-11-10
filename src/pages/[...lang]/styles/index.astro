@@ -33,7 +33,7 @@ const entries = locale.data.styles.map((s) => ({ name: s.name, path: path(locale
 >
   <h1>{t(locale, 'Hairstyles for girls')}</h1>
   <p class="lede">{t(locale, `${capitalised(COUNTS.styles)} styles, written for dads. Each one says how long it takes and what you need.`)}</p>
-  <p class="summary-cta">{t(locale, `All ${COUNTS.styles} are in the free app, with the steps for her hair.`)}</p>
+  <p class="summary-cta">{t(locale, `All ${COUNTS.styles} are in the app, with the steps for her hair: ${COUNTS.free} free, and ${COUNTS.pack} in Beyond the Ponytail, an optional one-time pack. The app is free to download.`)}</p>
   <StoreBadges campaignName={campaign(locale, 'styles')} />
 
   <h2>{t(locale, 'Free styles, step by step')}</h2>
@@ -52,6 +52,7 @@ const entries = locale.data.styles.map((s) => ({ name: s.name, path: path(locale
   <ul class="rows">
     <li><a href={path(locale, 'easy')}>{t(locale, 'Easy hairstyles for girls')}</a><span>{t(locale, `The ${COUNTS.free} free styles, quickest first.`)}</span></li>
     <li><a href={path(locale, 'curly')}>{t(locale, 'Hairstyles for curly and coily hair')}</a><span>{t(locale, 'The curly method, and the styles written for it.')}</span></li>
+    <li><a href={path(locale, 'guides')}>{t(locale, 'Care routines')}</a><span>{t(locale, `The ${COUNTS.guides} free routines for the days around a hairstyle: wash day, swimming, sport, dance, nits and more.`)}</span></li>
     {HUBS.map((hub) => (
       <li><a href={path(locale, hub.kind)}>{t(locale, hub.h1)}</a><span>{t(locale, hub.lede)}</span></li>
     ))}

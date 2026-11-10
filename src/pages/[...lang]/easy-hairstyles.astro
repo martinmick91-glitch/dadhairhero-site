@@ -18,7 +18,8 @@ export function getStaticPaths() {
 const locale = localeFromParam(Astro.params.lang);
 const free = locale.data.styles.filter((s) => !s.pack).sort((a, b) => a.targetMinutes - b.targetMinutes);
 const toddler = free.filter((s) => s.ageBands.includes('toddler') || s.ageBands.includes('baby'));
-const school = free.filter((s) => s.occasions.includes('school'));
+// The app has no school tag (1.4.0): an ordinary school day is Everyday.
+const school = free.filter((s) => s.occasions.includes('everyday'));
 const nextUp = locale.data.styles.filter((s) => s.pack && s.difficulty === 'easy');
 const basics = ['detangling', 'holding-tension', 'choosing-elastics', 'keeping-her-still']
   .map((id) => techniqueById(locale, id));
@@ -34,7 +35,7 @@ const trail = [
   { name: t(locale, 'Easy hairstyles'), path: path(locale, 'easy') },
 ];
 const title = 'Easy hairstyles for girls, step by step | Dad Hair Hero';
-const description = t(locale, `${capitalised(COUNTS.free)} easy hairstyles for girls that a dad can do before school, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a picture. No experience needed.`);
+const description = t(locale, `${capitalised(COUNTS.free)} easy hairstyles for girls that a dad can do, for school mornings and bedtime, from ${minutes(quickest.targetMinutes)} to ${minutes(slowest.targetMinutes)}. Every step has a picture. No experience needed.`);
 const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.id) }));
 ---
 <Base
@@ -46,8 +47,8 @@ const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.i
   jsonld={[breadcrumbs(trail), itemList('Easy hairstyles for girls', entries)]}
 >
   <h1>{t(locale, 'Easy hairstyles for girls')}</h1>
-  <p class="lede">{t(locale, `${capitalised(COUNTS.free)} styles a dad can do on a school morning, quickest first. No experience needed.`)}</p>
-  <p class="summary-cta">{t(locale, `All ${COUNTS.free} are free in the app, with a check before every step.`)}</p>
+  <p class="lede">{t(locale, `${capitalised(COUNTS.free)} styles a dad can do, from a school morning to bedtime, quickest first. No experience needed.`)}</p>
+  <p class="summary-cta">{t(locale, `All ${COUNTS.free} are free in the app, with a check before every step. The app is free to download, with an optional one-time pack.`)}</p>
   <StoreBadges campaignName={campaign(locale, 'easy')} />
   <p>
     {t(locale, 'Each guide takes you through one action at a time, with a picture of what your hands should be doing and what it should look and feel like before you move on. Ponytails and bunches are where most dads start.')}
@@ -73,8 +74,8 @@ const entries = free.map((s) => ({ name: s.name, path: path(locale, 'style', s.i
 
   <h2>{t(locale, 'Easy hairstyles for school')}</h2>
   <p>
-    {t(locale, `The everyday styles that suit a school day, each one ${minutes(Math.max(...school.map((s) => s.targetMinutes)))} or less. The`)}{' '}
-    <a href={path(locale, 'school')}>{t(locale, 'school page')}</a> {t(locale, 'lists every style tagged for it.')}
+    {t(locale, `The styles the app lists for an ordinary school day (Everyday), each one ${minutes(Math.max(...school.map((s) => s.targetMinutes)))} or less. The`)}{' '}
+    <a href={path(locale, 'school')}>{t(locale, 'school page')}</a> {t(locale, 'lists every one, the pack styles too.')}
   </p>
   <StyleCards locale={locale} styles={school} />
 

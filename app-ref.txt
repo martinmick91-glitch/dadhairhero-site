@@ -1,0 +1,6 @@
+# The app commit, branch or tag this site describes: the content check
+# (scripts/check-export.mjs) and the GitHub Action compare the export with
+# the app as it is here. Normally master. Set to an older commit only while
+# master is ahead of the version live in the stores, then back to master.
+# See "The app ref" in README.md.
+b093e82c71771870d6799d598e785700cab240e4

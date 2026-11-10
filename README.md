@@ -26,7 +26,18 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   files disagree, or if the app's repository is beside this one and its
   current content version differs. In CI the app check runs when the
   `APP_REPO_TOKEN` secret gives the workflow read access to the private
-  app repository; without it the comparison is skipped and the log says so.
+  app repository, checked out at the ref in `app-ref.txt`; without it the
+  comparison is skipped and the log says so.
+- **The app ref (`app-ref.txt`).** One line naming the app commit, branch
+  or tag the site describes; the content check and the GitHub Action
+  compare the export with the app as it is there. **It should normally be
+  `master`.** Set it to an older commit only while master is ahead of the
+  version live in the stores (a release in review), so a site pull request
+  for the live version still passes; the pull request for the next version
+  sets it back to `master`. The check is as strict either way: the export
+  must be the app's content at that ref. Locally, a ref other than the app
+  checkout's HEAD is read from the app's history with `git archive`, which
+  changes nothing there.
 - **The free styles and the techniques are published in full.**
   The Beyond the Ponytail styles are previews: finished look, time,
   kit and step titles. The export never writes their instructions or step
@@ -47,8 +58,11 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   technique guides; the seasonal guides (Halloween, Christmas); hubs for
   easy hairstyles, curly and coily hair, school, toddlers, sport and
   parties (`HUBS` in `src/lib/site.js`, built
-  from the app's occasion and age tags); Fix It, one page per problem from
-  the app's tree; the Kit; About; privacy; 404.
+  from the app's occasion and age tags: Everyday, Sport, Party and Bedtime
+  since 1.4.0, so School lists the Everyday styles); the care routines
+  (`/guides/`, one page per routine, in full, from the export's `guides`;
+  a guide marked `hold` gets no page); Fix It, one page per problem from
+  the app's tree; the Kit; About; Press; privacy; 404.
 - **Videos.** `npm run videos` renders a 30 to 45 second vertical video for
   each free style in each language from its step photos
   (`scripts/render-videos.mjs`, sharp and ffmpeg), into `public/videos/`,
