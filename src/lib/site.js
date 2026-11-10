@@ -18,6 +18,14 @@ export const APP_STORE_ID = '6810375103';
 export const PLAY_PACKAGE = 'com.dadhairhero.app';
 export const EMAIL = 'hello@dadhairhero.com';
 
+// The app's Instagram account (Martin, 2026-11-10). A plain link only: no
+// embed, widget, pixel or script from Instagram anywhere on the site.
+export const INSTAGRAM = { url: 'https://www.instagram.com/dadhairhero/', handle: '@dadhairhero', label: 'Dad Hair Hero on Instagram' };
+
+// How the site says what the app costs: free to download, with the optional
+// one-time pack. Never just "free" for the app as a whole.
+export const FREE_TO_DOWNLOAD = 'Free to download, with an optional one-time pack.';
+
 // The person behind the app, for the About page and the author line.
 export const AUTHOR = { name: 'Martin', role: 'The dad behind Dad Hair Hero' };
 
@@ -77,6 +85,10 @@ export function toUS(text) {
 // A sentence of the site's own, in this language.
 export const t = (locale, text) => (locale === US ? toUS(text) : text);
 
+// A sentence whose US wording the glossary doesn't cover (recognise and
+// recognize, labelled and labeled, nits and lice): both written out.
+export const say = (locale, uk, us) => (locale === US ? us : t(locale, uk));
+
 // ─── Counts ──────────────────────────────────────────────────────────────────
 //
 // How many styles, pack styles and Kit things there are, counted from the
@@ -101,6 +113,8 @@ export const COUNTS = {
   pack: inWords(gb.styles.filter((s) => s.pack).length),
   kit: inWords(gb.kit.sections.reduce((n, section) => n + section.items.length, 0)),
   techniques: inWords(gb.techniques.length),
+  // Care routines (1.4.0): free, and never counted as styles.
+  guides: inWords(gb.guides.length),
 };
 
 // A sentence that names styles one by one can't be counted, so its page
@@ -118,6 +132,10 @@ export const styleById = (locale, id) => locale.data.styles.find((s) => s.id ===
 export const techniqueById = (locale, id) => locale.data.techniques.find((t) => t.id === id);
 export const kitItems = (locale) => locale.data.kit.sections.flatMap((s) => s.items);
 export const kitItemById = (locale, id) => kitItems(locale).find((i) => i.id === id);
+// A care routine (1.4.0). One the export marks `hold` is waiting for an
+// expert's check and gets no page.
+export const guideById = (locale, id) => locale.data.guides.find((g) => g.id === id);
+export const publishedGuides = (locale) => locale.data.guides.filter((g) => !g.hold);
 export const fixEntryById = (locale, id) => locale.data.fixIt.entries.find((e) => e.id === id);
 export const fixNodeById = (locale, id) => locale.data.fixIt.nodes.find((n) => n.id === id);
 export const offersCurly = (style) => style.hairTypes.includes('curly') || style.hairTypes.includes('coily');
@@ -139,10 +157,12 @@ export const HUBS = [
     title: 'School hairstyles for girls, timed for mornings | Dad Hair Hero',
     description: 'Hairstyles for school that a dad can do before the bus: each one says how long it takes, and the free ones are here step by step with a picture for every step.',
     lede: 'The styles that get through a school day, quickest first. Each one says how long it takes.',
-    intro: 'A school morning has a clock on it, so every style here is tagged for school in the app and listed by time. The free ones are on this site in full. The rest are in Beyond the Ponytail, an optional one-time pack in the app, and their pages show what you would need and what the steps cover.',
-    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('school'))),
+    // The app has no school tag (1.4.0): an ordinary school day is Everyday,
+    // the day Today starts on each morning (src/data/occasions.ts).
+    intro: 'A school morning has a clock on it. In the app, an ordinary school day is an Everyday day, which is where Today starts each morning, so these are the styles the app lists for Everyday, quickest first. The free ones are on this site in full. The rest are in Beyond the Ponytail, an optional one-time pack in the app, and their pages show what you would need and what the steps cover.',
+    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('everyday'))),
     ctaHeading: 'Pick by the clock, in the app',
-    cta: 'Tell Dad Hair Hero how many minutes you have and it shows the styles that fit, with her hair type taken into account. Free, no account, no tracking.',
+    cta: 'Tell Dad Hair Hero how many minutes you have and what the day is, and it shows the styles that fit, with her hair type taken into account. Free to download, with an optional one-time pack. No account, no tracking.',
   },
   {
     kind: 'toddler',
@@ -156,7 +176,7 @@ export const HUBS = [
     select: (styles) => sortByTime(styles.filter((s) => s.ageBands.includes('baby') || s.ageBands.includes('toddler'))),
     techniques: ['keeping-her-still', 'detangling', 'choosing-elastics'],
     ctaHeading: 'Set her age once, in the app',
-    cta: 'Tell Dad Hair Hero her age and hair type and it puts the styles written for her first. Free, no account, no tracking.',
+    cta: 'Tell Dad Hair Hero her age and hair type and it puts the styles written for her first. Free to download, with an optional one-time pack. No account, no tracking.',
   },
   {
     kind: 'sports',
@@ -164,14 +184,16 @@ export const HUBS = [
     name: 'Sports hairstyles',
     h1: 'Hairstyles for sport and active days',
     title: 'Sports hairstyles for girls that stay put | Dad Hair Hero',
-    description: 'Hairstyles for sport, swimming and PE that hold: ponytails and plaits tagged for active days in the app, with the fix for a bun that collapses mid-game.',
+    description: 'Hairstyles for sport, swimming and PE that hold: the styles the app lists for sport, free swim day and sport day routines, and the fix for a bun that collapses.',
     lede: 'Hair that has to survive a match, a swimming lesson or a whole afternoon outside.',
-    intro: 'An active day asks two things of a style: it holds, and it does not hurt. The styles here are tagged for sport or swimming in the app. The techniques that matter most for them are holding tension and choosing elastics, both linked below, and Fix It has a page for a style that falls out and one for a bun that collapses mid-game.',
-    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('sport') || s.occasions.includes('swimming'))),
+    intro: 'An active day asks two things of a style: it holds, and it does not hurt. The styles here are the ones the app lists for Sport. For swimming lessons and sport at school, the app also has two free care routines, linked below. The techniques that matter most are holding tension and choosing elastics, and Fix It has a page for a style that falls out and one for a bun that collapses mid-game.',
+    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('sport'))),
+    // The care routines for these days, from the export.
+    guides: ['swim-day', 'sport-day'],
     techniques: ['holding-tension', 'choosing-elastics'],
     fixes: ['entry-falls-out', 'entry-sports-bun'],
     ctaHeading: 'The ones that hold, in the app',
-    cta: 'Dad Hair Hero shows each step with what to check before you move on, so the elastic is right the first time. Free, no account, no tracking.',
+    cta: 'Dad Hair Hero shows each step with what to check before you move on, so the elastic is right the first time. Free to download, with an optional one-time pack. No account, no tracking.',
   },
   {
     kind: 'party',
@@ -179,19 +201,22 @@ export const HUBS = [
     name: 'Party hairstyles',
     h1: 'Hairstyles for parties, picture day and dance',
     title: 'Party hairstyles for girls a dad can do | Dad Hair Hero',
-    description: 'Hairstyles for a party, picture day or dance class: bunches, half-up styles, plaits and buns tagged for occasions in the app, the free ones step by step.',
+    description: 'Hairstyles for a party, picture day or dance class: the styles the app lists for parties, the free ones step by step, and a free dance day routine.',
     lede: 'For the days a photo will be taken. Neat, a little more than everyday, and still something you can do.',
-    intro: 'These are the styles tagged for parties or dance in the app. For a school picture day the same list applies: something tidy from the front, done the night before if it will last, or that morning if it will not. The free ones are on this site in full; the rest are in Beyond the Ponytail, an optional one-time pack in the app.',
-    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('party') || s.occasions.includes('dance'))),
+    // The app's occasions are Everyday, Sport, Party and Bedtime (1.4.0): no
+    // dance or picture day tag. Dance has its own care routine instead.
+    intro: 'These are the styles the app lists for a party. The app has no picture day setting, but the same list suits one: something tidy from the front, done the night before if it will last, or that morning if it will not. For a dance class or a show, the app has a free dance and drama day routine, linked below. The free styles are on this site in full; the rest are in Beyond the Ponytail, an optional one-time pack in the app.',
+    select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('party'))),
+    guides: ['dance-day'],
     techniques: ['making-a-part', 'holding-tension'],
     fixes: ['entry-looks-wrong'],
     // Near the top of the hub: the seasonal guides built from these styles.
-    guides: [
+    seasonal: [
       { kind: 'christmas-hair', lead: 'For Christmas:', link: 'Christmas concert and party hairstyles', after: ', from a half-up with a bow to bunches with ribbons, free step by step.' },
       { kind: 'halloween-hair', lead: 'For Halloween:', link: 'easy Halloween hairstyles', after: ', from a unicorn tail to scarecrow bunches, free step by step.' },
     ],
     ctaHeading: 'Practise it first, in the app',
-    cta: 'Dad Hair Hero keeps a diary of what you have done and how it went, so the party style is one you have already tried. Free, no account, no tracking.',
+    cta: 'Dad Hair Hero keeps a diary of what you have done and how it went, so the party style is one you have already tried. Free to download, with an optional one-time pack. No account, no tracking.',
   },
 ];
 
@@ -442,6 +467,18 @@ export const SEASONAL_GUIDES = [HALLOWEEN, CHRISTMAS];
 // in the export yet; once it is, read it from there instead.
 export const UNDER_THREE_LINE = "Under three? Use elastics and clips only while you're with her, and take them out before she sleeps.";
 
+// The app's sleep note, word for word: SLEEP_NOTE in the app's
+// src/data/safety.ts (wording approved 2026-10-14). The app shows it under a
+// style or routine that suggests sleeping in it (sleepsInIt). The export
+// doesn't carry that flag for styles, so the free styles it applies to are
+// listed here; Bedtime Pineapple is the only free one (1.4.0). A routine's
+// own flag is in the export (guide.sleepNote).
+export const SLEEP_NOTE = {
+  heading: 'Before she sleeps in it.',
+  body: 'Under one: nothing on her head and nothing in the cot, so no bonnet and no pillow. Under three: take out every elastic and clip before naps and bed. Small hair things are a choking risk. Older children: check the bed in the morning for anything that has come loose.',
+};
+export const SLEEPS_IN_IT_FREE_STYLES = ['bedtime-pineapple'];
+
 // The seasonal looks a style is used in, for the lines on its own page:
 // "A Halloween idea: …", "A Christmas idea: …". A look with no `idea` has none.
 export const seasonalLooksForStyle = (style) => SEASONAL_GUIDES.flatMap((guide) => guide.looks
@@ -472,6 +509,8 @@ const FIXED = {
   // asking what to fix, which opens the visitor's own email app.
   press: '/press/',
   tellUs: '/tell-us/',
+  // The care routines (1.4.0), free in the app and in full here.
+  guides: '/guides/',
   ...Object.fromEntries(HUBS.map((hub) => [hub.kind, `/${hub.segment}/`])),
   ...Object.fromEntries(SEASONAL_GUIDES.map((guide) => [guide.kind, `/${guide.segment}/`])),
 };
@@ -481,6 +520,7 @@ const FIXED = {
 export function path(locale, kind, id) {
   if (kind === 'style') return `${locale.prefix}/styles/${styleById(locale, id).slug}/`;
   if (kind === 'technique') return `${locale.prefix}/techniques/${techniqueById(locale, id).slug}/`;
+  if (kind === 'guide') return `${locale.prefix}/guides/${guideById(locale, id).slug}/`;
   if (kind === 'fix') return `${locale.prefix}/fix-it/${fixEntryById(locale, id).slug}/`;
   if (kind === 'kitItem') return `${locale.prefix}/kit/#${id}`;
   if (!(kind in FIXED)) throw new Error(`No such page kind: ${kind}`);
@@ -507,6 +547,7 @@ export function pairedRoutes() {
     ...UK.data.styles.map((s) => ({ kind: 'style', id: s.id })),
     ...UK.data.techniques.map((t) => ({ kind: 'technique', id: t.id })),
     ...UK.data.fixIt.entries.map((e) => ({ kind: 'fix', id: e.id })),
+    ...publishedGuides(UK).map((g) => ({ kind: 'guide', id: g.id })),
   ];
 }
 
@@ -516,7 +557,7 @@ export function pairedRoutes() {
 // show which pages send installs. It travels in the link only: the site
 // itself records nothing. Apple allows 40 characters.
 export function campaign(locale, kind, id) {
-  const short = { style: 's', technique: 't', fix: 'f' }[kind];
+  const short = { style: 's', technique: 't', fix: 'f', guide: 'g' }[kind];
   const name = short ? `${short}-${id}` : kind;
   return `${locale === US ? 'us-' : ''}${name}`.slice(0, 40);
 }
@@ -538,8 +579,8 @@ export function playUrl(campaignName) {
 // this language.
 export const shareText = (style) =>
   style.pack
-    ? `Here's ${style.name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free and privacy-friendly, with no account.`
-    : `Here's the ${style.name} step by step, written for dads. The app is free and privacy-friendly, with no account.`;
+    ? `Here's ${style.name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free to download and privacy-friendly, with no account.`
+    : `Here's the ${style.name} step by step, written for dads. The app is free to download and privacy-friendly, with no account.`;
 
 // ─── Words ───────────────────────────────────────────────────────────────────
 
@@ -557,7 +598,7 @@ export const upper = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 export const sentence = (text) => (/[.!?]$/.test(text) ? text : `${text}.`);
 
 const AGE_ORDER = ['baby', 'toddler', 'young-child', 'older-child', 'pre-teen'];
-const AGE_WORDS = {
+export const AGE_WORDS = {
   baby: 'babies',
   toddler: 'toddlers',
   'young-child': 'young children',
@@ -567,7 +608,10 @@ const AGE_WORDS = {
 
 // "Toddlers to pre-teens", from the age bands the style was written for.
 export function ages(style) {
-  const bands = AGE_ORDER.filter((band) => style.ageBands.includes(band));
+  return agesOf(style.ageBands);
+}
+export function agesOf(ageBands) {
+  const bands = AGE_ORDER.filter((band) => ageBands.includes(band));
   const first = AGE_WORDS[bands[0]];
   const last = AGE_WORDS[bands[bands.length - 1]];
   const text = bands.length === 1 ? first : bands.length === 2 ? `${first} and ${last}` : `${first} to ${last}`;
@@ -810,6 +854,7 @@ export const ORGANIZATION = {
   sameAs: [
     `https://apps.apple.com/app/id${APP_STORE_ID}`,
     `https://play.google.com/store/apps/details?id=${PLAY_PACKAGE}`,
+    INSTAGRAM.url,
   ],
 };
 

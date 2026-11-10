@@ -9,7 +9,7 @@
 // stripped. Everything else pictured on the site is an illustration.
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
-import { LOCALES, SITE, AUTHOR, EMAIL, langParam, localeFromParam, path, breadcrumbs, campaign, t, ORGANIZATION, PERSON } from '../../lib/site.js';
+import { LOCALES, SITE, AUTHOR, EMAIL, INSTAGRAM, langParam, localeFromParam, path, breadcrumbs, campaign, t, say, ORGANIZATION, PERSON } from '../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
@@ -88,6 +88,11 @@ const jsonld = [
     {t(locale, 'Nothing leaves it for Dad Hair Hero. There is no account, no sign-up, no analytics and no crash reporting, and no code in the app that reports what you do. Her name, hair type and age, your progress, and the photos and notes in the diary are stored on your phone. Your phone\'s own backup (iCloud, or Android backup) includes them, like any other app\'s data, in your own Apple or Google account.')}
   </p>
   <p>
+    {say(locale,
+      'Steps are read aloud in your phone\'s own voice. If you turn on "next", "back" and "repeat", your phone recognises them itself while the steps are open. Nothing it hears is recorded, kept or sent, and the only thing the app saves is that you turned it on.',
+      'Steps are read aloud in your phone\'s own voice. If you turn on "next", "back" and "repeat", your phone recognizes them itself while the steps are open. Nothing it hears is recorded, kept or sent, and the only thing the app saves is that you turned it on.')}
+  </p>
+  <p>
     {t(locale, 'The Kit is the one place anything can be bought. Its Buy links are affiliate links and say so before you tap. The screen a child uses to pick her own style has no links, no shop and no record of what she tapped beyond the one style she chose. Beyond the Ponytail is a one-time purchase through the App Store or Google Play; the app asks the store for the price and whether you own it, and nothing more.')}
   </p>
   <p>
@@ -103,6 +108,9 @@ const jsonld = [
   <h2>{t(locale, 'Get in touch')}</h2>
   <p>
     <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'A step that didn\'t work, a style you want, a picture that is wrong: all of it is read.')}
+  </p>
+  <p>
+    {t(locale, 'On Instagram:')} <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>{INSTAGRAM.handle}</a>.
   </p>
   <p>
     <a href={path(locale, 'tellUs')}>{t(locale, 'Tell us what to fix')}</a> {t(locale, 'says what helps most in an email. Writing about the app, or telling a group about it?')}

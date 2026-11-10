@@ -7,7 +7,7 @@
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import {
-  LOCALES, EMAIL, COUNTS, capitalised, langParam, localeFromParam, path, breadcrumbs, campaign, t,
+  LOCALES, EMAIL, INSTAGRAM, COUNTS, capitalised, say, langParam, localeFromParam, path, breadcrumbs, campaign, t,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -23,7 +23,7 @@ const title = 'Press and partners | Dad Hair Hero';
 const description = t(locale, 'Dad Hair Hero for journalists, parenting groups and dads\' groups: what the app is, the facts, pictures you can use, and who to ask.');
 
 // The paragraph to copy: plain, and true of the app as it is.
-const blurb = t(locale, `Dad Hair Hero is a free app that teaches dads to do their daughters' hair, one step at a time. Each step shows what your hands should be doing and how to tell it's right before you move on. It has ${COUNTS.styles} styles, from a two-minute brush to plaits, written for straight, wavy, thick, curly and coily hair, and for babies to pre-teens. It was made by Martin, a dad in Dublin who couldn't do his daughter's hair.`);
+const blurb = t(locale, `Dad Hair Hero is an app that teaches dads to do their daughters' hair, one step at a time. It is free to download, with an optional one-time pack. Each step shows what your hands should be doing and how to tell it's right before you move on. It has ${COUNTS.styles} styles, from a two-minute brush to plaits, written for straight, wavy, thick, curly and coily hair, and for babies to pre-teens. It was made by Martin, a dad in Dublin who couldn't do his daughter's hair.`);
 
 const shots = [
   { file: 'dad-hair-hero-step-by-step', alt: 'The app on a phone: a step of a hairstyle, with a picture of the hands and a check before moving on, under the words "Her hair, one calm step at a time".' },
@@ -40,9 +40,12 @@ const shots = [
 
   <h2>{t(locale, 'The facts')}</h2>
   <ul>
-    <li>{t(locale, 'Free on the App Store and Google Play, in UK or US English.')}</li>
-    <li>{t(locale, `${capitalised(COUNTS.styles)} styles. ${capitalised(COUNTS.free)} are free, with every step; ${COUNTS.pack} more are in Beyond the Ponytail, an optional one-time pack. All ${COUNTS.techniques} technique guides are free.`)}</li>
-    <li>{t(locale, 'Every step has a picture of what the hands should be doing and a check to make before moving on. Steps can be read aloud, so his eyes can stay on her hair.')}</li>
+    <li>{t(locale, 'Free to download on the App Store and Google Play, with an optional one-time pack, in UK or US English.')}</li>
+    <li>{t(locale, `${capitalised(COUNTS.styles)} styles. ${capitalised(COUNTS.free)} are free, with every step; ${COUNTS.pack} more are in Beyond the Ponytail, an optional one-time pack. All ${COUNTS.techniques} technique guides and all ${COUNTS.guides} care routines are free.`)}</li>
+    <li>{t(locale, 'Every step has a picture of what the hands should be doing and a check to make before moving on. Steps can be read aloud in the phone\'s own voice, so his eyes can stay on her hair.')}</li>
+    <li>{say(locale,
+      'Hands full? He can say "next", "back" or "repeat" instead of tapping. It is off until he turns it on, the phone recognises the words itself, and nothing is recorded or sent. (On phones that recognise speech themselves.)',
+      'Hands full? He can say "next", "back" or "repeat" instead of tapping. It is off until he turns it on, the phone recognizes the words itself, and nothing is recorded or sent. (On phones that recognize speech themselves.)')}</li>
     <li>{t(locale, 'Written for straight, wavy, thick, curly and coily hair, with its own steps for curly and coily hair where the method changes.')}</li>
     <li>{t(locale, 'Privacy-friendly: no account, no analytics and no tracking. What a parent enters stays on the phone and is never sent to Dad Hair Hero.')}</li>
     <li>{t(locale, 'Paid for by the optional pack and by the Kit, a list of things worth having whose Buy links are Amazon affiliate links and say so.')}</li>
@@ -69,7 +72,7 @@ const shots = [
 
   <h2>{t(locale, 'Questions and interviews')}</h2>
   <p>
-    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'Every email is read. Ask for a different picture, a quote, or a link with your own name on it, so you can see how many people it sent to the app.')}
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'On Instagram:')} <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>{INSTAGRAM.handle}</a>. {t(locale, 'Every email is read. Ask for a different picture, a quote, or a link with your own name on it, so you can see how many people it sent to the app.')}
   </p>
 
   <StoreBadges campaignName={campaign(locale, 'press')} />

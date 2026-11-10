@@ -1,0 +1,236 @@
+---
+// One care routine (1.4.0), as a guide page: /guides/<slug>/ in UK English
+// and /us/guides/<slug>/ in US English. Every routine is free in the app, so
+// the page is the whole routine, as a technique page is the whole technique:
+// each part, every step with its picture and what to check, the curly and
+// coily version where the method differs, the notes, and for nits the
+// health services' pages. A guide the export marks `hold` (waiting for an
+// expert's check) gets no page. Started from the app's draft,
+// docs/site/guide-page.astro in the app's repository.
+//
+// In the app a part or step written for some ages only is shown or hidden
+// by her profile (safe sleep, Martin, 2026-11-06). The site has no profile,
+// so it shows them all and says who each is for.
+import Base from '../../../layouts/Base.astro';
+import Photo from '../../../components/Photo.astro';
+import StoreBadges from '../../../components/StoreBadges.astro';
+import AppBlock from '../../../components/AppBlock.astro';
+import Author from '../../../components/Author.astro';
+import Related from '../../../components/Related.astro';
+import {
+  LOCALES, HUBS, langParam, localeFromParam, path, absolute, minutes, sentence, kitItemById, styleById,
+  techniqueById, guideById, publishedGuides, pageTitle, pageDescription, breadcrumbs, imageUrl, lower, t, campaign,
+  AUTHORSHIP, SLEEP_NOTE, agesOf,
+} from '../../../lib/site.js';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    publishedGuides(locale).map((guide) => ({ params: { lang: langParam(locale), slug: guide.slug }, props: { id: guide.id } })),
+  );
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const guide = guideById(locale, Astro.props.id);
+const total = guide.parts.reduce((n, p) => n + p.targetMinutes, 0);
+const stepCount = guide.parts.reduce((n, p) => n + p.steps.length, 0);
+const forAges = (bands) => (bands ? t(locale, `For ${lower(agesOf(bands))}.`) : null);
+
+const kitFor = (ids) => ids.map((id) => kitItemById(locale, id)).filter(Boolean);
+const allKit = kitFor([...new Set(guide.parts.flatMap((p) => p.curlyEquipmentIds))]);
+const suggestions = guide.suggestions
+  .map((s) => ({ ...s, style: styleById(locale, s.styleId) }))
+  .filter((s) => s.style);
+const techniques = [...new Set(guide.parts.flatMap((p) => p.steps.flatMap((s) => [s.techniqueId, s.curly?.techniqueId])))]
+  .filter(Boolean)
+  .map((id) => techniqueById(locale, id))
+  .filter(Boolean);
+const hubs = HUBS.filter((hub) => hub.guides?.includes(guide.id))
+  .map((hub) => ({ name: t(locale, hub.name), path: path(locale, hub.kind) }));
+hubs.push({ name: t(locale, 'Care routines'), path: path(locale, 'guides') });
+
+const title = pageTitle(
+  `${guide.name}: step by step for dads | Dad Hair Hero`,
+  `${guide.name}, step by step | Dad Hair Hero`,
+  `${guide.name} | Dad Hair Hero`,
+);
+const description = pageDescription(
+  sentence(guide.description),
+  t(locale, `${stepCount} steps, about ${minutes(total)} in all.`),
+  t(locale, 'Written for dads.'),
+);
+const trail = [
+  { name: 'Home', path: path(locale, 'home') },
+  { name: t(locale, 'Care routines'), path: path(locale, 'guides') },
+  { name: guide.name, path: path(locale, 'guide', guide.id) },
+];
+const url = absolute(path(locale, 'guide', guide.id));
+const firstPhoto = guide.parts.flatMap((p) => p.steps).find((s) => s.photo)?.photo;
+const stepAlt = (part, step, i, curly) =>
+  `${guide.name}, ${lower(part.title)}, step ${i + 1}${curly ? ', curly hair' : ''}: ${lower(curly ? step.curly.title : step.title)}`;
+
+const jsonld = [
+  breadcrumbs(trail),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: guide.name,
+    description: guide.description,
+    inLanguage: locale.code,
+    image: imageUrl(firstPhoto),
+    totalTime: `PT${total}M`,
+    tool: allKit.map((item) => ({ '@type': 'HowToTool', name: item.name })),
+    step: guide.parts.flatMap((part) => part.steps.map((step, i) => ({
+      '@type': 'HowToStep',
+      name: `${part.title}: ${step.title}`,
+      text: `${step.instruction} ${step.endState}`,
+      image: imageUrl(step.photo),
+      url: `${url}#${part.id}-step-${i + 1}`,
+    }))),
+    url,
+    ...AUTHORSHIP,
+  },
+];
+---
+<Base
+  locale={locale}
+  kind="guide"
+  id={guide.id}
+  title={title}
+  description={description}
+  trail={trail}
+  jsonld={jsonld}
+  ogImage={firstPhoto ? `${firstPhoto.base}-800.webp` : undefined}
+  ogImageSize={firstPhoto ? { width: firstPhoto.width, height: firstPhoto.height } : undefined}
+>
+  <p class="eyebrow">{t(locale, 'Care routine')}</p>
+  <h1>{guide.name}</h1>
+  <p class="lede">{sentence(guide.oneLiner)}</p>
+  <Author locale={locale} />
+  <p class="summary-cta">{t(locale, 'Free in the app for everyone, step by step, with a check before you move on.')}</p>
+  <StoreBadges campaignName={campaign(locale, 'guide', guide.id)} />
+
+  <p>{sentence(guide.description)}</p>
+  {guide.parts.length > 1 && (
+    <ul class="rows">
+      {guide.parts.map((part) => (
+        <li>
+          <a href={`#${part.id}`}>{part.title}</a>
+          <span>{t(locale, `About ${minutes(part.targetMinutes)}. ${part.steps.length} steps.`)} {forAges(part.ageBands)}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {guide.parts.map((part) => {
+    const kit = kitFor(part.equipmentIds);
+    const curlyExtra = kitFor(part.curlyEquipmentIds.filter((id) => !part.equipmentIds.includes(id)));
+    return (
+      <section id={part.id}>
+        <h2>{part.title}</h2>
+        {part.ageBands && <p><strong>{forAges(part.ageBands)}</strong></p>}
+        <p>{sentence(part.when)} {t(locale, `About ${minutes(part.targetMinutes)}.`)}</p>
+        {kit.length > 0 && (
+          <p class="small">
+            {t(locale, 'You’ll need:')}{' '}
+            {kit.map((item, i) => <>{i > 0 && ', '}<a href={path(locale, 'kitItem', item.id)}>{lower(item.name)}</a></>)}.
+            {curlyExtra.length > 0 && (
+              <>
+                {' '}{t(locale, 'For curly and coily hair, add')}{' '}
+                {curlyExtra.map((item, i) => <>{i > 0 && ', '}<a href={path(locale, 'kitItem', item.id)}>{lower(item.name)}</a></>)}.
+              </>
+            )}
+          </p>
+        )}
+        <ol class="steps">
+          {part.steps.map((step, i) => {
+            const technique = step.techniqueId && techniqueById(locale, step.techniqueId);
+            const curlyTechnique = step.curly?.techniqueId && techniqueById(locale, step.curly.techniqueId);
+            return (
+              <li id={`${part.id}-step-${i + 1}`}>
+                <p class="step-number">{t(locale, `Step ${i + 1} of ${part.steps.length}`)}{step.ageBands && <> · {forAges(step.ageBands)}</>}</p>
+                <h3>{step.title}</h3>
+                <p>{step.instruction}</p>
+                {step.withHer && <p class="with-her"><strong>{t(locale, 'With her:')}</strong> {step.withHer}</p>}
+                {step.photo && (
+                  <figure class="photo">
+                    <Photo photo={step.photo} alt={stepAlt(part, step, i, false)} />
+                  </figure>
+                )}
+                <div class="check">
+                  <p class="eyebrow">{t(locale, 'Before you move on')}</p>
+                  <p>{step.endState}</p>
+                </div>
+                {step.why && <p class="why"><strong>{t(locale, 'Why:')}</strong> {step.why}</p>}
+                {technique && (
+                  <p class="small">{t(locale, 'Technique:')} <a href={path(locale, 'technique', technique.id)}>{technique.title}</a></p>
+                )}
+                {step.curly && (
+                  <div class="curly">
+                    <p class="eyebrow">{t(locale, 'Curly and coily hair')}</p>
+                    <h4>{step.curly.title}</h4>
+                    <p>{step.curly.instruction}</p>
+                    {step.curly.photo && step.curly.photo.base !== step.photo?.base && (
+                      <figure class="photo">
+                        <Photo photo={step.curly.photo} alt={stepAlt(part, step, i, true)} />
+                      </figure>
+                    )}
+                    <p><strong>{t(locale, 'Before you move on:')}</strong> {step.curly.endState}</p>
+                    {curlyTechnique && curlyTechnique.id !== technique?.id && (
+                      <p class="small">{t(locale, 'Technique:')} <a href={path(locale, 'technique', curlyTechnique.id)}>{curlyTechnique.title}</a></p>
+                    )}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    );
+  })}
+
+  {guide.sleepNote && (
+    <div class="panel">
+      <p><strong>{t(locale, SLEEP_NOTE.heading)}</strong> {t(locale, SLEEP_NOTE.body)}</p>
+    </div>
+  )}
+
+  <h2>{t(locale, 'Good to know')}</h2>
+  <ul>
+    {guide.notes.map((note) => <li>{note}</li>)}
+  </ul>
+
+  {guide.links.length > 0 && (
+    <>
+      <h2>{t(locale, 'From the health services')}</h2>
+      <ul>
+        {guide.links.map((link) => <li><a href={link.url} rel="noopener">{link.label}</a></li>)}
+      </ul>
+    </>
+  )}
+
+  <h2>{t(locale, 'If it goes wrong')}</h2>
+  <div class="panel">
+    <p><strong>{t(locale, 'What usually happens:')}</strong> {guide.commonFailure}</p>
+    <p><strong>{t(locale, 'The fix:')}</strong> {guide.theFix}</p>
+  </div>
+
+  {suggestions.length > 0 && (
+    <>
+      <h2>{t(locale, 'Styles that suit it')}</h2>
+      <ul class="rows">
+        {suggestions.map((s) => (
+          <li>
+            <a href={path(locale, 'style', s.style.id)}>{s.style.name}</a>
+            <span>{sentence(s.why)}{s.pack ? ` ${t(locale, 'In Beyond the Ponytail.')}` : ` ${t(locale, 'Free, in full on this site.')}`}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <AppBlock locale={locale} kind="guide" id={guide.id} heading="Run it in the app">
+    <p>{t(locale, 'In Dad Hair Hero every care routine is free, under Browse → Care, and runs one step at a time like a style. Then:')}</p>
+  </AppBlock>
+
+  <Related locale={locale} techniques={techniques} hubs={hubs} kit={allKit} />
+</Base>

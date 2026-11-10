@@ -47,8 +47,11 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   technique guides; the seasonal guides (Halloween, Christmas); hubs for
   easy hairstyles, curly and coily hair, school, toddlers, sport and
   parties (`HUBS` in `src/lib/site.js`, built
-  from the app's occasion and age tags); Fix It, one page per problem from
-  the app's tree; the Kit; About; privacy; 404.
+  from the app's occasion and age tags: Everyday, Sport, Party and Bedtime
+  since 1.4.0, so School lists the Everyday styles); the care routines
+  (`/guides/`, one page per routine, in full, from the export's `guides`;
+  a guide marked `hold` gets no page); Fix It, one page per problem from
+  the app's tree; the Kit; About; Press; privacy; 404.
 - **Videos.** `npm run videos` renders a 30 to 45 second vertical video for
   each free style in each language from its step photos
   (`scripts/render-videos.mjs`, sharp and ffmpeg), into `public/videos/`,

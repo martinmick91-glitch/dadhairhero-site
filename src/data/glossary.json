@@ -1,5 +1,5 @@
 {
-  "contentVersion": "2cbaf2aec35f9f5f",
+  "contentVersion": "e9f8deb6da68ab87",
   "words": {
     "plait": "braid",
     "plaits": "braids",
@@ -31,13 +31,24 @@
     "practising": "practicing",
     "backwards": "backward",
     "cot": "crib",
-    "cots": "cribs"
+    "cots": "cribs",
+    "holiday": "vacation",
+    "holidays": "vacations",
+    "flannel": "washcloth"
   },
   "phrases": {
     "hair grip": "bobby pin",
     "hair grips": "bobby pins",
     "hair bobbles": "hair ties",
     "your gp": "your doctor",
+    "nits day": "lice check day",
+    "nit comb": "lice comb",
+    "nit combs": "lice combs",
+    "sport and pe day": "sports and gym day",
+    "a pe lesson": "a gym class",
+    "for pe lessons": "for gym classes",
+    "swimming cap": "swim cap",
+    "sports bag": "gym bag",
     "braids and plaits": "braids",
     "plaits and braids": "braids",
     "plait or braid": "braid",

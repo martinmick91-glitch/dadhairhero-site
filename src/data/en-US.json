@@ -1,8 +1,8 @@
 {
   "locale": "en-US",
-  "contentVersion": "2cbaf2aec35f9f5f",
-  "appVersion": "1.3.0",
-  "appCommit": "6e51f9c",
+  "contentVersion": "e9f8deb6da68ab87",
+  "appVersion": "1.3.1",
+  "appCommit": "b093e82",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -38,7 +38,12 @@
     "criss-cross-bands",
     "pull-through-plait",
     "space-buns",
-    "mini-top-knot"
+    "mini-top-knot",
+    "loop-bun",
+    "wrapped-ponytail",
+    "rope-ponytail",
+    "half-up-bun",
+    "fishtail-plait"
   ],
   "nextStyleOrder": [
     "tangle-free-brushing",
@@ -50,17 +55,24 @@
     "twist-back-sides",
     "top-sprout",
     "side-swept-clip",
+    "two-little-sprouts",
+    "bedtime-pineapple",
+    "loop-bun",
     "bubble-ponytail",
     "puffs",
+    "wrapped-ponytail",
     "mini-top-knot",
     "three-strand-plait",
     "top-knot",
+    "rope-ponytail",
+    "half-up-bun",
     "sports-bun",
     "twisted-bunches",
     "pull-through-plait",
     "space-buns",
     "plaited-pigtails",
     "french-plait",
+    "fishtail-plait",
     "dutch-plait",
     "criss-cross-bands"
   ],
@@ -70,7 +82,7 @@
       "slug": "tangle-free-brushing",
       "name": "Tangle-Free Brushing",
       "description": "The foundation skill. Done right it takes two minutes and causes no pain.",
-      "oneLiner": "Not a style: the thing that makes every style possible",
+      "oneLiner": "The two minutes every style begins with",
       "herJob": "She's in charge of the spray bottle. One mist when you ask.",
       "ageBands": [
         "toddler",
@@ -80,12 +92,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "sport",
-        "dance",
-        "party",
-        "swimming",
-        "sleep"
+        "bedtime"
       ],
       "difficulty": "easy",
       "targetMinutes": 2,
@@ -102,6 +109,7 @@
       "buildsOn": null,
       "leadsTo": [
         "twist-back-sides",
+        "bedtime-pineapple",
         "classic-ponytail"
       ],
       "relatedFixIds": [
@@ -148,9 +156,10 @@
         {
           "title": "Pick the right tool",
           "instruction": "If her hair is tangled, use the wide-tooth comb throughout. Only swap to the soft brush at the very end, once the comb runs through easily.",
+          "withHer": null,
           "endState": "You're holding the comb and she's sitting in front of you.",
           "why": "Using a brush on a knot does not smooth it. It pulls hair out.",
-          "techniqueId": null,
+          "techniqueId": "keeping-her-still",
           "photo": {
             "base": "/images/styles/tangle-free-brushing-step-1",
             "widths": [
@@ -179,6 +188,7 @@
         {
           "title": "Set your anchor hand",
           "instruction": "Put your free hand around her hair about halfway down. Hold it firmly without squeezing. This hand acts as a shield to stop the pulling.",
+          "withHer": null,
           "endState": "The hair below your hand hangs loose.",
           "why": "This stops any tugging force from reaching her scalp.",
           "techniqueId": null,
@@ -196,6 +206,7 @@
         {
           "title": "Clear the ends first",
           "instruction": "Start the comb 5 cm above the ends and pull down. If it catches, use shorter strokes on that bit until it runs free. Never force through a knot.",
+          "withHer": "Ask her to tell you when it pulls.",
           "endState": "The comb runs freely through the last 5 cm.",
           "why": null,
           "techniqueId": "detangling",
@@ -227,6 +238,7 @@
         {
           "title": "Work upward in stages",
           "instruction": "Move your hand up 5 cm to anchor the hair higher up. Comb down through everything below your hand. When that runs free, move your hand and comb up again. Repeat until you reach the scalp.",
+          "withHer": null,
           "endState": "One smooth stroke from top to bottom.",
           "why": null,
           "techniqueId": null,
@@ -258,6 +270,7 @@
         {
           "title": "Smooth with the brush",
           "instruction": "Swap to the soft brush. Starting above her forehead, brush in long firm strokes down to the ends. Do the whole head: both sides, top and back.",
+          "withHer": null,
           "endState": "The hair lies flat and looks shiny.",
           "why": null,
           "techniqueId": null,
@@ -303,7 +316,6 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "sport"
       ],
       "difficulty": "easy",
@@ -321,6 +333,8 @@
       "buildsOn": "tangle-free-brushing",
       "leadsTo": [
         "top-sprout",
+        "loop-bun",
+        "wrapped-ponytail",
         "high-ponytail",
         "half-up-half-down",
         "two-even-bunches",
@@ -372,6 +386,7 @@
         {
           "title": "Detangle first",
           "instruction": "Comb through from the ends up, holding the hair halfway down with your free hand so you don't tug. Don't move on until it runs clean.",
+          "withHer": null,
           "endState": "No catching from top to bottom.",
           "why": "This stops any pulling reaching her scalp.",
           "techniqueId": "detangling",
@@ -403,6 +418,7 @@
         {
           "title": "Gather the hair",
           "instruction": "Gather the hair. Put both hands flat against the sides of her head above her ears. Sweep all the hair straight back until your hands meet. Hold the bundle firmly in one hand.",
+          "withHer": null,
           "endState": "One clean bundle at the back. No loose strands in front of her ears.",
           "why": null,
           "techniqueId": null,
@@ -433,7 +449,8 @@
         },
         {
           "title": "Set the height",
-          "instruction": "Position the height. A classic ponytail sits level with the tops of her ears. Adjust your gathering hand up or down to find that exact sweet spot.",
+          "instruction": "Slide your holding hand up or down the back of her head until it's level with the tops of her ears. Check by touching the top of one ear with your free hand.",
+          "withHer": "Ask her to look straight ahead.",
           "endState": "The bundle is centered and level with the tops of her ears.",
           "why": null,
           "techniqueId": null,
@@ -451,6 +468,7 @@
         {
           "title": "Smooth the surface",
           "instruction": "Smooth the surface. Use a soft brush to stroke from her forehead and above each ear straight back toward your holding hand. Keep your grip firm so you don't lose the hair.",
+          "withHer": null,
           "endState": "Flat and bump-free all the way around her head.",
           "why": null,
           "techniqueId": null,
@@ -482,9 +500,10 @@
         {
           "title": "Secure with the elastic",
           "instruction": "Secure the ponytail. Loop the elastic over the bundle, twist it into a figure-eight, and loop it again. Aim for three loops minimum.",
+          "withHer": null,
           "endState": "It doesn't move when she shakes her head.",
           "why": null,
-          "techniqueId": null,
+          "techniqueId": "choosing-elastics",
           "photo": {
             "base": "/images/styles/classic-ponytail-step-5",
             "widths": [
@@ -499,6 +518,7 @@
         {
           "title": "Double check the tension",
           "instruction": "Slide two fingers under the elastic at the back of her head.",
+          "withHer": "Ask her if it pulls anywhere.",
           "endState": "Two fingers can slide under the elastic without forcing it.",
           "why": null,
           "techniqueId": "holding-tension",
@@ -529,9 +549,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "sport",
-        "dance"
+        "sport"
       ],
       "difficulty": "easy",
       "targetMinutes": 4,
@@ -547,6 +565,7 @@
       "curlyOnly": false,
       "buildsOn": "classic-ponytail",
       "leadsTo": [
+        "rope-ponytail",
         "top-knot"
       ],
       "relatedFixIds": [
@@ -594,6 +613,7 @@
         {
           "title": "Detangle first",
           "instruction": "Comb through from the ends up, holding the hair halfway down with your free hand so you don't tug.",
+          "withHer": null,
           "endState": "No catching from top to bottom.",
           "why": null,
           "techniqueId": "detangling",
@@ -625,6 +645,7 @@
         {
           "title": "Gather upward to the very top of her head",
           "instruction": "Gather the hair. Place your hands flat against the sides of her head above her ears. Sweep all the hair upward to the very top of her head. Hold the bundle firmly in one hand.",
+          "withHer": "Ask her to keep her head still.",
           "endState": "The hair is gathered at the highest point of her head.",
           "why": null,
           "techniqueId": null,
@@ -656,6 +677,7 @@
         {
           "title": "Check the position",
           "instruction": "Position the ponytail. Ensure the bundle sits right at the top of her crown. Move your hand to correct it before reaching for the elastic.",
+          "withHer": null,
           "endState": "Centered at the top, not sagging backward.",
           "why": null,
           "techniqueId": null,
@@ -687,6 +709,7 @@
         {
           "title": "Smooth the surface",
           "instruction": "Smooth the surface. Take the soft brush. Brush upward from her forehead and from above each ear straight toward your holding hand. Keep your grip firm.",
+          "withHer": null,
           "endState": "Both sides and front are flat, running smoothly upward without any bumps.",
           "why": null,
           "techniqueId": null,
@@ -718,6 +741,7 @@
         {
           "title": "Secure firmly",
           "instruction": "Secure the bundle. Loop the elastic round at least four times. Ask her after the third wrap whether it feels tight.",
+          "withHer": null,
           "endState": "The fourth loop is snug, not sore.",
           "why": "The extra height creates more pull than a mid-height ponytail and needs more holding.",
           "techniqueId": "holding-tension",
@@ -735,6 +759,7 @@
         {
           "title": "Final inspection",
           "instruction": "Ask her to nod, then shake her head, while you watch the ponytail from behind.",
+          "withHer": "Ask her if it pulls anywhere.",
           "endState": "The ponytail points upward and doesn't droop or shift when she moves.",
           "why": null,
           "techniqueId": null,
@@ -766,7 +791,6 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "party"
       ],
       "difficulty": "easy",
@@ -834,6 +858,7 @@
         {
           "title": "Detangle all the hair",
           "instruction": "Comb it all through before you touch the part.",
+          "withHer": null,
           "endState": "Runs freely everywhere.",
           "why": "Both sides need to start from smooth hair or the part will look uneven.",
           "techniqueId": "detangling",
@@ -865,6 +890,7 @@
         {
           "title": "Draw the center part",
           "instruction": "Put the pointed end of the tail comb where her hair starts, in the middle above her nose. Draw it straight back to the middle of the back of her neck. Go slowly, lining it up with her nose from the front.",
+          "withHer": null,
           "endState": "Roughly equal hair each side.",
           "why": null,
           "techniqueId": "making-a-part",
@@ -882,6 +908,7 @@
         {
           "title": "Move one side clear",
           "instruction": "Lay all the left-side hair over her left shoulder, out of the way for now.",
+          "withHer": null,
           "endState": "The right side hangs separate.",
           "why": "You are just keeping it out of the way while you work the right side first.",
           "techniqueId": null,
@@ -899,6 +926,7 @@
         {
           "title": "Gather the right pigtail",
           "instruction": "Gather the right side and lift it level with the top of her right ear. Hold it firmly in your hand.",
+          "withHer": null,
           "endState": "No loose strands on the right.",
           "why": null,
           "techniqueId": null,
@@ -916,6 +944,7 @@
         {
           "title": "Gather the left pigtail",
           "instruction": "Drop the left side off her shoulder. Gather it and lift it level with her left ear, holding both bundles at the same time to match.",
+          "withHer": null,
           "endState": "Both bundles sit at the exact same height.",
           "why": null,
           "techniqueId": null,
@@ -933,6 +962,7 @@
         {
           "title": "Secure both pigtails",
           "instruction": "Wrap the first elastic round the right side at least three times. Then, repeat on the left side with a second elastic.",
+          "withHer": null,
           "endState": "Neither side moves when she shakes her head.",
           "why": null,
           "techniqueId": "holding-tension",
@@ -950,6 +980,7 @@
         {
           "title": "Check from the front",
           "instruction": "Stand in front and compare. Level, and about the same thickness.",
+          "withHer": "Let her check them in the mirror.",
           "endState": "Both pigtails are equal in thickness when viewed from the front.",
           "why": null,
           "techniqueId": null,
@@ -980,9 +1011,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "party",
-        "dance"
+        "party"
       ],
       "difficulty": "easy",
       "targetMinutes": 4,
@@ -997,7 +1026,9 @@
       "pack": false,
       "curlyOnly": false,
       "buildsOn": "classic-ponytail",
-      "leadsTo": [],
+      "leadsTo": [
+        "half-up-bun"
+      ],
       "relatedFixIds": [
         "entry-falls-out",
         "entry-looks-wrong",
@@ -1045,6 +1076,7 @@
         {
           "title": "Detangle all the hair",
           "instruction": "Comb it all through before you split anything.",
+          "withHer": null,
           "endState": "The comb runs freely everywhere.",
           "why": null,
           "techniqueId": "detangling",
@@ -1076,6 +1108,7 @@
         {
           "title": "Find the dividing line",
           "instruction": "Part the hair. Put your finger on the top of her right ear. Run the pointed end of the tail comb straight across the top of her head to her left ear.",
+          "withHer": "Ask her to keep her head level.",
           "endState": "A clear part line running from ear to ear.",
           "why": null,
           "techniqueId": "making-a-part",
@@ -1093,6 +1126,7 @@
         {
           "title": "Gather the top section",
           "instruction": "Gather the top half. Collect all the hair above that line with both hands. Use your fingers to press the remaining bottom half straight down to keep it out of the way.",
+          "withHer": null,
           "endState": "All top hair is separated into one clean bundle.",
           "why": null,
           "techniqueId": null,
@@ -1110,6 +1144,7 @@
         {
           "title": "Smooth the sides",
           "instruction": "Smooth the sides. Use a soft brush to sweep the hair above her forehead and ears neatly back toward your gathering hand.",
+          "withHer": null,
           "endState": "The top and sides are pulled flat and bump-free.",
           "why": null,
           "techniqueId": null,
@@ -1141,6 +1176,7 @@
         {
           "title": "Secure high up on the back of her head",
           "instruction": "Secure the ponytail. Hold the smoothed bundle firmly and loop an elastic around it at least three times. Position it high up on the back of her head.",
+          "withHer": null,
           "endState": "The elastic sits snug and does not slide down.",
           "why": null,
           "techniqueId": null,
@@ -1172,6 +1208,7 @@
         {
           "title": "Final polish",
           "instruction": "Let the bottom half of her hair hang loose underneath, and smooth it down with your hand from behind her ears.",
+          "withHer": null,
           "endState": "The join between the tied hair and loose hair looks clean and sharp",
           "why": null,
           "techniqueId": null,
@@ -1246,6 +1283,7 @@
         {
           "title": "Dampen the wisps",
           "instruction": "Run the comb under cold water, then draw it gently over the front hair only, from her forehead back about 5 cm.",
+          "withHer": null,
           "endState": "Damp, not dripping wet.",
           "why": "This settles fine baby hair enough to gather it.",
           "techniqueId": null,
@@ -1277,6 +1315,7 @@
         {
           "title": "Gather the wisps",
           "instruction": "Sweep those wisps back off her forehead using your fingertips. Smooth them backward, but do not pull tightly toward the top.",
+          "withHer": null,
           "endState": "Her face is clear and hair lies flat.",
           "why": "You only want the front wisps, not the whole top section.",
           "techniqueId": null,
@@ -1294,6 +1333,7 @@
         {
           "title": "Clip in place",
           "instruction": "Slide a fabric-lined clip over the wisps, pointing front to back. Slide your finger underneath the clip as you snap it shut to protect her scalp.",
+          "withHer": "Let her choose the clip.",
           "endState": "Secure, flat, and not pinching her skin.",
           "why": null,
           "techniqueId": null,
@@ -1324,7 +1364,6 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "party"
       ],
       "difficulty": "easy",
@@ -1385,6 +1424,7 @@
         {
           "title": "Comb the front and sides",
           "instruction": "Comb through the front and sides, from the hairline to the ends.",
+          "withHer": null,
           "endState": "The comb runs from her hairline to the ends with no catching.",
           "why": null,
           "techniqueId": null,
@@ -1416,6 +1456,7 @@
         {
           "title": "Find her part",
           "instruction": "Use the part she already has. If there isn't one, draw one with the pointed end of the tail comb from the middle of her hairline straight back, about two fingers' length.",
+          "withHer": null,
           "endState": "A clear line runs back from the middle of her hairline.",
           "why": null,
           "techniqueId": null,
@@ -1447,6 +1488,7 @@
         {
           "title": "Take the first strip",
           "instruction": "Stand in front of her. On her right side (your left), use the tail comb to take a strip of hair two fingers wide along her hairline, from the part to just above her ear. Hold its end between your fingers.",
+          "withHer": null,
           "endState": "One flat strip is lifted away from her hairline, and the rest of her hair hangs loose beneath it.",
           "why": null,
           "techniqueId": null,
@@ -1478,6 +1520,7 @@
         {
           "title": "Twist it back",
           "instruction": "Turn the strip so it rolls back, away from her face, like turning a key, without adding any more hair. Keep turning until it is a firm rope lying against her head, running back towards the top of her ear.",
+          "withHer": "Ask her to keep her head still.",
           "endState": "The rope lies along her hairline and stays twisted while you hold the end.",
           "why": null,
           "techniqueId": null,
@@ -1509,6 +1552,7 @@
         {
           "title": "Clip it",
           "instruction": "Hold the end of the rope just above her ear. Slide a snap clip over it, pointing towards the back of her head, catching a little of the hair underneath as well so the clip has something to grip. Keep one finger under the clip as you snap it shut.",
+          "withHer": null,
           "endState": "The clip points back, lies flat and doesn't pinch, and the rope stays twisted when you let go.",
           "why": null,
           "techniqueId": null,
@@ -1540,6 +1584,7 @@
         {
           "title": "Do the other side to match",
           "instruction": "On her left side (your right), take the same strip, twist it back away from her face, and clip it at the same height with the second clip.",
+          "withHer": null,
           "endState": "Seen from the front, both clips sit at the same height.",
           "why": null,
           "techniqueId": null,
@@ -1598,7 +1643,8 @@
       "curlyOnly": false,
       "buildsOn": "classic-ponytail",
       "leadsTo": [
-        "mini-top-knot"
+        "mini-top-knot",
+        "two-little-sprouts"
       ],
       "relatedFixIds": [
         "entry-falls-out",
@@ -1640,6 +1686,7 @@
         {
           "title": "Mist the front and top",
           "instruction": "Mist the front and top of her hair until it's damp, not dripping.",
+          "withHer": null,
           "endState": "The hair feels damp and lies flat.",
           "why": null,
           "techniqueId": null,
@@ -1671,6 +1718,7 @@
         {
           "title": "Gather the top",
           "instruction": "Put your fingertips at her hairline and comb the front and top hair back and up to the top of her head, between her forehead and her crown. Hold it in one hand.",
+          "withHer": "Ask her to tip her chin down.",
           "endState": "All the hair from her hairline to the top of her head is in your hand.",
           "why": null,
           "techniqueId": null,
@@ -1702,6 +1750,7 @@
         {
           "title": "Wrap the elastic",
           "instruction": "Wrap a mini elastic round the gathered hair two or three times, close to her head.",
+          "withHer": null,
           "endState": "The sprout stands up on its own when you let go.",
           "why": null,
           "techniqueId": null,
@@ -1733,6 +1782,7 @@
         {
           "title": "Check from the front",
           "instruction": "Stand in front of her and look.",
+          "withHer": null,
           "endState": "Her forehead is clear and the sprout sits in the middle.",
           "why": null,
           "techniqueId": null,
@@ -1764,7 +1814,7 @@
       ],
       "occasions": [
         "everyday",
-        "school"
+        "party"
       ],
       "difficulty": "easy",
       "targetMinutes": 2,
@@ -1821,6 +1871,7 @@
         {
           "title": "Comb the front through",
           "instruction": "Comb the front hair from her hairline to the ends.",
+          "withHer": null,
           "endState": "The comb runs through with no catching.",
           "why": null,
           "techniqueId": null,
@@ -1852,6 +1903,7 @@
         {
           "title": "Make a side part",
           "instruction": "Use the pointed end of the tail comb to draw a part on her left side, straight back from her hairline above the outer corner of her left eye, about two fingers' length.",
+          "withHer": null,
           "endState": "A clear line runs back from her hairline on her left side.",
           "why": null,
           "techniqueId": null,
@@ -1869,6 +1921,7 @@
         {
           "title": "Sweep the front across",
           "instruction": "With the comb, sweep the front hair from the part across the top of her forehead towards her right ear.",
+          "withHer": null,
           "endState": "The front hair lies flat across her forehead, clear of her eyes.",
           "why": null,
           "techniqueId": null,
@@ -1900,6 +1953,7 @@
         {
           "title": "Clip it above her ear",
           "instruction": "Hold the swept hair just above her right ear. Slide a snap clip over it, catching a little of the hair underneath so it grips. Keep one finger under the clip as you snap it shut.",
+          "withHer": "Let her choose the clip.",
           "endState": "The clip lies flat and doesn't pinch.",
           "why": null,
           "techniqueId": null,
@@ -1917,11 +1971,527 @@
         {
           "title": "Check from the front",
           "instruction": "Stand in front of her and look.",
+          "withHer": null,
           "endState": "Her eyes are clear and the clip doesn't show above her hairline.",
           "why": null,
           "techniqueId": null,
           "photo": {
             "base": "/images/styles/side-swept-clip-finished",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        }
+      ]
+    },
+    {
+      "id": "two-little-sprouts",
+      "slug": "two-little-sprouts",
+      "name": "Two Little Sprouts",
+      "description": "The front and top hair parted down the middle and gathered into two small ponytails on top of her head, one either side of the part. Made for very short hair and hair that's growing out.",
+      "oneLiner": "Double the sprout",
+      "herJob": "She checks in the mirror that they match.",
+      "ageBands": [
+        "toddler",
+        "young-child"
+      ],
+      "occasions": [
+        "everyday",
+        "party"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 3,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "very-short",
+      "pack": false,
+      "curlyOnly": false,
+      "buildsOn": "top-sprout",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-falls-out",
+        "entry-too-short"
+      ],
+      "image": {
+        "base": "/images/styles/two-little-sprouts-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/two-little-sprouts-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "mini-elastic"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "tail-comb",
+        "mist-bottle",
+        "mini-elastic",
+        "leave-in-conditioner"
+      ],
+      "commonFailure": "The two sprouts end up at different heights.",
+      "theFix": "Take the second one out. Feel where the first sits against the front of her right ear, find the same point against her left ear, and gather to it before the elastic goes on.",
+      "steps": [
+        {
+          "title": "Mist the front and top",
+          "instruction": "Mist the front and top of her hair until it's damp, not dripping.",
+          "withHer": null,
+          "endState": "The hair feels damp and lies flat.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/two-little-sprouts-step-1",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Detangle it damp",
+            "instruction": "Mist her hair until it's damp, not dripping, and smooth a little leave-in through with your fingers. Work in sections, ends first, fingers then the wide-tooth comb.",
+            "endState": "Your fingers slide through each section, root to tip.",
+            "techniqueId": "detangling-curly-coily",
+            "photo": {
+              "base": "/images/styles/two-little-sprouts-step-1-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Part down the middle",
+          "instruction": "Run the pointed end of the tail comb from the middle of her hairline straight back to her crown.",
+          "withHer": null,
+          "endState": "A straight part runs from her hairline to her crown, with the same amount of hair either side.",
+          "why": null,
+          "techniqueId": "making-a-part",
+          "photo": {
+            "base": "/images/styles/two-little-sprouts-step-2",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Gather the first side",
+          "instruction": "Gather the hair on her right side of the part, from her hairline back to her crown, with your fingertips. Bring it to a point on top of her head, a finger's width from the part and in line with the front of her right ear. Hold it in one hand.",
+          "withHer": null,
+          "endState": "Everything on her right side, from her hairline to her crown, is in your hand, and the part is still straight.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/two-little-sprouts-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Gather the first side",
+            "instruction": "Gather the hair on her right side of the part up with your fingertips, without dragging at her hairline, to a point on top of her head, a finger's width from the part and in line with the front of her right ear. Hold it in one hand.",
+            "endState": "Everything on her right side, from her hairline to her crown, is in your hand, and her hairline is soft, not pulled.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/two-little-sprouts-step-3-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Wrap the elastic",
+          "instruction": "Wrap a mini elastic round the gathered hair two or three times, close to her head.",
+          "withHer": "Ask her if it pulls anywhere.",
+          "endState": "The sprout stands up on its own when you let go.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/two-little-sprouts-step-4",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": {
+            "title": "Wrap the elastic",
+            "instruction": "Wrap a mini elastic round the gathered hair two or three times, close to her head.",
+            "endState": "The sprout sits up in a puff on its own when you let go.",
+            "techniqueId": null,
+            "photo": {
+              "base": "/images/styles/two-little-sprouts-step-4-curly-hair",
+              "widths": [
+                800,
+                400
+              ],
+              "width": 800,
+              "height": 800
+            }
+          }
+        },
+        {
+          "title": "Do the other side",
+          "instruction": "Gather her left side the same way, to the matching point in line with the front of her left ear, and wrap a mini elastic round it two or three times.",
+          "withHer": null,
+          "endState": "From the front, the two sprouts sit at the same height, the same distance from the part, and neither pulls at her hairline.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/two-little-sprouts-finished",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        }
+      ]
+    },
+    {
+      "id": "loop-bun",
+      "slug": "loop-bun",
+      "name": "Loop Bun",
+      "description": "All her hair in one elastic, pulled only halfway through on the last loop and spread into a bun at the back of her head. No pins.",
+      "oneLiner": "The bun with no pins",
+      "herJob": "She tells you how big the loop should be.",
+      "ageBands": [
+        "toddler",
+        "young-child",
+        "older-child"
+      ],
+      "occasions": [
+        "everyday",
+        "sport"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 3,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-hurts"
+      ],
+      "image": {
+        "base": "/images/styles/loop-bun-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/loop-bun-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "snag-free-elastic",
+        "detangler-spray"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "snag-free-elastic",
+        "detangler-spray",
+        "leave-in-conditioner",
+        "mist-bottle"
+      ],
+      "steps": [
+        {
+          "title": "Detangle first"
+        },
+        {
+          "title": "Gather the hair"
+        },
+        {
+          "title": "Start the elastic"
+        },
+        {
+          "title": "Pull it halfway through"
+        },
+        {
+          "title": "Spread the loop"
+        },
+        {
+          "title": "Tuck the ends"
+        }
+      ]
+    },
+    {
+      "id": "wrapped-ponytail",
+      "slug": "wrapped-ponytail",
+      "name": "Wrapped Ponytail",
+      "description": "A classic ponytail with the elastic hidden under a strip of her own hair, pinned out of sight. Neat enough for school photos.",
+      "oneLiner": "Photo-day neat",
+      "herJob": "She checks in the mirror that the elastic has disappeared.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "everyday",
+        "sport",
+        "party"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 6,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "classic-ponytail",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-hurts"
+      ],
+      "image": {
+        "base": "/images/styles/wrapped-ponytail-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/wrapped-ponytail-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "soft-bristle-brush",
+        "detangler-spray",
+        "bobby-pin"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "soft-bristle-brush",
+        "detangler-spray",
+        "bobby-pin",
+        "leave-in-conditioner",
+        "mist-bottle"
+      ],
+      "steps": [
+        {
+          "title": "Detangle first"
+        },
+        {
+          "title": "Gather the hair"
+        },
+        {
+          "title": "Set the height"
+        },
+        {
+          "title": "Smooth the surface"
+        },
+        {
+          "title": "Secure with the elastic"
+        },
+        {
+          "title": "Take a strip from underneath"
+        },
+        {
+          "title": "Wrap it round the elastic"
+        },
+        {
+          "title": "Pin the tail"
+        }
+      ]
+    },
+    {
+      "id": "bedtime-pineapple",
+      "slug": "bedtime-pineapple",
+      "name": "Bedtime Pineapple",
+      "description": "Curly and coily hair gathered loosely high on her head at bedtime, under a satin bonnet, so her curls aren't flattened by the morning.",
+      "oneLiner": "Tomorrow's curls, saved tonight",
+      "herJob": "She tips her head forward and holds it there while you gather.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "bedtime"
+      ],
+      "difficulty": "easy",
+      "targetMinutes": 2,
+      "hairTypes": [
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": false,
+      "curlyOnly": true,
+      "buildsOn": "tangle-free-brushing",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-hurts",
+        "entry-looks-wrong",
+        "entry-knotted"
+      ],
+      "image": {
+        "base": "/images/styles/bedtime-pineapple-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": null,
+      "equipmentIds": [
+        "mist-bottle",
+        "soft-scrunchie",
+        "satin-bonnet"
+      ],
+      "curlyEquipmentIds": [
+        "mist-bottle",
+        "soft-scrunchie",
+        "satin-bonnet"
+      ],
+      "commonFailure": "Her curls are flat at the back in the morning.",
+      "theFix": "The pineapple sat too far back, so she slept on it. Gather it further forward, right behind her hairline, and keep the scrunchie loose enough for two fingers. If her hair won't gather without pulling, or the scrunchie leaves a dent in her coils, skip the pineapple: the bonnet on its own, or a satin pillowcase, still keeps her curls.",
+      "steps": [
+        {
+          "title": "Refresh the curls",
+          "instruction": "Mist her curls lightly, just enough to soften them.",
+          "withHer": null,
+          "endState": "The curls feel soft and springy, not damp.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/bedtime-pineapple-step-1",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Gather it high at the front",
+          "instruction": "Ask her to tip her head forward. Gather all her hair up with your fingertips, without combing it and without pulling at her edges, to the top of her head just behind her hairline.",
+          "withHer": null,
+          "endState": "All her hair is gathered loosely on top, just behind her hairline, the back of her neck is clear, and nothing pulls at her hairline.",
+          "why": null,
+          "techniqueId": "gentle-tension-protecting-edges",
+          "photo": {
+            "base": "/images/styles/bedtime-pineapple-step-2",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Loop the scrunchie once",
+          "instruction": "Loop a soft scrunchie, satin if you have one, round the gathered hair once, so it holds it loosely.",
+          "withHer": null,
+          "endState": "Two fingers slide under the scrunchie easily, and the curls above it fall forward towards her forehead.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/bedtime-pineapple-step-3",
+            "widths": [
+              800,
+              400
+            ],
+            "width": 800,
+            "height": 800
+          },
+          "curly": null
+        },
+        {
+          "title": "Put the bonnet on",
+          "instruction": "Put on a satin bonnet with a stretchy edge and no ties under her chin. Start at the back of her neck and draw it up and forward over the pineapple, so its edge sits behind her ears and along her hairline, snug but not tight, where it can't slip down over her face. A satin pillowcase does the same job without a bonnet.",
+          "withHer": "Ask her if the edge feels tight.",
+          "endState": "No curls show outside the bonnet, the pineapple inside isn't squashed flat, and the edge sits snug, not tight, clear of her face.",
+          "why": null,
+          "techniqueId": null,
+          "photo": {
+            "base": "/images/styles/bedtime-pineapple-step-4",
             "widths": [
               800,
               400
@@ -1947,11 +2517,9 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "sport",
-        "dance",
         "party",
-        "swimming"
+        "bedtime"
       ],
       "difficulty": "normal",
       "targetMinutes": 5,
@@ -1967,6 +2535,7 @@
       "curlyOnly": false,
       "buildsOn": "classic-ponytail",
       "leadsTo": [
+        "fishtail-plait",
         "plaited-pigtails",
         "french-plait"
       ],
@@ -2043,9 +2612,9 @@
       ],
       "occasions": [
         "everyday",
-        "school",
+        "sport",
         "party",
-        "dance"
+        "bedtime"
       ],
       "difficulty": "normal",
       "targetMinutes": 12,
@@ -2140,8 +2709,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "dance",
+        "sport",
         "party"
       ],
       "difficulty": "normal",
@@ -2238,11 +2806,8 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "sport",
-        "dance",
-        "party",
-        "swimming"
+        "party"
       ],
       "difficulty": "difficult",
       "targetMinutes": 10,
@@ -2339,9 +2904,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "sport",
-        "dance",
         "party"
       ],
       "difficulty": "difficult",
@@ -2437,8 +3000,7 @@
         "pre-teen"
       ],
       "occasions": [
-        "sport",
-        "dance"
+        "sport"
       ],
       "difficulty": "normal",
       "targetMinutes": 8,
@@ -2455,6 +3017,7 @@
       "buildsOn": "top-knot",
       "leadsTo": [],
       "relatedFixIds": [
+        "entry-sports-bun",
         "entry-hurts",
         "entry-falls-out",
         "entry-looks-wrong"
@@ -2532,9 +3095,8 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "party",
-        "dance"
+        "sport",
+        "party"
       ],
       "difficulty": "easy",
       "targetMinutes": 5,
@@ -2622,7 +3184,6 @@
       ],
       "occasions": [
         "everyday",
-        "school",
         "party"
       ],
       "difficulty": "easy",
@@ -2698,9 +3259,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "party",
-        "dance"
+        "party"
       ],
       "difficulty": "normal",
       "targetMinutes": 10,
@@ -2781,9 +3340,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "sport",
-        "swimming"
+        "sport"
       ],
       "difficulty": "difficult",
       "targetMinutes": 15,
@@ -2866,9 +3423,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "party",
-        "dance"
+        "party"
       ],
       "difficulty": "normal",
       "targetMinutes": 10,
@@ -2955,9 +3510,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "party",
-        "dance"
+        "party"
       ],
       "difficulty": "normal",
       "targetMinutes": 10,
@@ -3028,9 +3581,7 @@
       ],
       "occasions": [
         "everyday",
-        "school",
-        "sport",
-        "dance"
+        "sport"
       ],
       "difficulty": "normal",
       "targetMinutes": 4,
@@ -3099,6 +3650,275 @@
           "title": "Wind it and secure it"
         }
       ]
+    },
+    {
+      "id": "rope-ponytail",
+      "slug": "rope-ponytail",
+      "name": "Rope Ponytail",
+      "description": "A high ponytail split in two and twisted into a rope, so it stays tidy and out of the way through a match or a dance class.",
+      "oneLiner": "Stays put through practice",
+      "herJob": "She counts the wraps out loud as you go down.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "sport",
+        "everyday"
+      ],
+      "difficulty": "normal",
+      "targetMinutes": 6,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "high-ponytail",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-falls-out",
+        "entry-looks-wrong",
+        "entry-hurts"
+      ],
+      "image": {
+        "base": "/images/styles/rope-ponytail-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/rope-ponytail-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "detangler-spray"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "detangler-spray",
+        "leave-in-conditioner",
+        "mist-bottle"
+      ],
+      "steps": [
+        {
+          "title": "Detangle first"
+        },
+        {
+          "title": "Gather to the very top of her head"
+        },
+        {
+          "title": "Secure with the elastic"
+        },
+        {
+          "title": "Split it in two"
+        },
+        {
+          "title": "Twist and wrap"
+        },
+        {
+          "title": "Secure the end"
+        }
+      ]
+    },
+    {
+      "id": "half-up-bun",
+      "slug": "half-up-bun",
+      "name": "Half-Up Bun",
+      "description": "The top half of her hair tied at her crown and wound into a small bun; the bottom half left loose.",
+      "oneLiner": "The party one",
+      "herJob": "She chooses the elastic for the bun.",
+      "ageBands": [
+        "young-child",
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "everyday",
+        "party"
+      ],
+      "difficulty": "normal",
+      "targetMinutes": 6,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "half-up-half-down",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-looks-wrong",
+        "entry-falls-out",
+        "entry-too-short"
+      ],
+      "image": {
+        "base": "/images/styles/half-up-bun-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/half-up-bun-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "tail-comb",
+        "snag-free-elastic",
+        "detangler-spray"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "tail-comb",
+        "snag-free-elastic",
+        "detangler-spray",
+        "leave-in-conditioner",
+        "mist-bottle"
+      ],
+      "steps": [
+        {
+          "title": "Detangle all the hair"
+        },
+        {
+          "title": "Find the dividing line"
+        },
+        {
+          "title": "Gather the top section"
+        },
+        {
+          "title": "Tie it at her crown"
+        },
+        {
+          "title": "Twist it into a rope"
+        },
+        {
+          "title": "Wind it round the elastic"
+        },
+        {
+          "title": "Secure the bun"
+        }
+      ]
+    },
+    {
+      "id": "fishtail-plait",
+      "slug": "fishtail-braid",
+      "name": "Fishtail Braid",
+      "description": "Two halves of hair, with thin strips crossed from one half to the other, all the way down, to make a fishbone pattern.",
+      "oneLiner": "The one people ask about",
+      "herJob": "She calls out Left or Right before each cross.",
+      "ageBands": [
+        "older-child",
+        "pre-teen"
+      ],
+      "occasions": [
+        "party",
+        "everyday"
+      ],
+      "difficulty": "difficult",
+      "targetMinutes": 12,
+      "hairTypes": [
+        "fine",
+        "thick",
+        "wavy",
+        "curly",
+        "coily"
+      ],
+      "minLength": "medium",
+      "pack": true,
+      "curlyOnly": false,
+      "buildsOn": "three-strand-plait",
+      "leadsTo": [],
+      "relatedFixIds": [
+        "entry-plait-technique",
+        "entry-falls-out",
+        "entry-looks-wrong"
+      ],
+      "image": {
+        "base": "/images/styles/fishtail-plait-finished",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "curlyImage": {
+        "base": "/images/styles/fishtail-plait-finished-curly-hair",
+        "widths": [
+          800,
+          400
+        ],
+        "width": 800,
+        "height": 800
+      },
+      "equipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "detangler-spray",
+        "mist-bottle"
+      ],
+      "curlyEquipmentIds": [
+        "wide-tooth-comb",
+        "detangling-brush",
+        "snag-free-elastic",
+        "detangler-spray",
+        "mist-bottle",
+        "leave-in-conditioner"
+      ],
+      "steps": [
+        {
+          "title": "Detangle and gather at the back of her neck"
+        },
+        {
+          "title": "Split into two halves"
+        },
+        {
+          "title": "First cross: from the left"
+        },
+        {
+          "title": "Second cross: from the right"
+        },
+        {
+          "title": "Carry on to the end"
+        },
+        {
+          "title": "Secure the tip"
+        }
+      ]
     }
   ],
   "techniques": [
@@ -3134,7 +3954,9 @@
         "high-ponytail",
         "two-even-bunches",
         "top-knot",
-        "sports-bun"
+        "sports-bun",
+        "rope-ponytail",
+        "fishtail-plait"
       ],
       "impliesHairType": null,
       "note": null
@@ -3175,12 +3997,17 @@
         "high-ponytail",
         "two-even-bunches",
         "half-up-half-down",
+        "loop-bun",
+        "wrapped-ponytail",
         "three-strand-plait",
         "plaited-pigtails",
         "top-knot",
         "french-plait",
         "dutch-plait",
-        "sports-bun"
+        "sports-bun",
+        "rope-ponytail",
+        "half-up-bun",
+        "fishtail-plait"
       ],
       "impliesHairType": null,
       "note": null
@@ -3217,7 +4044,9 @@
       "usedInStyleIds": [
         "two-even-bunches",
         "half-up-half-down",
-        "plaited-pigtails"
+        "two-little-sprouts",
+        "plaited-pigtails",
+        "half-up-bun"
       ],
       "impliesHairType": null,
       "note": null
@@ -3252,7 +4081,11 @@
         "Running out mid-style with no spare on hand, and having to stop and improvise."
       ],
       "usedInAllStyles": false,
-      "usedInStyleIds": [],
+      "usedInStyleIds": [
+        "classic-ponytail",
+        "loop-bun",
+        "wrapped-ponytail"
+      ],
       "impliesHairType": null,
       "note": null
     },
@@ -3286,7 +4119,9 @@
         "Standing directly behind her, which makes it harder to check both sides match and means reaching round the chair every time."
       ],
       "usedInAllStyles": false,
-      "usedInStyleIds": [],
+      "usedInStyleIds": [
+        "tangle-free-brushing"
+      ],
       "impliesHairType": null,
       "note": null
     },
@@ -3332,6 +4167,9 @@
         "twist-back-sides",
         "top-sprout",
         "side-swept-clip",
+        "two-little-sprouts",
+        "loop-bun",
+        "wrapped-ponytail",
         "three-strand-plait",
         "plaited-pigtails",
         "top-knot",
@@ -3342,7 +4180,10 @@
         "twisted-bunches",
         "criss-cross-bands",
         "pull-through-plait",
-        "mini-top-knot"
+        "mini-top-knot",
+        "rope-ponytail",
+        "half-up-bun",
+        "fishtail-plait"
       ],
       "impliesHairType": "curly",
       "note": null
@@ -3371,7 +4212,7 @@
         "On straight and wavy hair, twist each strand one way on its own, then wrap them round each other the opposite way, and band the end."
       ],
       "howToCheck": [
-        "The twist looks even from top to bottom.",
+        "Run your fingers down it: it feels the same thickness from top to bottom.",
         "It holds when you let go of the end."
       ],
       "commonMistakes": [
@@ -3381,7 +4222,8 @@
       ],
       "usedInAllStyles": false,
       "usedInStyleIds": [
-        "twisted-bunches"
+        "twisted-bunches",
+        "rope-ponytail"
       ],
       "impliesHairType": null,
       "note": null
@@ -3430,6 +4272,10 @@
         "twist-back-sides",
         "top-sprout",
         "side-swept-clip",
+        "two-little-sprouts",
+        "loop-bun",
+        "wrapped-ponytail",
+        "bedtime-pineapple",
         "three-strand-plait",
         "plaited-pigtails",
         "top-knot",
@@ -3442,10 +4288,1936 @@
         "criss-cross-bands",
         "pull-through-plait",
         "space-buns",
-        "mini-top-knot"
+        "mini-top-knot",
+        "rope-ponytail",
+        "half-up-bun",
+        "fishtail-plait"
       ],
       "impliesHairType": null,
       "note": "If you notice broken hairs or thinning along her hairline, give her hair a rest from tight styles, and speak to your doctor if it doesn't improve."
+    }
+  ],
+  "guides": [
+    {
+      "id": "wash-day",
+      "slug": "wash-day",
+      "hold": false,
+      "name": "Wash day",
+      "description": "Shampoo, conditioner, detangling and drying, in an order that keeps the knots down and the tears away.",
+      "oneLiner": "The knots come out in the conditioner, not the towel",
+      "parts": [
+        {
+          "id": "wash",
+          "title": "In the bath or shower",
+          "when": "Once or twice a week for straight and wavy hair; curly and coily hair usually once a week or less.",
+          "targetMinutes": 15,
+          "ageBands": null,
+          "equipmentIds": [
+            "wide-tooth-comb",
+            "shampoo-conditioner-set"
+          ],
+          "curlyEquipmentIds": [
+            "wide-tooth-comb",
+            "shampoo-conditioner-set"
+          ],
+          "steps": [
+            {
+              "title": "Comb out the big knots first",
+              "instruction": "Before she gets in, comb her dry hair with the wide-tooth comb, starting at the ends and moving up to the roots only once the ends run free.",
+              "withHer": null,
+              "endState": "The comb passes from roots to ends in one stroke at the back, at both sides and at her crown.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": {
+                "base": "/images/styles/care-wash-day-wash-step-01",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Loosen the big knots with your fingers",
+                "instruction": "Before she gets in, split her dry hair into four sections with your fingers and gently pull apart the biggest knots in each, ends first. Leave the comb for later, when the conditioner is in.",
+                "endState": "Each of the four sections separates easily in your fingers, with no knot bigger than a pea.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": {
+                  "base": "/images/styles/care-wash-day-wash-step-01-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Wet it right through",
+              "instruction": "Tip her head back with her chin up. Cup one hand along her hairline to keep the water out of her eyes, and pour warm water with the other, from her hairline back to her nape, until her hair is wet to the roots.",
+              "withHer": "Let her hold a dry washcloth over her eyes.",
+              "endState": "When you squeeze a handful of hair at her crown, water runs out of it.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Shampoo her scalp",
+              "instruction": "Rub a little shampoo, about the size of a large coin, between your palms and work it into her scalp with your fingertips: from her hairline, over her crown, down to her nape and behind both ears. Leave the lengths alone; the lather rinses down through them.",
+              "withHer": "Let her squeeze the shampoo into your palm.",
+              "endState": "There's lather across her whole scalp, including behind both ears and at her nape, and none worked into the ends.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-wash-day-wash-step-03",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Shampoo her scalp",
+                "instruction": "Smooth a little shampoo, about the size of a large coin, onto her scalp only, pressing with flat fingertips in small circles: from her hairline, over her crown, down to her nape and behind both ears. Keep it off the lengths, which dry out easily.",
+                "endState": "There's shampoo across her whole scalp, including behind both ears and at her nape, and the lengths have none worked in.",
+                "techniqueId": null,
+                "photo": {
+                  "base": "/images/styles/care-wash-day-wash-step-03",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Rinse it all out",
+              "instruction": "With her head tipped back and your hand along her hairline again, rinse from her hairline to her nape until the water runs clear.",
+              "withHer": null,
+              "endState": "The water running off her nape is clear, with no bubbles in it.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Conditioner on the lengths",
+              "instruction": "Smooth conditioner over her hair from the level of her ears down to the ends, with most on the ends. Keep it off her scalp.",
+              "withHer": null,
+              "endState": "Every strand below her ears feels slippery between your fingers.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Plenty of conditioner, in sections",
+                "instruction": "Split her hair into four sections with your fingers. Smooth a generous handful of conditioner down each section from the roots to the ends, pressing it in between flat palms.",
+                "endState": "All four sections feel slippery right up to the scalp.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Comb through the conditioner",
+              "instruction": "With the conditioner still in, comb one section at a time with the wide-tooth comb: the ends first, then from halfway, then from the roots. Move on when the comb runs through, and repeat round her whole head.",
+              "withHer": null,
+              "endState": "The comb passes from roots to ends in every section with no catching.",
+              "why": "Conditioner lets the comb slide, so the knots come out now rather than tearing on the towel.",
+              "techniqueId": "detangling",
+              "photo": {
+                "base": "/images/styles/care-wash-day-wash-step-06",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle each section, still conditioned",
+                "instruction": "With the conditioner still in, take one section at a time: fingers first, then the wide-tooth comb, from the ends up to the roots. Twist each finished section loosely so it stays apart from the rest. Repeat for all four.",
+                "endState": "All four sections are detangled and twisted aside, and your fingers slide through each from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": {
+                  "base": "/images/styles/care-wash-day-wash-step-06-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Rinse the conditioner out",
+              "instruction": "Rinse from her hairline back to the ends, with your hand along her hairline, until the hair feels smooth but not slippery.",
+              "withHer": null,
+              "endState": "A section run between your fingers feels smooth, with no slippery coating left.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Rinse most of it out",
+                "instruction": "Rinse with cool water from her hairline back, until most of the conditioner is out. A little left in helps curly and coily hair stay soft.",
+                "endState": "No white conditioner shows at her roots, and the hair still feels soft and slightly slippery.",
+                "techniqueId": null,
+                "photo": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "dry",
+          "title": "Drying",
+          "when": "Straight after the bath, before she gets cold.",
+          "targetMinutes": 10,
+          "ageBands": null,
+          "equipmentIds": [
+            "hair-towel",
+            "wide-tooth-comb",
+            "hair-dryer"
+          ],
+          "curlyEquipmentIds": [
+            "hair-towel",
+            "wide-tooth-comb",
+            "hair-dryer",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Squeeze, don't rub",
+              "instruction": "Wrap her hair in the towel and press it between your palms, working from her crown down to the ends. Keep the towel still rather than rubbing it back and forth.",
+              "withHer": null,
+              "endState": "Her hair is damp, not dripping: no drops fall from the ends when she stands up.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-wash-day-dry-step-01",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Comb it into place",
+              "instruction": "Comb with the wide-tooth comb from the ends up, then lay it the way it falls, with her part where she likes it.",
+              "withHer": null,
+              "endState": "The comb runs from roots to ends everywhere, and the hair lies flat at her crown.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Leave-in, then leave it",
+                "instruction": "Smooth a little leave-in through each section with your fingers, from the roots to the ends, then leave the curls alone while they dry.",
+                "endState": "The curls are clumped together in ringlets or coils, not frizzed apart, and nothing has combed them since the leave-in.",
+                "techniqueId": "detangling",
+                "photo": null
+              }
+            },
+            {
+              "title": "Dry it",
+              "instruction": "Let it air-dry, or use the dryer on warm, not hot. Keep it moving, about a hand's length from her head, and point it from her crown down toward the ends.",
+              "withHer": "Ask her if the air feels too hot.",
+              "endState": "Her scalp at the crown and behind her ears feels dry to your fingertips.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Air-dry, or dry it from below",
+                "instruction": "Let it air-dry, or use the dryer on low and warm, held still below the curls and pointing up into them rather than blowing across them. Don't touch the curls while they dry.",
+                "endState": "Her scalp at the crown and behind her ears feels dry, and the curls still hold their shape.",
+                "techniqueId": null,
+                "photo": null
+              }
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "How often: straight and wavy hair usually once or twice a week, or when it looks greasy at the roots. Curly and coily hair usually once a week or less, with a rinse and conditioner in between if it needs it.",
+        "Shampoo in her eyes is what makes hair washing a battle. A dry washcloth held over her eyes keeps them dry and gives her a job.",
+        "Never put her to bed with soaking hair: it tangles on the pillow. Damp is fine once it's combed through.",
+        "For a baby, warm water and a soft cloth are usually all the hair needs. Ask your health visitor or public health nurse if you're unsure."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "tangle-free-brushing",
+          "why": "The same detangling, every morning between wash days.",
+          "pack": false
+        }
+      ],
+      "commonFailure": "Combing the knots out of dry or freshly shampooed hair. It hurts, it snaps the hair, and the next wash day starts with tears.",
+      "theFix": "Stop, put conditioner on the knotted section, and work it from the ends with your fingers before the comb goes back in. The conditioner does the work. If a knot still won't give, leave it for the next wash day rather than pulling.",
+      "sleepNote": false
+    },
+    {
+      "id": "night",
+      "slug": "night-and-bonnets",
+      "hold": false,
+      "name": "Night and bonnets",
+      "description": "Brush out the day, braid or pineapple it loosely for sleep, and protect it with satin, so the morning starts without knots.",
+      "oneLiner": "A few minutes tonight saves a fight tomorrow",
+      "parts": [
+        {
+          "id": "brush-out",
+          "title": "Brushing out",
+          "when": "After her bath or before her story, while she's still awake enough to sit.",
+          "targetMinutes": 5,
+          "ageBands": null,
+          "equipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb"
+          ],
+          "curlyEquipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "leave-in-conditioner",
+            "mist-bottle"
+          ],
+          "steps": [
+            {
+              "title": "Take everything out",
+              "instruction": "Take out everything from today's style. Slide each piece down along the hair and off, rather than pulling it straight out.",
+              "withHer": null,
+              "endState": "Run your hands over her whole head: there's nothing hard left in her hair.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Brush out from the ends",
+              "instruction": "Brush one small section at a time from the ends, moving up only once the ends run free, until you reach the roots. Work round her whole head.",
+              "withHer": "Ask her to tell you when it pulls.",
+              "endState": "The brush passes from roots to ends in one stroke everywhere.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": {
+                "base": "/images/styles/care-night-brush-out-step-02",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle with your fingers",
+                "instruction": "Mist one section at a time until it's damp, smooth a little leave-in through it, and separate the knots with your fingers, ends first. Leave the brush out at night.",
+                "endState": "Your fingers slide through every section from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": {
+                  "base": "/images/styles/care-night-brush-out-step-02-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "for-sleep",
+          "title": "Ready for sleep",
+          "when": "Last thing, once the hair is brushed out and dry or nearly dry.",
+          "targetMinutes": 5,
+          "ageBands": [
+            "young-child",
+            "older-child",
+            "pre-teen"
+          ],
+          "equipmentIds": [
+            "soft-scrunchie",
+            "satin-bonnet"
+          ],
+          "curlyEquipmentIds": [
+            "soft-scrunchie",
+            "satin-bonnet"
+          ],
+          "steps": [
+            {
+              "title": "Gather it at her nape",
+              "instruction": "Gather all the hair loosely at her nape, the hollow at the back of her neck. Smooth it back from her hairline with your palm without pulling.",
+              "withHer": null,
+              "endState": "Every strand is in your hand, and she can nod without feeling a pull anywhere.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Gather it high at the front",
+                "instruction": "Gather all her curls loosely with your fingertips toward the front of her head, to just behind her front hairline rather than on her crown, so she lies on the back of her head and not on her curls. This is the pineapple.",
+                "endState": "The curls sit loosely on top just behind her hairline, the back of her neck and her crown are clear, and nothing pulls at her hairline.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Braid it loosely",
+              "instruction": "Split the gathered hair into three equal strands. Cross the right strand over the middle, then the left over the middle, without pulling, and repeat down the hair until there's about a finger's length left.",
+              "withHer": null,
+              "endState": "A loose braid runs down to a finger's length from the ends, and your fingertip slides between the strands.",
+              "why": null,
+              "techniqueId": "holding-tension",
+              "photo": {
+                "base": "/images/styles/care-night-for-sleep-step-02",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Hold the pineapple loosely",
+                "instruction": "Slip one soft scrunchie round the gathered curls and loop it over them once more, so it holds them without squeezing.",
+                "endState": "The scrunchie holds the curls just behind her hairline, the curls above it fall forward toward her forehead, and you can slide a finger under it easily.",
+                "techniqueId": "holding-tension",
+                "photo": {
+                  "base": "/images/styles/care-night-for-sleep-step-02-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Tie the end softly",
+              "instruction": "Loop a soft scrunchie round the end of the braid, just enough to hold it.",
+              "withHer": "Let her choose the scrunchie.",
+              "endState": "The braid doesn't unravel when she shakes her head, and the scrunchie isn't tight on the hair.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Check her edges",
+                "instruction": "Run your fingertips round her hairline, at her temples, above her ears and at her nape, feeling for any hair pulled tight toward the scrunchie.",
+                "endState": "Every bit of hair at her hairline lies relaxed, with nothing pulled tight.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "On with the satin",
+              "instruction": "Put the satin bonnet on from her forehead back, so the band sits on her hairline and all her hair is inside. Or, if she won't wear one, put a satin pillowcase on her pillow.",
+              "withHer": null,
+              "endState": "All her hair is inside the bonnet, its band lies flat along her hairline, and nothing presses on her ears; or her pillow is in the satin case.",
+              "why": "Satin lets the hair slide as she turns in her sleep, so it doesn't rub into knots or frizz.",
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-night-for-sleep-step-04",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "for-sleep-under-three",
+          "title": "Ready for sleep: under three",
+          "when": "Last thing, once the hair is brushed out and dry or nearly dry.",
+          "targetMinutes": 2,
+          "ageBands": [
+            "baby",
+            "toddler"
+          ],
+          "equipmentIds": [
+            "satin-bonnet"
+          ],
+          "curlyEquipmentIds": [
+            "satin-bonnet"
+          ],
+          "steps": [
+            {
+              "title": "Leave it loose",
+              "instruction": "Leave her hair loose for sleep, with nothing tied or clipped in it. Run your fingertips over her whole head, from her hairline to her nape.",
+              "withHer": null,
+              "endState": "Her hair hangs loose, and your fingertips find nothing in it anywhere from her hairline to her nape.",
+              "why": "Under three, anything small left in her hair is a choking risk in bed.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Satin on her pillow",
+              "instruction": "Put a satin pillowcase on her pillow, or a satin bonnet on her from her forehead back, with all her hair inside.",
+              "withHer": null,
+              "endState": "Her pillow is in the satin case; or all her hair is inside the bonnet and nothing presses on her ears.",
+              "why": "Satin lets the hair slide as she turns in her sleep, so it doesn't rub into knots.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": [
+                "toddler"
+              ],
+              "curly": null
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Under three, sleep has a part of its own: her hair left loose, with nothing tied or clipped in it, and nothing on her head or pillow for a baby. If her hair is long enough to knot overnight, a loose braid with the end left untied is fine. The sleep note below says why.",
+        "Dry it first. Hair that goes to bed soaking wet tangles on the pillow; damp and combed through is fine.",
+        "A satin bonnet is the easiest win for curly and coily hair. A satin pillowcase does the same job for a child who pulls a bonnet off in her sleep."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "three-strand-plait",
+          "why": "The loose braid for sleep, written out step by step.",
+          "pack": true
+        },
+        {
+          "styleId": "bedtime-pineapple",
+          "why": "The pineapple, step by step, for curly and coily hair.",
+          "pack": false
+        },
+        {
+          "styleId": "plaited-pigtails",
+          "why": "Two braids: less to lie on than one.",
+          "pack": true
+        }
+      ],
+      "commonFailure": "A braid or pineapple tied too tightly to sleep in, so it pulls all night and she wakes up sore.",
+      "theFix": "Take the scrunchie off and redo it looser: you should be able to slide a finger under the band and between the strands. A sleep style only has to stop the tangles; it doesn't have to look neat.",
+      "sleepNote": true
+    },
+    {
+      "id": "swim-day",
+      "slug": "swim-day",
+      "hold": false,
+      "name": "Swim day",
+      "description": "Wet it with clean water first, a style that stays put under the cap, and the pool rinsed out before it dries.",
+      "oneLiner": "Clean water in first means less pool water soaks in",
+      "parts": [
+        {
+          "id": "before",
+          "title": "Before the lesson",
+          "when": "At home, or in the changing room before she gets in.",
+          "targetMinutes": 8,
+          "ageBands": null,
+          "equipmentIds": [
+            "leave-in-conditioner",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "swim-cap"
+          ],
+          "curlyEquipmentIds": [
+            "leave-in-conditioner",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "swim-cap"
+          ],
+          "steps": [
+            {
+              "title": "Wet it with clean water",
+              "instruction": "Before she goes near the pool, wet her hair right through under the shower, from her hairline back to her nape.",
+              "withHer": null,
+              "endState": "When you squeeze a handful of hair at her crown, water runs out of it.",
+              "why": "Hair already full of clean water soaks up less of the pool water.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Leave-in on the lengths",
+              "instruction": "Smooth a little leave-in through the wet lengths with your fingers, from the level of her ears down to the ends.",
+              "withHer": null,
+              "endState": "The hair feels slippery from ear level to the ends.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "One braid from her nape",
+              "instruction": "Comb it back with the wide-tooth comb, gather it at her nape, and braid it down to the ends: right strand over the middle, then left over the middle, repeated until a finger's length is left.",
+              "withHer": "Ask her to tip her chin down.",
+              "endState": "One braid hangs from her nape, and there's no loose hair at her ears or her neck.",
+              "why": null,
+              "techniqueId": "holding-tension",
+              "photo": {
+                "base": "/images/styles/three-strand-plait-finished",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Two braids behind her ears",
+                "instruction": "Split the hair down the middle with your fingers and braid each side from just behind her ear down to the ends: right over the middle, left over the middle, until a finger's length is left.",
+                "endState": "Two braids start just behind her ears and lie flat, with nothing loose at her hairline.",
+                "techniqueId": "holding-tension",
+                "photo": {
+                  "base": "/images/styles/care-swim-day-before-step-03-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Tie the end",
+              "instruction": "Wrap a snag-free elastic round the end of the braid until it holds.",
+              "withHer": null,
+              "endState": "The braid doesn't loosen when she shakes her head.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Tie both ends",
+                "instruction": "Wrap a snag-free elastic round the end of each braid until it holds.",
+                "endState": "Neither braid loosens when she shakes her head.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Cap on, front to back",
+              "instruction": "Stretch the cap open between both hands, set its front edge on her forehead at the hairline, and roll it back over her crown and down past her nape, tucking the braid inside.",
+              "withHer": "Ask her if the cap pinches her ears.",
+              "endState": "The cap's edge runs from her hairline, over the tops of her ears, to below the braid at her nape, with no hair showing.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-swim-day-before-step-05",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Cap on, front to back",
+                "instruction": "Stretch the cap open between both hands, set its front edge on her forehead at the hairline, and roll it back over her crown and down past her nape, folding both braids up inside it.",
+                "endState": "The cap's edge runs from her hairline, over the tops of her ears, to her nape, with both braids inside and no hair showing.",
+                "techniqueId": null,
+                "photo": {
+                  "base": "/images/styles/care-swim-day-before-step-05",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "after",
+          "title": "After the lesson",
+          "when": "In the changing room, straight after she gets out.",
+          "targetMinutes": 10,
+          "ageBands": null,
+          "equipmentIds": [
+            "swim-cap",
+            "snag-free-elastic",
+            "wide-tooth-comb",
+            "leave-in-conditioner"
+          ],
+          "curlyEquipmentIds": [
+            "swim-cap",
+            "snag-free-elastic",
+            "wide-tooth-comb",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Cap off from the back",
+              "instruction": "Lift the cap away from her nape first and roll it forward over her crown to her forehead.",
+              "withHer": null,
+              "endState": "The cap is off and the braid is still in.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Rinse the pool out",
+              "instruction": "Under the changing-room shower, rinse her hair with the braid still in, from her hairline back to the ends, until it smells of water rather than the pool.",
+              "withHer": "Ask her to tip her head back.",
+              "endState": "A handful of hair by her ear smells of nothing but water.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Undo the braid",
+              "instruction": "Slide the elastic off and undo the braid with your fingers, from the end up.",
+              "withHer": null,
+              "endState": "All the hair hangs loose, with no twists left in it.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Undo both braids",
+                "instruction": "Slide each elastic off and undo each braid with your fingers, from the end up.",
+                "endState": "All the hair hangs loose, with no twists left in either side.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Leave-in through",
+              "instruction": "Smooth a little leave-in through the lengths with your fingers, from the level of her ears to the ends.",
+              "withHer": null,
+              "endState": "The lengths feel slippery from ear level to the ends.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Comb from the ends",
+              "instruction": "Comb with the wide-tooth comb, the ends first, then from halfway, then from the roots, round her whole head.",
+              "withHer": null,
+              "endState": "The comb passes from roots to ends everywhere with no catching.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle in sections",
+                "instruction": "Split the hair into four sections with your fingers. In each, work out the knots with your fingers first, then the wide-tooth comb, from the ends up to the roots.",
+                "endState": "Your fingers slide through each of the four sections from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "weekly",
+          "title": "Once a week",
+          "when": "On wash day, in a week she has swum.",
+          "targetMinutes": 10,
+          "ageBands": null,
+          "equipmentIds": [
+            "clarifying-shampoo",
+            "shampoo-conditioner-set",
+            "wide-tooth-comb"
+          ],
+          "curlyEquipmentIds": [
+            "clarifying-shampoo",
+            "shampoo-conditioner-set",
+            "wide-tooth-comb"
+          ],
+          "steps": [
+            {
+              "title": "Clarifying shampoo on her scalp",
+              "instruction": "In place of her usual shampoo, work a little clarifying shampoo into her wet scalp with your fingertips, from her hairline over her crown to her nape and behind both ears.",
+              "withHer": null,
+              "endState": "There's lather across her whole scalp, including behind both ears.",
+              "why": "Clarifying shampoo lifts the build-up of pool water that her usual shampoo leaves behind.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Rinse it through the lengths",
+              "instruction": "Rinse from her hairline back, letting the lather run down through the lengths, until the water runs clear.",
+              "withHer": null,
+              "endState": "The water off her nape is clear and her hair smells of nothing but water.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Conditioner, and comb through",
+              "instruction": "Smooth her usual conditioner over the lengths and comb it through with the wide-tooth comb from the ends up, then rinse.",
+              "withHer": null,
+              "endState": "The comb ran through every section before you rinsed, and her hair feels soft, not squeaky.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Plenty of conditioner, in sections",
+                "instruction": "Smooth a generous handful of conditioner through each of four sections from roots to ends, detangle each with your fingers and then the wide-tooth comb, and rinse most of it out.",
+                "endState": "Each section was detangled before rinsing, and her hair feels soft and slightly slippery.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Curly and coily hair: clarify every other week rather than every week, and always follow it with plenty of conditioner.",
+        "Fair hair can take on a green tinge after a lot of lessons. The rinse after every lesson and the weekly clarifying wash are what stop it.",
+        "No time after the lesson? Rinse it, at least. Pool water left to dry in the hair is what does the damage."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "three-strand-plait",
+          "why": "One braid from her nape: it fits under a cap.",
+          "pack": true
+        },
+        {
+          "styleId": "plaited-pigtails",
+          "why": "Two braids that last the lesson and the journey home.",
+          "pack": true
+        },
+        {
+          "styleId": "sports-bun",
+          "why": "A low bun under the cap, for hair well past her shoulders.",
+          "pack": true
+        }
+      ],
+      "commonFailure": "Pool water left to dry in her hair, so it's dry, tangled and smelling of the pool by the evening.",
+      "theFix": "Rinse it in the changing room every time, even with no time for anything else, and comb it with leave-in before bed. If it's already dry and matted, do wash day's conditioner and comb steps that evening.",
+      "sleepNote": false
+    },
+    {
+      "id": "sport-day",
+      "slug": "sports-and-gym-day",
+      "hold": false,
+      "name": "Sports and gym day",
+      "description": "Hair fully off her face and secure for running, contact and tumbling, a low style that sits comfortably under a helmet, and a gentle take-down afterwards.",
+      "oneLiner": "Low, flat and nothing hard",
+      "parts": [
+        {
+          "id": "secure",
+          "title": "Off her face and secure",
+          "when": "Before a gym class, a match, training or gymnastics.",
+          "targetMinutes": 8,
+          "ageBands": null,
+          "equipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "sports-headband"
+          ],
+          "curlyEquipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "sports-headband",
+            "leave-in-conditioner",
+            "mist-bottle"
+          ],
+          "steps": [
+            {
+              "title": "Brush it smooth",
+              "instruction": "Brush from the ends up until the brush passes from roots to ends everywhere.",
+              "withHer": null,
+              "endState": "The brush runs through in one stroke at the back, both sides and her crown.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle it damp",
+                "instruction": "Mist her hair until it's damp, smooth a little leave-in through with your fingers, and work through in sections, ends first: fingers, then the wide-tooth comb.",
+                "endState": "Your fingers slide through each section from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            },
+            {
+              "title": "Gather it low",
+              "instruction": "Smooth all the hair back from her hairline with your palm and gather it at the back of her head, level with the bottoms of her ears, so nothing sits high enough to press when she lies on her back.",
+              "withHer": "Ask her to look straight ahead.",
+              "endState": "No hair is left at her face or temples, and the gathered hair sits level with the bottoms of her ears.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Gather it low",
+                "instruction": "Smooth the hair back from her hairline with damp fingertips and gather it at the back of her head, level with the bottoms of her ears, so nothing sits high enough to press when she lies on her back.",
+                "endState": "No hair is left at her face or temples, and the gathered hair sits level with the bottoms of her ears.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Two elastics, not one",
+              "instruction": "Wrap a snag-free elastic round the gathered hair until it holds firmly, then wrap a second elastic a finger's width below it.",
+              "withHer": "Ask her if it pulls anywhere.",
+              "endState": "The ponytail doesn't shift when she shakes her head hard or jumps on the spot.",
+              "why": "Two elastics share the pull, so one can loosen without the whole style falling out mid-match.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Braid the tail",
+              "instruction": "Braid the ponytail down to the ends, right over the middle, then left over the middle, until a finger's length is left, and tie the end with a third elastic.",
+              "withHer": null,
+              "endState": "A tied braid hangs from the elastics, so the hair can't whip across her face or a teammate's.",
+              "why": null,
+              "techniqueId": "holding-tension",
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Headband for the short hairs",
+              "instruction": "Slide a soft sports headband up from the back of her neck and over her hairline, so it catches the short hairs at her forehead and temples.",
+              "withHer": null,
+              "endState": "No hair falls into her eyes when she bends forward and stands back up.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-sport-day-secure-step-05",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "helmet",
+          "title": "Under a helmet",
+          "when": "Camogie, hurling, cycling, horse riding: anything with a helmet.",
+          "targetMinutes": 10,
+          "ageBands": null,
+          "equipmentIds": [
+            "wide-tooth-comb",
+            "snag-free-elastic"
+          ],
+          "curlyEquipmentIds": [
+            "wide-tooth-comb",
+            "snag-free-elastic"
+          ],
+          "steps": [
+            {
+              "title": "Split it down the middle",
+              "instruction": "Comb it back with the wide-tooth comb, then split it into two halves down the middle with your fingers, from her forehead to her nape.",
+              "withHer": null,
+              "endState": "Two equal halves, one over each shoulder, with a line down the middle of her head.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "A low braid each side",
+              "instruction": "Braid each half from just below her ear down to the ends: right over the middle, then left over the middle, until a finger's length is left.",
+              "withHer": null,
+              "endState": "Two braids start below her ears and hang down, and the back of her head is smooth under your palm.",
+              "why": "The back of a helmet sits on the back of her head. Braids that start below her ears sit under it rather than pressing into it.",
+              "techniqueId": "holding-tension",
+              "photo": {
+                "base": "/images/styles/care-sport-day-helmet-step-02",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Tie the ends, nothing hard",
+              "instruction": "Wrap a snag-free elastic round the end of each braid: no beads, no metal and nothing chunky.",
+              "withHer": null,
+              "endState": "Run your palm over the back of her head and down each braid: nothing hard anywhere.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Helmet on, and feel the back",
+              "instruction": "Put the helmet on and fasten it as its instructions say. Then slide two fingers inside the back of the helmet and feel along her head for anything pressing.",
+              "withHer": "Ask her if anything presses at the back.",
+              "endState": "The helmet sits level, both braids come out below it, and your fingers find nothing pressing on the back of her head.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-sport-day-helmet-step-04",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "afterwards",
+          "title": "Afterwards",
+          "when": "At home, once she's changed.",
+          "targetMinutes": 8,
+          "ageBands": null,
+          "equipmentIds": [
+            "snag-free-elastic",
+            "mist-bottle",
+            "detangling-brush",
+            "wide-tooth-comb"
+          ],
+          "curlyEquipmentIds": [
+            "snag-free-elastic",
+            "mist-bottle",
+            "detangling-brush",
+            "wide-tooth-comb",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Take it down gently",
+              "instruction": "Slide each elastic down along the hair and off, then undo the braids with your fingers from the ends up.",
+              "withHer": null,
+              "endState": "All the hair hangs loose, with every elastic out and no hair pulled out with them.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Freshen the roots",
+              "instruction": "Mist her roots with water and rub them gently with your fingertips, from her hairline over her crown to her nape, then let them dry.",
+              "withHer": null,
+              "endState": "Her roots feel fresh and dry, not damp and sticky.",
+              "why": "A wet rub lifts the sweat without a full wash. After a very muddy match, do wash day instead.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Brush it out",
+              "instruction": "Brush from the ends up until the brush passes from roots to ends everywhere.",
+              "withHer": null,
+              "endState": "The brush runs through in one stroke at the back, both sides and her crown.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle with your fingers",
+                "instruction": "Smooth a little leave-in through each section and separate the knots with your fingers, ends first, then the wide-tooth comb.",
+                "endState": "Your fingers slide through each section from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "No clips or pins for contact sport, gymnastics or tumbling: anything hard can dig in during a tackle or a fall. Elastics and a soft headband only.",
+        "Put a spare elastic or two in her gym bag. One often snaps mid-match.",
+        "Camogie and hurling players wear helmets for matches and training, and so do cyclists and riders. The helmet's fit is for her coach and the helmet's instructions; this routine is only about the hair underneath it.",
+        "Not so tight it hurts. A ponytail for sport has to stay put, but she should still be able to raise her eyebrows without feeling a pull."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "sports-bun",
+          "why": "A secure bun for running and tumbling, without a helmet.",
+          "pack": true
+        },
+        {
+          "styleId": "dutch-plait",
+          "why": "Lies flat to her head and holds through a whole match.",
+          "pack": true
+        },
+        {
+          "styleId": "plaited-pigtails",
+          "why": "The two low braids, written out step by step.",
+          "pack": true
+        }
+      ],
+      "commonFailure": "A bun or a high ponytail that presses into the back of her head under a helmet, or bumps when she lies on her back.",
+      "theFix": "Take it down and redo it as two low braids that start below her ears. Check with your palm: the back of her head should feel smooth, with nothing hard on it.",
+      "sleepNote": false
+    },
+    {
+      "id": "dance-day",
+      "slug": "dance-and-drama-day",
+      "hold": false,
+      "name": "Dance and drama day",
+      "description": "A neat, secure bun for ballet and dance, a show version that lasts a long evening under lights, a base for Irish dancing, and hair off her face for drama.",
+      "oneLiner": "Pins point along the bun, never into her head",
+      "parts": [
+        {
+          "id": "ballet-bun",
+          "title": "A ballet bun",
+          "when": "Before a ballet or dance class.",
+          "targetMinutes": 12,
+          "ageBands": null,
+          "equipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "soft-bristle-brush",
+            "mist-bottle",
+            "snag-free-elastic",
+            "bun-pin",
+            "hair-net"
+          ],
+          "curlyEquipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "soft-bristle-brush",
+            "mist-bottle",
+            "snag-free-elastic",
+            "bun-pin",
+            "hair-net",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Brush it, then mist it",
+              "instruction": "Brush from the ends up until it runs through, then mist it lightly all over so the hair holds together.",
+              "withHer": null,
+              "endState": "The brush runs from roots to ends everywhere, and the hair is just damp, not wet.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle it damp",
+                "instruction": "Mist her hair until it's damp, smooth leave-in through with your fingers, and detangle in sections, ends first: fingers, then the wide-tooth comb.",
+                "endState": "Your fingers slide through each section from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            },
+            {
+              "title": "Gather it level with her ears",
+              "instruction": "Brush all the hair back from her hairline and up from her nape to a point at the back of her head level with the tops of her ears.",
+              "withHer": "Ask her to tip her chin down slightly.",
+              "endState": "No hair is left at her face or her neck, and the gathered hair sits level with the tops of her ears.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Gather it level with her ears",
+                "instruction": "Smooth the hair back from her hairline and up from her nape with damp palms and a little leave-in, then smooth the surface with the soft-bristle brush, and gather it at the back of her head level with the tops of her ears.",
+                "endState": "No hair is left at her face or her neck, and the gathered hair sits level with the tops of her ears.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Secure the ponytail",
+              "instruction": "Wrap a snag-free elastic round the gathered hair until it holds firmly.",
+              "withHer": null,
+              "endState": "The ponytail doesn't move when she nods, and she can raise her eyebrows without feeling a pull.",
+              "why": "Raising her eyebrows tests the tension at her hairline. If she feels it there, she'll feel it all through class.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Twist and coil",
+              "instruction": "Twist the ponytail into a rope, then coil it round the elastic and tuck the end under the coil.",
+              "withHer": null,
+              "endState": "A round, flat bun covers the elastic, with the end hidden underneath.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-dance-day-ballet-bun-step-04",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Pin along the bun",
+              "instruction": "Push a bun pin in at the outer edge of the bun, pointing along the coil toward its middle, catching the bun and a little hair beneath it. Never point a pin into her scalp. Repeat round the bun with three or four pins.",
+              "withHer": "Ask her if any pin digs in.",
+              "endState": "The bun stays still when you push it gently, and she says nothing is digging in.",
+              "why": "A pin pushed along the coil grips the hair; one pushed inward only scratches her head.",
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-dance-day-ballet-bun-step-05",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Net over the bun",
+              "instruction": "Most ballet classes ask for a hair net. Stretch it over the bun and wind the spare net round it until it's snug.",
+              "withHer": null,
+              "endState": "The net covers the whole bun with no hair poking out of it.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-dance-day-ballet-bun-step-06",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "show",
+          "title": "For a show",
+          "when": "On top of the bun, for a performance or a long evening under lights.",
+          "targetMinutes": 6,
+          "ageBands": null,
+          "equipmentIds": [
+            "soft-bristle-brush",
+            "mist-bottle",
+            "bun-pin",
+            "mirror"
+          ],
+          "curlyEquipmentIds": [
+            "soft-bristle-brush",
+            "mist-bottle",
+            "bun-pin",
+            "mirror",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Smooth the flyaways",
+              "instruction": "Mist the soft-bristle brush lightly and brush it over her hairline and the top of her head toward the bun.",
+              "withHer": null,
+              "endState": "In a mirror, no short hairs stand up along her hairline or at her crown.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Smooth the edges",
+                "instruction": "Smooth a little leave-in over her hairline and the top of her head with your fingertips, toward the bun, then go over it once with the soft-bristle brush.",
+                "endState": "In a mirror, her hairline and crown look smooth, with no hair standing up.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "One more pin each side",
+              "instruction": "Push one more bun pin into each side of the bun, pointing along the coil, never into her scalp.",
+              "withHer": null,
+              "endState": "The bun stays put when she shakes her head, and nothing digs in.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Try a costume change",
+              "instruction": "Have her pull a top over her head and put on any hat or headpiece she'll wear, then look at the bun.",
+              "withHer": "Let her do the costume change herself.",
+              "endState": "After the change the bun is still in place, and the headpiece sits on it without pushing the pins in.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "irish",
+          "title": "Irish dancing",
+          "when": "The base for a competition wig or curls, for a feis or a show.",
+          "targetMinutes": 10,
+          "ageBands": null,
+          "equipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "bun-pin"
+          ],
+          "curlyEquipmentIds": [
+            "detangling-brush",
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "bun-pin",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Gather it at her crown",
+              "instruction": "Brush all the hair up from her hairline and her nape to her crown, the highest point of her head.",
+              "withHer": null,
+              "endState": "No hair is left at her face or her neck, and it's gathered at the very top of her head.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Gather it at her crown",
+                "instruction": "Smooth the hair up from her hairline and her nape with damp palms and a little leave-in, and gather it at her crown, the highest point of her head.",
+                "endState": "No hair is left at her face or her neck, and it's gathered at the very top of her head.",
+                "techniqueId": null,
+                "photo": null
+              }
+            },
+            {
+              "title": "Secure it",
+              "instruction": "Wrap a snag-free elastic round the gathered hair until it holds firmly.",
+              "withHer": null,
+              "endState": "The ponytail doesn't move when she nods, and she can raise her eyebrows without feeling a pull.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "A flat bun",
+              "instruction": "Twist the ponytail into a rope, coil it flat round the elastic, and tuck the end under.",
+              "withHer": null,
+              "endState": "A flat bun sits at her crown, with no lump that would lift a wig.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Pin it flat",
+              "instruction": "Push bun pins in at the outer edge of the bun, pointing along the coil toward the middle, never into her scalp, until it doesn't move.",
+              "withHer": null,
+              "endState": "The bun is flat and still when you press it, and nothing digs in.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Wig on, her teacher's way",
+              "instruction": "Put the wig or curls on over the bun and fasten them the way her dance school shows you. Then have her turn her head from side to side.",
+              "withHer": "Ask her if the wig pulls anywhere.",
+              "endState": "The wig sits evenly on the bun without a bump, and it doesn't shift or pull when she turns her head.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "drama",
+          "title": "Drama",
+          "when": "A rehearsal or a play, with changes between scenes.",
+          "targetMinutes": 5,
+          "ageBands": null,
+          "equipmentIds": [
+            "detangling-brush",
+            "soft-scrunchie"
+          ],
+          "curlyEquipmentIds": [
+            "detangling-brush",
+            "soft-scrunchie"
+          ],
+          "steps": [
+            {
+              "title": "Lift the front section",
+              "instruction": "Gather the hair from both temples and the top of her head back to her crown, leaving the rest hanging.",
+              "withHer": null,
+              "endState": "Her face is clear from the front and both sides, and the hair below her ears hangs loose.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-dance-day-drama-step-01",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Tie it with a scrunchie",
+              "instruction": "Loop a soft scrunchie round the gathered hair at the back of her head until it holds.",
+              "withHer": null,
+              "endState": "The section stays put when she pulls a top over her head, and the scrunchie hasn't moved.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "take-down",
+          "title": "Taking it down",
+          "when": "After class or the show.",
+          "targetMinutes": 6,
+          "ageBands": null,
+          "equipmentIds": [
+            "bun-pin",
+            "hair-net",
+            "snag-free-elastic",
+            "detangling-brush",
+            "wide-tooth-comb"
+          ],
+          "curlyEquipmentIds": [
+            "bun-pin",
+            "hair-net",
+            "snag-free-elastic",
+            "detangling-brush",
+            "wide-tooth-comb",
+            "leave-in-conditioner"
+          ],
+          "steps": [
+            {
+              "title": "Count the pins out",
+              "instruction": "Feel for every bun pin and slide each one out the way it went in, counting them against the number you put in.",
+              "withHer": "Let her count the pins with you.",
+              "endState": "You've counted out as many pins as went in.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Net and elastic off",
+              "instruction": "Take the hair net off, unwind the bun, and slide the elastic down along the hair and off.",
+              "withHer": null,
+              "endState": "The hair hangs loose, with nothing left in it.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Brush out gently",
+              "instruction": "Brush from the ends up until it runs from roots to ends everywhere.",
+              "withHer": null,
+              "endState": "The brush passes through in one stroke everywhere, and she says her head feels fine.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle with your fingers",
+                "instruction": "Smooth a little leave-in through each section and separate it with your fingers, ends first, then the wide-tooth comb.",
+                "endState": "Your fingers slide through every section from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Not so tight it hurts. Through a long rehearsal she should be able to raise her eyebrows and nod without a pull. A headache after class means it was too tight.",
+        "Ask her class what they want: some ask for a net, some for a particular height of bun, some for nothing in the hair at all.",
+        "Irish dancing wigs and curls: her teacher or dance school will show you how they want them fixed for a feis. This routine stops at the bun underneath, which is the part you can always do.",
+        "For a show, pack spare bun pins, an elastic and the hair net in her costume bag."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "top-knot",
+          "why": "A high bun, for a class that wants one.",
+          "pack": true
+        },
+        {
+          "styleId": "sports-bun",
+          "why": "Holds through a long rehearsal.",
+          "pack": true
+        },
+        {
+          "styleId": "loop-bun",
+          "why": "A quick bun for drama and changes between scenes.",
+          "pack": true
+        }
+      ],
+      "commonFailure": "A bun pinned so tightly, or with pins pushed inward, that she has a headache by the interval.",
+      "theFix": "Take the pins out and redo the ponytail a little looser, then pin along the bun rather than into it. Fewer pins, placed along the coil, hold better than many pushed straight in.",
+      "sleepNote": false
+    },
+    {
+      "id": "nits-day",
+      "slug": "lice-check-day",
+      "hold": false,
+      "name": "Lice check day",
+      "description": "Checking for head lice by wet-combing with a lice comb: how to do it, how often to repeat it, and who to tell.",
+      "oneLiner": "Conditioner, a lice comb and patience",
+      "parts": [
+        {
+          "id": "check",
+          "title": "Wet-combing",
+          "when": "Regularly, to catch head lice early.",
+          "targetMinutes": 20,
+          "ageBands": null,
+          "equipmentIds": [
+            "shampoo-conditioner-set",
+            "wide-tooth-comb",
+            "nit-comb",
+            "sectioning-clip"
+          ],
+          "curlyEquipmentIds": [
+            "shampoo-conditioner-set",
+            "wide-tooth-comb",
+            "nit-comb",
+            "sectioning-clip"
+          ],
+          "steps": [
+            {
+              "title": "Wash, and leave the conditioner in",
+              "instruction": "Wash her hair as usual, then smooth plenty of conditioner through it from the roots to the ends. Don't rinse it out yet.",
+              "withHer": "Ask her to keep her eyes shut.",
+              "endState": "Every strand feels slippery from the roots to the ends.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Detangle with the wide-tooth comb",
+              "instruction": "Comb through with the wide-tooth comb, the ends first, then from halfway, then from the roots, round her whole head.",
+              "withHer": null,
+              "endState": "The wide-tooth comb passes from roots to ends everywhere with no catching.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": {
+                "title": "Detangle in sections",
+                "instruction": "Split the hair into four sections with your fingers and clip three away. Detangle the free section with your fingers, then the wide-tooth comb, from the ends up, and repeat for each section.",
+                "endState": "All four sections are detangled, and your fingers slide through each from roots to ends.",
+                "techniqueId": "detangling-curly-coily",
+                "photo": null
+              }
+            },
+            {
+              "title": "Comb, wipe and look, all the way round",
+              "instruction": "Starting at her hairline, press the lice comb's teeth against her scalp and draw it slowly down to the ends. Wipe the comb on a white tissue and look at it in good light for anything moving or anything stuck to a hair. Comb the same place again until the comb comes out with nothing on the tissue, then move along by the width of the comb and repeat, round her whole head, with extra care behind her ears and at her nape.",
+              "withHer": "Ask her to tip her chin down.",
+              "endState": "You've combed every part of her head, scalp to ends, including behind both ears and at her nape, and the comb now comes out with nothing on the tissue.",
+              "why": "Head lice are small insects. Their eggs are stuck to the hair, close to the scalp.",
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-nits-day-check-step-03",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Comb, wipe and look, all the way round",
+                "instruction": "Work one small section at a time, no wider than the lice comb. Press the teeth against her scalp and draw the comb slowly down to the ends, then wipe it on a white tissue and look at it in good light for anything moving or anything stuck to a hair. Comb the section again until the comb comes out with nothing on the tissue, then clip it to the other side. Repeat with the next section, round her whole head, with extra care behind her ears and at her nape.",
+                "endState": "Every small section has been combed from the scalp to the ends and clipped aside, including behind both ears and at her nape, and the comb now comes out with nothing on the tissue.",
+                "techniqueId": null,
+                "photo": {
+                  "base": "/images/styles/care-nits-day-check-step-03-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Rinse, then comb again",
+              "instruction": "Rinse the conditioner out, then comb her whole head once more with the lice comb, scalp to ends, wiping and looking after each stroke.",
+              "withHer": null,
+              "endState": "Her whole head has been combed a second time, and every wipe has been looked at.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Clean the lice comb",
+              "instruction": "Soak the lice comb in hot water for 5 to 10 minutes, then pick anything caught out of the teeth and dry it.",
+              "withHer": null,
+              "endState": "Nothing is caught between the comb's teeth, and it's dry and ready for next time.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "How often: wet-comb regularly to catch head lice early. If you find live lice, wet-comb every 3 to 4 days for at least 2 weeks. The NHS describes combing on days 1, 5, 9 and 13, with a last check on day 17; the HSE says you can stop once 3 sessions in a row find no lice.",
+        "Check everyone in the house, and comb anyone who has head lice on the same day.",
+        "If you find live lice, you may want to tell her school or childminder, and the parents of children she's been close to, so they can check too. There's no need to keep her off school.",
+        "Treatments: ask a pharmacist, and follow the treatment's own instructions. Ask a pharmacist or doctor before using any treatment on a baby or young child. Don't put conditioner on before a lice treatment: the CDC advises against it.",
+        "Head lice are common in children and have nothing to do with clean or dirty hair."
+      ],
+      "links": [
+        {
+          "label": "HSE: head lice and nits",
+          "url": "https://www2.hse.ie/conditions/head-lice-nits/"
+        },
+        {
+          "label": "NHS: head lice and nits",
+          "url": "https://www.nhs.uk/conditions/head-lice-and-nits/"
+        },
+        {
+          "label": "CDC: about head lice",
+          "url": "https://www.cdc.gov/lice/about/head-lice.html"
+        },
+        {
+          "label": "CDC: treatment of head lice",
+          "url": "https://www.cdc.gov/lice/treatment/index.html"
+        }
+      ],
+      "suggestions": [],
+      "commonFailure": "Combing dry hair, or combing once and stopping. Conditioner stuns head lice so they're easier to comb out, and lice that hatch after the first session are missed.",
+      "theFix": "Comb with the conditioner in. Once you've found lice, comb every 3 to 4 days for at least 2 weeks, even if one session finds nothing.",
+      "sleepNote": false
+    },
+    {
+      "id": "holidays",
+      "slug": "vacation-hair",
+      "hold": false,
+      "name": "Vacation hair",
+      "description": "Shade for her part, leave-in before the sea, the salt and sand rinsed out, and a style that lasts several days.",
+      "oneLiner": "Braid it, rinse it, and let the vacation do the rest",
+      "parts": [
+        {
+          "id": "beach",
+          "title": "Sun and sea",
+          "when": "Every day at the beach or the pool.",
+          "targetMinutes": 8,
+          "ageBands": null,
+          "equipmentIds": [
+            "sun-hat",
+            "leave-in-conditioner",
+            "wide-tooth-comb",
+            "snag-free-elastic"
+          ],
+          "curlyEquipmentIds": [
+            "sun-hat",
+            "leave-in-conditioner",
+            "wide-tooth-comb",
+            "snag-free-elastic"
+          ],
+          "steps": [
+            {
+              "title": "Shade her part",
+              "instruction": "Put a sun hat on her, with the crown of the hat covering her part and the top of her head.",
+              "withHer": "Let her choose the hat.",
+              "endState": "Looking down from above, you can't see any of her scalp along her part.",
+              "why": "A part is a strip of bare scalp facing straight up at the sun. A hat is the simplest shade.",
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-holidays-beach-step-01",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Leave-in before the sea",
+              "instruction": "Before she swims, smooth leave-in through the lengths with your fingers, from the level of her ears down to the ends.",
+              "withHer": null,
+              "endState": "The lengths feel slippery from ear level to the ends.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "One braid for the beach",
+              "instruction": "Comb it back, gather it at her nape and braid it down to the ends, right over the middle, then left over the middle, until a finger's length is left, then tie the end with a snag-free elastic.",
+              "withHer": null,
+              "endState": "One tied braid hangs from her nape, with nothing loose at her ears for the wind to knot.",
+              "why": null,
+              "techniqueId": "holding-tension",
+              "photo": {
+                "base": "/images/styles/three-strand-plait-finished",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": {
+                "title": "Two braids for the beach",
+                "instruction": "Split the hair down the middle with your fingers, braid each side from just behind her ear to the ends, right over the middle, then left over the middle, and tie each end with a snag-free elastic.",
+                "endState": "Two tied braids start just behind her ears, with nothing loose at her hairline.",
+                "techniqueId": "holding-tension",
+                "photo": {
+                  "base": "/images/styles/care-holidays-beach-step-03-curly-hair",
+                  "widths": [
+                    800,
+                    400
+                  ],
+                  "width": 800,
+                  "height": 800
+                }
+              }
+            },
+            {
+              "title": "Rinse the salt and sand out",
+              "instruction": "After the sea, rinse her hair under fresh water, a beach shower or a bottle poured slowly, from her hairline back, until no sand is left at her scalp.",
+              "withHer": null,
+              "endState": "When you rub her scalp at the crown, there's no grit under your fingertips.",
+              "why": null,
+              "techniqueId": null,
+              "photo": {
+                "base": "/images/styles/care-holidays-beach-step-04",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        },
+        {
+          "id": "lasting",
+          "title": "A style for several days",
+          "when": "For a trip, a long journey, or days with no time for hair.",
+          "targetMinutes": 12,
+          "ageBands": null,
+          "equipmentIds": [
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "satin-bonnet",
+            "mist-bottle"
+          ],
+          "curlyEquipmentIds": [
+            "wide-tooth-comb",
+            "snag-free-elastic",
+            "satin-bonnet",
+            "mist-bottle"
+          ],
+          "steps": [
+            {
+              "title": "Split it down the middle",
+              "instruction": "Comb it through with the wide-tooth comb, then split it into two halves down the middle with your fingers, from her forehead to her nape.",
+              "withHer": null,
+              "endState": "Two equal halves, one over each shoulder.",
+              "why": null,
+              "techniqueId": "detangling",
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Braid each side",
+              "instruction": "Braid each half from just behind her ear to the ends, right over the middle, then left over the middle, until a finger's length is left, and tie each end with a snag-free elastic.",
+              "withHer": "Ask her to keep her head still.",
+              "endState": "Two matching braids start just behind her ears and are tied at the ends.",
+              "why": null,
+              "techniqueId": "holding-tension",
+              "photo": {
+                "base": "/images/styles/plaited-pigtails-finished",
+                "widths": [
+                  800,
+                  400
+                ],
+                "width": 800,
+                "height": 800
+              },
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Elastics off at bedtime",
+              "instruction": "At bedtime, slide the elastic off the end of each braid and leave the braids loose, with nothing tied or clipped in her hair.",
+              "withHer": null,
+              "endState": "Both braids hang loose with nothing at their ends, and your fingertips find nothing tied or clipped anywhere in her hair.",
+              "why": "Under three, anything small left in her hair is a choking risk in bed.",
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": [
+                "baby",
+                "toddler"
+              ],
+              "curly": null
+            },
+            {
+              "title": "Satin at night",
+              "instruction": "At bedtime, put the satin bonnet on over the braids, from her forehead back, with the band on her hairline. Or put a satin pillowcase on her pillow.",
+              "withHer": null,
+              "endState": "Both braids are inside the bonnet and its band lies flat on her hairline; or her pillow is in the satin case.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": [
+                "toddler",
+                "young-child",
+                "older-child",
+                "pre-teen"
+              ],
+              "curly": null
+            },
+            {
+              "title": "Elastics back on in the morning",
+              "instruction": "In the morning, slide a snag-free elastic onto the end of each braid, a finger's length from the tips.",
+              "withHer": null,
+              "endState": "Both braids are tied at the ends again, and each elastic holds without squeezing.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": [
+                "baby",
+                "toddler"
+              ],
+              "curly": null
+            },
+            {
+              "title": "Freshen them in the morning",
+              "instruction": "Mist the braids lightly and smooth the loose hairs back toward them with damp fingertips.",
+              "withHer": "Ask her if they still feel comfortable.",
+              "endState": "From the front, the braids look neat again, with no short hairs standing up.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            },
+            {
+              "title": "Take them out after a few days",
+              "instruction": "After three days at the most, slide the elastics off and undo the braids with your fingers from the ends up, before wash day.",
+              "withHer": null,
+              "endState": "All the hair hangs loose, with no knots at her nape.",
+              "why": null,
+              "techniqueId": null,
+              "photo": null,
+              "ageBands": null,
+              "curly": null
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "A part burns easily. A hat is the easiest shade; for sun cream on her scalp, ask a pharmacist which suits a child.",
+        "Rinse with fresh water after every swim, sea or pool, even when there's no time to wash. Salt and chlorine left to dry are what tangle it.",
+        "Under three, the braids have steps of their own: elastics out at bedtime and back on in the morning, nothing tied or clipped while she sleeps, naps included, and nothing on her head or pillow for a baby. The sleep note below says why."
+      ],
+      "links": [],
+      "suggestions": [
+        {
+          "styleId": "plaited-pigtails",
+          "why": "Two braids that last for days.",
+          "pack": true
+        },
+        {
+          "styleId": "dutch-plait",
+          "why": "Lies flat and holds through sea and sand.",
+          "pack": true
+        },
+        {
+          "styleId": "puffs",
+          "why": "Quick to redo each morning on curly and coily hair.",
+          "pack": true
+        }
+      ],
+      "commonFailure": "Salt water and sand left to dry in her hair, so by the next morning it's a matted knot at her nape.",
+      "theFix": "Rinse with fresh water after every swim, then comb leave-in through before bed. A braid that's gone matted comes out and is redone, rather than left in for another day.",
+      "sleepNote": true
     }
   ],
   "kit": {
@@ -3731,6 +6503,132 @@
             },
             "buyUrl": "https://www.amazon.com/s?k=small+claw+clips+for+kids&tag=dadhairhero-20",
             "ieBuyUrl": "https://www.amazon.ie/s?k=small+claw+clips+for+kids&tag=dadhairhero-21"
+          },
+          {
+            "id": "nit-comb",
+            "slug": "lice-comb",
+            "name": "Lice comb",
+            "use": "Wet-combing for head lice: its teeth are close enough together to catch lice and their eggs. Used with conditioner on wet hair, from the scalp to the ends.",
+            "avoid": "Do not use it on dry or tangled hair: it catches on every knot and hurts. Detangle with the wide-tooth comb first, and keep the conditioner in.",
+            "buyingNote": "Fine teeth set close together, metal or firm plastic, with rounded tips. Teeth that bend when you press them on a table miss lice. One comb per child is easiest to keep clean.",
+            "image": {
+              "base": "/images/kit/nit-comb",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=lice+comb&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=nit+comb&tag=dadhairhero-21"
+          },
+          {
+            "id": "swim-cap",
+            "slug": "swim-cap",
+            "name": "Swim cap",
+            "use": "Keeps her hair in, and most of the pool water out, during a lesson. Over a braid or a low bun it stays on.",
+            "avoid": "Do not pull it on from the back: it drags the hair forward and catches at her neck. Front edge on her hairline first, then roll it back.",
+            "buyingNote": "Silicone lasts and pulls less on hair than latex; fabric caps are comfier but let more water in. Children's sizes, or an adult cap for very long or very thick hair.",
+            "image": {
+              "base": "/images/kit/swim-cap",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=swim+cap+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=swimming+cap+for+kids&tag=dadhairhero-21"
+          },
+          {
+            "id": "clarifying-shampoo",
+            "slug": "clarifying-shampoo",
+            "name": "Clarifying shampoo",
+            "use": "A deeper wash once a week, in weeks she swims, to lift the pool-water build-up her usual shampoo leaves behind.",
+            "avoid": "Not for every wash: it strips the hair. Always follow it with her usual conditioner. Curly and coily hair, every other week at most.",
+            "buyingNote": "Any gentle clarifying or swimmer's shampoo made for children's hair. A small bottle lasts months at once a week.",
+            "image": {
+              "base": "/images/kit/clarifying-shampoo",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=clarifying+shampoo+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=clarifying+shampoo+for+kids&tag=dadhairhero-21"
+          },
+          {
+            "id": "sports-headband",
+            "slug": "sports-headband",
+            "name": "Sports headband",
+            "use": "Catches the short hairs at her forehead and temples for gym classes, matches and training, without a clip or a pin that could dig in.",
+            "avoid": "Not under a helmet unless the helmet's instructions allow it: it changes the fit.",
+            "buyingNote": "Soft, wide and stretchy, with no plastic teeth or metal. A non-slip strip inside helps on fine hair.",
+            "image": {
+              "base": "/images/kit/sports-headband",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=sports+headband+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=sports+headband+for+kids&tag=dadhairhero-21"
+          },
+          {
+            "id": "hair-net",
+            "slug": "hair-net",
+            "name": "Bun hair net",
+            "use": "Fine net over a ballet bun, so nothing escapes during class. Many dance schools ask for one.",
+            "avoid": "Do not stretch it over a loose bun to hold it together: pin the bun first, then the net.",
+            "buyingNote": "Fine nets close to her hair color, sold in packs; they tear, so keep spares in her dance bag.",
+            "image": {
+              "base": "/images/kit/hair-net",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=ballet+bun+hair+net&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=ballet+bun+hair+net&tag=dadhairhero-21"
+          },
+          {
+            "id": "bun-pin",
+            "slug": "bun-pin",
+            "name": "Bun pins",
+            "use": "U-shaped pins that hold a bun's coil in place: pushed in at the edge and along the coil, never into her scalp.",
+            "avoid": "Do not push them straight in toward her head, and never use as many as you can fit. Three or four, placed along the coil, hold a bun.",
+            "buyingNote": "Close to her hair color, with smooth, coated tips. Count how many go in so you can count them out.",
+            "image": {
+              "base": "/images/kit/bun-pin",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=bun+pins&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=bun+pins&tag=dadhairhero-21"
+          },
+          {
+            "id": "sun-hat",
+            "slug": "sun-hat",
+            "name": "Sun hat",
+            "use": "Shade for her part and the top of her head at the beach, the pool and on vacation.",
+            "avoid": "A cap leaves her neck and ears in the sun; a brim all the way round shades them too.",
+            "buyingNote": "A wide brim all the way round, a strap under her chin for windy beaches, and washable fabric.",
+            "image": {
+              "base": "/images/kit/sun-hat",
+              "widths": [
+                400
+              ],
+              "width": 400,
+              "height": 400
+            },
+            "buyUrl": "https://www.amazon.com/s?k=sun+hat+for+kids&tag=dadhairhero-20",
+            "ieBuyUrl": "https://www.amazon.ie/s?k=sun+hat+for+kids&tag=dadhairhero-21"
           },
           {
             "id": "mirror",
@@ -4174,7 +7072,7 @@
         "id": "outcome-short-shoulder-braid",
         "type": "outcome",
         "title": "Start the braid low and braid tightly",
-        "body": "At shoulder length you have just enough for a short braid. Start lower than feels natural, at the nape rather than the crown. Braid as tightly as you can without hurting her. Use a fine elastic at the very end: a thick elastic swallows length and leaves almost nothing to secure.",
+        "body": "At shoulder length you have just enough for a short braid. Start low, at her nape (the hollow at the back of her neck) rather than the crown. Braid as tightly as you can without hurting her. Use a fine elastic at the very end: a thick elastic swallows length and leaves almost nothing to secure.",
         "link": {
           "type": "equipment",
           "id": "snag-free-elastic",
@@ -4245,7 +7143,7 @@
         "id": "outcome-falls-elastic-slip",
         "type": "outcome",
         "title": "Add one more wrap and a second elastic 3cm below",
-        "body": "Fine or smooth hair doesn't grip a single elastic. Wrap it one more time than feels right. It should be firm. Then take a second elastic and wrap it 3cm below the first. Two anchor points hold far better than one through a school day, especially on fine hair.",
+        "body": "Fine or smooth hair doesn't grip a single elastic. Wrap it one more time than you usually would. It's firm enough when the elastic doesn't slide as you pull gently on the ponytail. Then take a second elastic and wrap it 3cm below the first. Two anchor points hold far better than one through a school day, especially on fine hair.",
         "link": {
           "type": "equipment",
           "id": "snag-free-elastic",
@@ -4502,7 +7400,7 @@
         "id": "outcome-plait-uneven",
         "type": "outcome",
         "title": "Match the width already there for the rest, or start again if the gap is visible",
-        "body": "Uneven sections mid-braid can't be corrected. Each crossover locks in what came before it. For the remaining crossovers, look at the width of the existing sections and keep your picks to that same size. If it's a french or dutch braid and the imbalance is already visible from the outside, starting again is faster than finishing a lopsided result. When you redo it, the strip you pick up from each side should be thinner than feels right, about half a centimeter, and consistent each time.",
+        "body": "Uneven sections mid-braid can't be corrected. Each crossover locks in what came before it. For the remaining crossovers, feel the strands you already have between your fingers and pick up the same amount each time. If it's a french or dutch braid and the imbalance is already visible from the outside, starting again is faster than finishing a lopsided result. When you redo it, the strip you pick up from each side should be thin, about the width of your little fingernail, and the same every time.",
         "link": null
       },
       {

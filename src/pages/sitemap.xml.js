@@ -2,7 +2,7 @@
 // its photos (an image sitemap, in the same file), and the privacy page.
 // Built from the same list of pages and the same alternates() the page
 // heads use, so the two can't disagree.
-import { LOCALES, UK, SEASONAL_GUIDES, absolute, alternates, pairedRoutes, path, styleById, techniqueById, videoFor } from '../lib/site.js';
+import { LOCALES, UK, SEASONAL_GUIDES, absolute, alternates, pairedRoutes, path, styleById, techniqueById, guideById, videoFor } from '../lib/site.js';
 
 // Pages that carry a date of their own: a seasonal guide's dateModified.
 const LASTMOD = Object.fromEntries(SEASONAL_GUIDES.map((guide) => [guide.kind, guide.dateModified]));
@@ -29,6 +29,14 @@ function imagesOf(locale, kind, id) {
   if (kind === 'technique') {
     const technique = techniqueById(locale, id);
     return technique.image ? [{ loc: photoUrl(technique.image), title: technique.title }] : [];
+  }
+  if (kind === 'guide') {
+    const guide = guideById(locale, id);
+    return guide.parts.flatMap((part) => part.steps.flatMap((step, i) => [
+      step.photo && { loc: photoUrl(step.photo), title: `${guide.name}, ${part.title}, step ${i + 1}: ${step.title}` },
+      step.curly?.photo && step.curly.photo.base !== step.photo?.base
+        && { loc: photoUrl(step.curly.photo), title: `${guide.name}, ${part.title}, step ${i + 1}, curly hair: ${step.curly.title}` },
+    ].filter(Boolean)));
   }
   return [];
 }

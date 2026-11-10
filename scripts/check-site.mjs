@@ -245,6 +245,8 @@ const REQUIRED = {
 const EXPECTED_TYPES = [
   [/^(\/us)?\/styles\/[^/]+\/$/, (doc) => (doc.querySelector('.steps') ? ['HowTo', 'FAQPage'] : ['WebPage'])],
   [/^(\/us)?\/techniques\/[^/]+\/$/, () => ['HowTo', 'FAQPage']],
+  // A care routine (1.4.0), in full.
+  [/^(\/us)?\/guides\/[^/]+\/$/, () => ['HowTo', 'BreadcrumbList']],
   [/^(\/us)?\/about\/$/, () => ['Person', 'Organization']],
   [/^(\/us)?\/$/, () => ['MobileApplication', 'Organization', 'WebSite']],
   [/^(\/us)?\/(halloween|christmas-party)-hairstyles\/$/, () => ['Article', 'BreadcrumbList', 'ItemList']],
@@ -554,8 +556,8 @@ function checkShareCampaign() {
 const SHARE_LABEL = 'Send this to him';
 // A free style's page has every step; a pack style's says where it is.
 const shareText = (name, pack = false) => (pack
-  ? `Here's ${name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free and privacy-friendly, with no account.`
-  : `Here's the ${name} step by step, written for dads. The app is free and privacy-friendly, with no account.`);
+  ? `Here's ${name}, one of the styles in Dad Hair Hero's optional pack, written for dads. The app is free to download and privacy-friendly, with no account.`
+  : `Here's the ${name} step by step, written for dads. The app is free to download and privacy-friendly, with no account.`);
 async function checkShareButton() {
   const isStyle = (url) => /^(\/us)?\/styles\/[^/]+\/$/.test(url);
   for (const [url, doc] of pages) {
