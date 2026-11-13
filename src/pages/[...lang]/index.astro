@@ -151,8 +151,17 @@ const jsonld = [
       'Hands full? Say "next", "back" or "repeat" instead of tapping. It is off until you turn it on, your phone does the listening, and nothing is recorded or sent. (On phones that recognise speech themselves.)',
       'Hands full? Say "next", "back" or "repeat" instead of tapping. It is off until you turn it on, your phone does the listening, and nothing is recorded or sent. (On phones that recognize speech themselves.)')}</li>
     <li>{t(locale, "Text grows with your phone's text size, and is drawn in strong contrast.")}</li>
-    <li>{say(locale, 'Buttons are labelled for screen readers.', 'Buttons are labeled for screen readers.')}</li>
+    <li>{say(locale,
+      'Buttons, pictures and the progress are labelled for screen readers: a screen reader hears "Step 3 of 6".',
+      'Buttons, pictures and the progress are labeled for screen readers: a screen reader hears "Step 3 of 6".')}</li>
+    <li>{t(locale, "Set your phone to reduce motion and the app's one celebration stays still.")}</li>
   </ul>
+
+  <h2>{t(locale, 'December')}</h2>
+  <p>
+    {t(locale, 'In December, Today suggests styles for each moment in turn: a nativity play, a Christmas party, Christmas Day and New Year.')}
+    {' '}<a href={`${path(locale, 'christmas-hair')}#december-in-the-app`}>{t(locale, 'The styles for each')}</a>.
+  </p>
 
   <h2>{t(locale, 'Curly and coily hair')}</h2>
   <p>
@@ -172,6 +181,9 @@ const jsonld = [
     {t(locale, 'You pay once and the styles are yours to keep. There is no subscription. You can see every style in the pack, with its picture and its steps listed, before you decide.')}
     {' '}<a href={path(locale, 'styles')}>{t(locale, `See all ${COUNTS.styles} styles`)}</a>.
   </p>
+  <p>
+    {t(locale, 'Have a code for the pack? In the app, Settings (the gear on the Us tab) has Redeem a code, beside Restore purchase. It opens the App Store\'s or Google Play\'s own place to enter it.')}
+  </p>
 
   <h2>{t(locale, 'The Kit')}</h2>
   <p>
@@ -189,7 +201,7 @@ const jsonld = [
     <li>{t(locale, 'No sign-up and no account.')}</li>
     <li>{t(locale, 'No analytics and no tracking.')}</li>
     <li>{t(locale, "Your photos and notes are never sent to Dad Hair Hero. They are stored on your phone and are part of your phone's own backup, like any other app's data.")}</li>
-    <li>{t(locale, 'Delete everything whenever you like, from the Privacy & data screen.')}</li>
+    <li>{t(locale, 'Delete everything whenever you like, from Privacy & data in Settings.')}</li>
   </ul>
 
   <h2>{t(locale, 'Who it is for')}</h2>

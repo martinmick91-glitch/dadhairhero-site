@@ -387,7 +387,7 @@ export const CHRISTMAS = {
   ogImage: '/images/guides/christmas-party-hairstyles-1200x630.jpg',
   ogImageSize: { width: 1200, height: 630 },
   datePublished: '2026-11-04',
-  dateModified: '2026-11-04',
+  dateModified: '2026-11-10',
   freeCount: 'The first four are free in the app, step by step.',
   toddlerHeading: 'Toddler Christmas hair',
   toddlerIntro: 'For a toddler with short, fine hair, start with the clip-back below. More in',
@@ -458,7 +458,47 @@ export const CHRISTMAS = {
     },
   ],
   fixes: HALLOWEEN.fixes,
+  // The app's December cards on Today (1.4.1): DECEMBER_MOMENTS below.
+  appMoments: true,
 };
+
+// December on the app's Today screen (1.4.1, Martin, 2026-11-08): four
+// moments, one at a time, by the phone's own date, each with a short line
+// and the styles it offers in order. Copied from SEASONS in the app's
+// src/data/seasons.ts (ids nativity-play, christmas-party, christmas-day,
+// new-year): the export doesn't carry seasons, so change this with it. The
+// app's card names the first two or three of these styles that suit her
+// and that he can open; the build stops if a style here is not the export's.
+export const DECEMBER_MOMENTS = [
+  {
+    id: 'nativity-play', from: 1, to: 14, title: 'Nativity play',
+    line: 'Neat and simple, to wear with a costume.',
+    styleIds: ['twist-back-sides', 'side-swept-clip', 'french-plait', 'dutch-plait', 'half-up-half-down',
+      'three-strand-plait', 'classic-ponytail', 'two-even-bunches'],
+  },
+  {
+    id: 'christmas-party', from: 15, to: 23, title: 'Christmas party',
+    line: 'Something special for a party or the school concert.',
+    styleIds: ['half-up-bun', 'fishtail-plait', 'wrapped-ponytail', 'half-up-half-down',
+      'two-even-bunches', 'puffs', 'twist-back-sides', 'two-little-sprouts', 'side-swept-clip'],
+  },
+  {
+    id: 'christmas-day', from: 24, to: 26, title: 'Christmas Day',
+    line: 'Something nice for the photos.',
+    styleIds: ['pull-through-plait', 'fishtail-plait', 'half-up-half-down', 'bubble-ponytail', 'half-up-bun',
+      'twist-back-sides', 'side-swept-clip', 'two-even-bunches', 'puffs', 'two-little-sprouts'],
+  },
+  {
+    id: 'new-year', from: 27, to: 31, title: 'New Year',
+    line: 'Something fun for the last party of the year.',
+    styleIds: ['space-buns', 'bubble-ponytail', 'top-knot', 'half-up-bun', 'two-even-bunches',
+      'side-swept-clip', 'twist-back-sides', 'puffs', 'two-little-sprouts'],
+  },
+];
+for (const moment of DECEMBER_MOMENTS) {
+  const missing = moment.styleIds.filter((id) => !gb.styles.some((s) => s.id === id));
+  if (missing.length) throw new Error(`DECEMBER_MOMENTS ${moment.id}: not in the export: ${missing.join(', ')}`);
+}
 
 export const SEASONAL_GUIDES = [HALLOWEEN, CHRISTMAS];
 

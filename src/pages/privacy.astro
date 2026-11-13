@@ -3,7 +3,8 @@
 // stores link to this address. The wording is the policy as published on
 // 15 October 2026, with read-aloud and the microphone added on 10 November
 // 2026 for 1.4.0 (src/speech/ in the app's repository, and its own Privacy &
-// data screen, app/privacy.tsx); change the date whenever the text changes.
+// data screen, app/privacy.tsx), and Redeem a code and Settings for 1.4.1
+// (src/purchases/purchaseState.ts, src/config/redeem.ts); change the date whenever the text changes.
 import Base from '../layouts/Base.astro';
 import { UK, path, breadcrumbs } from '../lib/site.js';
 
@@ -43,7 +44,9 @@ const trail = [
 
   <p>In-app purchases. Beyond the Ponytail is an optional one-time purchase. If you buy it, the App Store or Google Play takes the payment through your store account. Dad Hair Hero never receives your payment or card details. The app only asks the store for the price of the pack and whether you have bought it. Nothing is sent to us.</p>
 
-  <p>Deleting your data. The app's Privacy &amp; data screen, reached from the Us tab, has a "Delete everything" option. It removes all stored data and every diary and Wall of Fame photo from your device. The app will restart as if it has never been opened. This cannot be undone.</p>
+  <p>Redeeming a code. Settings in the app has "Redeem a code". It opens the store's own place to enter a code: Apple's offer-code sheet on an iPhone, or Google Play's redeem page on Android. You type the code into the App Store or Google Play, not into Dad Hair Hero, and the app never sees it. A code the store accepts counts as a purchase of the pack, and the app learns only what it learns from a purchase: whether you own the pack.</p>
+
+  <p>Deleting your data. The app's Privacy &amp; data screen, reached from Settings (the gear on the Us tab), has a "Delete everything" option. It removes all stored data and every diary and Wall of Fame photo from your device. The app will restart as if it has never been opened. This cannot be undone.</p>
 
   <p>Three things are kept. Your spelling choice. The record of which styles are yours, so deleting never costs you a style you already had. And whether Today has already suggested Beyond the Ponytail, so it is never suggested twice. A purchase stays with your App Store or Google Play account.</p>
 

@@ -13,7 +13,7 @@ import StoreBadges from './StoreBadges.astro';
 import AppBlock from './AppBlock.astro';
 import Author from './Author.astro';
 import {
-  US, UNDER_THREE_LINE, path, absolute, breadcrumbs, itemList,
+  US, UNDER_THREE_LINE, DECEMBER_MOMENTS, path, absolute, breadcrumbs, itemList,
   article, styleById, fixEntryById, fixNodeById, campaign, minutes, sentence, t,
 } from '../lib/site.js';
 
@@ -97,6 +97,28 @@ const jsonld = [
     {t(locale, guide.packIntro)}
   </p>
   {pack.map((look) => <Look locale={locale} look={look} level="h3" lastLabel={guide.lastLabel} />)}
+
+  {guide.appMoments && (
+    <>
+      <h2 id="december-in-the-app">{t(locale, 'December in the app')}</h2>
+      <p>{t(locale, 'Through December, the Today screen in Dad Hair Hero has a card for the moment you are in, one at a time, worked out from your phone\'s own date. Each card names two or three styles from the list below that suit her and that you can open, and you can hide it until next year.')}</p>
+      {DECEMBER_MOMENTS.map((moment) => (
+        <>
+          <h3>{moment.title}</h3>
+          <p>
+            <strong>{moment.from === moment.to ? `${moment.from} December` : `${moment.from} to ${moment.to} December`}.</strong>{' '}
+            {t(locale, moment.line)}{' '}
+            {t(locale, 'The styles it can suggest, in order:')}
+          </p>
+          <ul>
+            {moment.styleIds.map((id) => styleById(locale, id)).map((style) => (
+              <li><a href={path(locale, 'style', style.id)}>{style.name}</a>{style.pack ? t(locale, ' (Beyond the Ponytail)') : ''}</li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </>
+  )}
 
   <h2>{t(locale, 'If it goes wrong')}</h2>
   <p>{t(locale, 'The answers are from Fix It, the app\'s troubleshooter.')}</p>

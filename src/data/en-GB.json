@@ -1,8 +1,8 @@
 {
   "locale": "en-GB",
-  "contentVersion": "e9f8deb6da68ab87",
+  "contentVersion": "547baee6b4309406",
   "appVersion": "1.3.1",
-  "appCommit": "b093e82",
+  "appCommit": "ab4a3d7",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -4308,7 +4308,7 @@
       "parts": [
         {
           "id": "wash",
-          "title": "In the bath or shower",
+          "title": "Wash and rinse",
           "when": "Once or twice a week for straight and wavy hair; curly and coily hair usually once a week or less.",
           "targetMinutes": 15,
           "ageBands": null,
@@ -4356,7 +4356,7 @@
             },
             {
               "title": "Wet it right through",
-              "instruction": "Tip her head back with her chin up. Cup one hand along her hairline to keep the water out of her eyes, and pour warm water with the other, from her hairline back to her nape, until her hair is wet to the roots.",
+              "instruction": "Tip her head back with her chin up; at a sink, she can lean back against its edge, as at the hairdresser's. Cup one hand along her hairline to keep the water out of her eyes, and pour warm water with the other, from her hairline back to her nape, until her hair is wet to the roots.",
               "withHer": "Let her hold a dry flannel over her eyes.",
               "endState": "When you squeeze a handful of hair at her crown, water runs out of it.",
               "why": null,
@@ -4481,7 +4481,7 @@
         {
           "id": "dry",
           "title": "Drying",
-          "when": "Straight after the bath, before she gets cold.",
+          "when": "Straight after washing, before she gets cold.",
           "targetMinutes": 10,
           "ageBands": null,
           "equipmentIds": [
@@ -6652,7 +6652,7 @@
             "id": "hair-dryer",
             "slug": "hair-dryer",
             "name": "Hair dryer",
-            "use": "For after bath time. Use the low heat setting and finish with the cool shot.",
+            "use": "For after washing. Use the low heat setting and finish with the cool shot.",
             "avoid": null,
             "buyingNote": null,
             "image": {
@@ -6670,7 +6670,7 @@
             "id": "shampoo-conditioner-set",
             "slug": "shampoo-conditioner-set",
             "name": "Shampoo and conditioner set",
-            "use": "Easier mornings start in the bath. Conditioner now means fewer knots tomorrow.",
+            "use": "Easier mornings start on wash day. Conditioner now means fewer knots tomorrow.",
             "avoid": null,
             "buyingNote": null,
             "image": {
@@ -6688,7 +6688,7 @@
             "id": "hair-towel",
             "slug": "hair-towel",
             "name": "Hair towel",
-            "use": "Wrap her hair after the bath. It soaks up water without the rubbing that causes knots.",
+            "use": "Wrap her hair after washing. It soaks up water without the rubbing that causes knots.",
             "avoid": null,
             "buyingNote": null,
             "image": {
