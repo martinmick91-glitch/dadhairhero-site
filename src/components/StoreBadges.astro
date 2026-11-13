@@ -1,15 +1,17 @@
 ---
 // Both store badges. Each link carries the name of the page it is on (see
 // campaign() in lib/site.js); nothing is recorded by the site. Anything
-// passed in (a style page's share button) sits in the same row.
+// passed in (a style page's share button) sits in the same row. `referrer`
+// is only for the QR page (/get/), whose Play link names print, not the
+// website, as where the visit came from.
 import { appStoreUrl, playUrl } from '../lib/site.js';
-const { campaignName } = Astro.props;
+const { campaignName, referrer } = Astro.props;
 ---
 <p class="badges">
   <a href={appStoreUrl(campaignName)}>
     <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" />
   </a>
-  <a href={playUrl(campaignName)}>
+  <a href={playUrl(campaignName, referrer)}>
     <img src="/assets/google-play-badge.png" alt="Get it on Google Play" width="148" height="44" />
   </a>
   <slot />

@@ -1,0 +1,77 @@
+---
+// /get/: the address behind the QR codes on printed leaflets and posters.
+// A phone that scans one is sent straight to its own store: an iPhone, iPod
+// or iPad to the App Store, an Android phone to Google Play. Anything else
+// (a laptop, a device the script doesn't recognise, a browser with scripts
+// turned off) stays here and gets one line and both store badges.
+//
+// One printed thing, one code: add ?c=<name> to the address the code holds
+// (/get/?c=poster, /get/?c=nursery-leaflet) and the stores count its
+// installs as the campaign qr-<name>. <name> is lower-case letters, digits
+// and hyphens, 30 at most; anything else, or no ?c= at all, is counted as
+// plain qr. The Play link's referrer says utm_source=qr, utm_medium=print.
+// The badges on this page carry the same campaign as the redirect.
+//
+// One page, in UK English, for both languages: a printed code can't know
+// its reader. It is noindex with no canonical, in no sitemap and in no
+// menu; nothing on the site links to it.
+//
+// Like every script here it only decides where links point. No cookie, no
+// storage, nothing sent anywhere: the stores see the campaign only when
+// someone arrives at them. location.replace() keeps this page out of the
+// history, so Back from the store doesn't land here and bounce again.
+import Base from '../layouts/Base.astro';
+import StoreBadges from '../components/StoreBadges.astro';
+import { UK, APP_STORE_ID, APP_STORE_PROVIDER, PLAY_PACKAGE, QR_REFERRER } from '../lib/site.js';
+
+const vars = {
+  appStoreId: APP_STORE_ID,
+  provider: APP_STORE_PROVIDER,
+  playPackage: PLAY_PACKAGE,
+  source: QR_REFERRER.source,
+  medium: QR_REFERRER.medium,
+};
+---
+<Base
+  locale={UK}
+  kind="get"
+  paired={false}
+  pathname="/get/"
+  noindex
+  appBar={false}
+  campaignName="qr"
+  referrer={QR_REFERRER}
+  title="Get Dad Hair Hero"
+  description="Get Dad Hair Hero, the app that teaches dads to do their daughters' hair, free on the App Store and Google Play."
+>
+  {/* First in the page, so a phone is on its way before anything is drawn.
+      The same link formats as appStoreUrl() and playUrl() in lib/site.js;
+      scripts/check-site.mjs holds the two together. */}
+  <script define:vars={vars}>
+    (function () {
+      var c = new URLSearchParams(location.search).get('c') || '';
+      var name = /^[a-z0-9-]{1,30}$/.test(c) ? 'qr-' + c : 'qr';
+      var appStore = 'https://apps.apple.com/app/apple-store/id' + appStoreId + '?pt=' + provider + '&ct=' + name + '&mt=8';
+      var play = 'https://play.google.com/store/apps/details?id=' + playPackage
+        + '&referrer=' + encodeURIComponent('utm_source=' + source + '&utm_medium=' + medium + '&utm_campaign=' + name);
+
+      var ua = navigator.userAgent || '';
+      // An iPad on iPadOS says it is a Mac; a Mac has no touch screen.
+      var apple = /iPhone|iPod|iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      if (apple) { location.replace(appStore); return; }
+      if (/Android/i.test(ua)) { location.replace(play); return; }
+
+      // Staying here: the badges are already right for plain qr.
+      if (name === 'qr') return;
+      document.addEventListener('DOMContentLoaded', function () {
+        var links = document.querySelectorAll('a[href^="https://apps.apple.com/"], a[href^="https://play.google.com/"]');
+        for (var i = 0; i < links.length; i++) {
+          links[i].href = links[i].href.indexOf('https://apps.apple.com/') === 0 ? appStore : play;
+        }
+      });
+    })();
+  </script>
+  <h1>Get Dad Hair Hero</h1>
+  <p class="lede">Get Dad Hair Hero, free on the App Store and Google Play.</p>
+  <StoreBadges campaignName="qr" referrer={QR_REFERRER} />
+</Base>
