@@ -23,7 +23,10 @@
 //   - a Beyond the Ponytail page shows step titles and nothing more;
 //   - the sitemap lists exactly the pages that should be indexed;
 //   - a page opened from the app's share link passes its campaign on to
-//     the store links, and touches no cookie or storage.
+//     the store links, and touches no cookie or storage;
+//   - /get/, the page behind printed QR codes, sends an iPhone and an
+//     Android phone to their stores with the code's campaign, keeps anyone
+//     else on a page with both badges, and is not indexed or linked.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -393,6 +396,8 @@ function checkOutboundLinks(page, doc) {
     if (href.startsWith('https://play.google.com/')) {
       stores += 1;
       const referrer = new URL(href).searchParams.get('referrer') ?? '';
+      // The QR page's links say print, not the website (checkGetPage).
+      if (page === GET_PAGE) continue;
       if (!/utm_source=dadhairhero\.com/.test(referrer) || !/utm_campaign=.+/.test(referrer)) {
         fail(page, `Google Play link without a referrer campaign: ${href}`);
       }
@@ -541,6 +546,93 @@ function checkShareCampaign() {
     '?utm_source=outreach&utm_campaign=pin-one-family',
   ]) {
     if (run(search).some((href, i) => href !== original[i])) fail(page[0], `store links changed for "${search}"`);
+  }
+}
+
+// ─── /get/, behind the printed QR codes ─────────────────────────────────────
+
+// src/pages/get.astro. Its script is run here as a phone, a tablet and a
+// laptop would run it, with and without ?c=. Without ?c= it must build
+// exactly the links the page's own badges have, which come from
+// appStoreUrl() and playUrl(): that is what holds the script's two link
+// formats to the ones in lib/site.js.
+const GET_PAGE = '/get/';
+function checkGetPage(indexedPages) {
+  const doc = pages.get(GET_PAGE);
+  if (!doc) return fail(GET_PAGE, 'not built');
+  if (indexedPages.includes(GET_PAGE)) fail(GET_PAGE, 'must be noindex');
+  for (const [page, other] of pages) {
+    if (page !== GET_PAGE && other.querySelectorAll('a').some((a) => /^(https:\/\/dadhairhero\.com)?\/get\//.test(a.getAttribute('href') ?? ''))) {
+      fail(page, 'links to /get/, which is for printed QR codes only');
+    }
+  }
+  const main = doc.querySelector('main');
+  if (!/free on the App Store and Google Play/.test(main.text)) fail(GET_PAGE, 'the line for a reader who stays is missing');
+
+  const storeLinks = (root) => root.querySelectorAll('a').map((a) => a.getAttribute('href') ?? '')
+    .filter((href) => href.startsWith('https://apps.apple.com/') || href.startsWith('https://play.google.com/'));
+  const appStore = (name) => `https://apps.apple.com/app/apple-store/id6810375103?pt=129433924&ct=${name}&mt=8`;
+  const play = (name) => `https://play.google.com/store/apps/details?id=com.dadhairhero.app&referrer=${encodeURIComponent(`utm_source=qr&utm_medium=print&utm_campaign=${name}`)}`;
+  const isApple = (href) => href.startsWith('https://apps.apple.com/');
+  // With scripts off: both badges in the page itself, already counted as qr.
+  const original = storeLinks(doc);
+  const inMain = storeLinks(main);
+  if (inMain.length !== 2 || !inMain.some(isApple) || inMain.every(isApple)) fail(GET_PAGE, 'both store badges must be in the page itself, not only the footer');
+  for (const href of original) {
+    if (href !== (isApple(href) ? appStore('qr') : play('qr'))) fail(GET_PAGE, `a badge is not the plain qr link: ${href}`);
+  }
+
+  const marker = "get('c')";
+  const source = doc.querySelectorAll('script').map((s) => s.textContent).find((t) => t.includes(marker));
+  if (!source) return fail(GET_PAGE, 'no redirect script');
+  if (/cookie|localStorage|sessionStorage|fetch\(|XMLHttpRequest|sendBeacon|location\.(href|assign)/.test(source)) {
+    fail(GET_PAGE, 'the redirect script must not store or send anything, and must leave with location.replace()');
+  }
+  // Runs the script on one device. Returns where it was sent (or null) and
+  // the page's store links as the script left them.
+  const run = (search, userAgent, maxTouchPoints = 0) => {
+    const links = original.map((href) => ({ href }));
+    let sent = null;
+    let ready = null;
+    const sandbox = {
+      location: { search, replace: (url) => { sent = url; } },
+      navigator: { userAgent, maxTouchPoints },
+      URLSearchParams, encodeURIComponent,
+      document: { querySelectorAll: () => links, addEventListener: (type, fn) => { if (type === 'DOMContentLoaded') ready = fn; } },
+    };
+    vm.runInNewContext(source, sandbox);
+    if (sent === null && ready) ready();
+    return { sent, links: links.map((l) => l.href) };
+  };
+  const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
+  const IPOD = 'Mozilla/5.0 (iPod touch; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1';
+  const IPAD_OLD = 'Mozilla/5.0 (iPad; CPU OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1';
+  const MAC = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15';
+  const ANDROID = 'Mozilla/5.0 (Linux; Android 16; Pixel 10 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36';
+  const WINDOWS = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
+  const longest = 'a'.repeat(30);
+  // What ?c= is counted as: the name with qr- in front, or plain qr.
+  const campaigns = [
+    ['', 'qr'], ['?c=poster', 'qr-poster'], ['?c=nursery-leaflet-2', 'qr-nursery-leaflet-2'], [`?c=${longest}`, `qr-${longest}`],
+    // Ignored: empty, capitals, a space, markup, an underscore, one too long.
+    ['?c=', 'qr'], ['?c=Poster', 'qr'], ['?c=school%20gate', 'qr'], ['?c=%22%3E%3Cscript%3E', 'qr'], ['?c=school_gate', 'qr'],
+    [`?c=${longest}a`, 'qr'], ['?utm_campaign=poster', 'qr'],
+  ];
+  for (const [search, name] of campaigns) {
+    for (const [device, userAgent, touch] of [['an iPhone', IPHONE, 5], ['an iPod', IPOD, 5], ['an older iPad', IPAD_OLD, 5], ['an iPad that says Macintosh', MAC, 5]]) {
+      const { sent } = run(search, userAgent, touch);
+      if (sent !== appStore(name)) fail(GET_PAGE, `${device} with "${search}" was sent to ${sent}, not ${appStore(name)}`);
+    }
+    const android = run(search, ANDROID, 5);
+    if (android.sent !== play(name)) fail(GET_PAGE, `an Android phone with "${search}" was sent to ${android.sent}, not ${play(name)}`);
+    for (const [device, userAgent, touch] of [['a Mac', MAC, 0], ['a Windows laptop', WINDOWS, 0], ['a touch-screen Windows laptop', WINDOWS, 10], ['an unknown device', '', 0]]) {
+      const { sent, links } = run(search, userAgent, touch);
+      if (sent !== null) fail(GET_PAGE, `${device} with "${search}" was sent away to ${sent}`);
+      links.forEach((href, i) => {
+        const expected = isApple(original[i]) ? appStore(name) : play(name);
+        if (href !== expected) fail(GET_PAGE, `${device} with "${search}": a badge is ${href}, not ${expected}`);
+      });
+    }
   }
 }
 
@@ -854,6 +946,7 @@ checkSitemap(indexedPages);
 checkOrphans(indexedPages);
 checkVideosEmbedded();
 checkShareCampaign();
+checkGetPage(indexedPages);
 await checkShareButton();
 checkSeasonalGuides();
 checkPins(indexedPages);

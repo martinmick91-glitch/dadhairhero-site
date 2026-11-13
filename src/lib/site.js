@@ -570,8 +570,11 @@ export function appStoreUrl(campaignName) {
   return `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=${APP_STORE_PROVIDER}&ct=${encodeURIComponent(campaignName)}&mt=8`;
 }
 
-export function playUrl(campaignName) {
-  const referrer = `utm_source=dadhairhero.com&utm_medium=website&utm_campaign=${campaignName}`;
+// A printed QR code (src/pages/get.astro) is not a visit from the website, so
+// its Play links say so: utm_source=qr, utm_medium=print.
+export const QR_REFERRER = { source: 'qr', medium: 'print' };
+export function playUrl(campaignName, { source = 'dadhairhero.com', medium = 'website' } = {}) {
+  const referrer = `utm_source=${source}&utm_medium=${medium}&utm_campaign=${campaignName}`;
   return `https://play.google.com/store/apps/details?id=${PLAY_PACKAGE}&referrer=${encodeURIComponent(referrer)}`;
 }
 

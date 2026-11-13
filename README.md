@@ -62,7 +62,10 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
   since 1.4.0, so School lists the Everyday styles); the care routines
   (`/guides/`, one page per routine, in full, from the export's `guides`;
   a guide marked `hold` gets no page); Fix It, one page per problem from
-  the app's tree; the Kit; About; Press; privacy; 404.
+  the app's tree; the Kit; About; Press; privacy; 404; and `/get/`, the
+  address behind printed QR codes, which sends a phone to its own store
+  (`src/pages/get.astro`; `/get/?c=poster` is counted as the campaign
+  `qr-poster`). It is not indexed, not in the sitemap and not linked.
 - **Videos.** `npm run videos` renders a 30 to 45 second vertical video for
   each free style in each language from its step photos
   (`scripts/render-videos.mjs`, sharp and ffmpeg), into `public/videos/`,
@@ -74,9 +77,10 @@ Hero app. Built with [Astro](https://astro.build) and hosted on GitHub Pages.
 - **No tracking.** The site loads no script file and nothing from any other
   site. The one inline script runs the phone app bar: it picks the store
   for the phone and remembers a dismissal in the browser's own
-  sessionStorage. Store badge links carry the name of the page they are
-  on, which the store consoles report; the site records nothing. No
-  analytics is added unless Martin says so.
+  sessionStorage. The others only decide where links point (a visit's
+  campaign, and `/get/` choosing the store). Store badge links carry the
+  name of the page they are on, which the store consoles report; the site
+  records nothing. No analytics is added unless Martin says so.
 
 ## Working on it
 
