@@ -100,6 +100,8 @@ const NUMBER_WORDS = [
   'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
   'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
   'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five', 'twenty-six', 'twenty-seven', 'twenty-eight', 'twenty-nine', 'thirty',
+  'thirty-one', 'thirty-two', 'thirty-three', 'thirty-four', 'thirty-five', 'thirty-six', 'thirty-seven', 'thirty-eight', 'thirty-nine', 'forty',
+  'forty-one', 'forty-two', 'forty-three', 'forty-four', 'forty-five', 'forty-six', 'forty-seven', 'forty-eight', 'forty-nine', 'fifty',
 ];
 export function inWords(n) {
   if (!NUMBER_WORDS[n]) throw new Error(`inWords: no word for ${n}`);
@@ -471,13 +473,14 @@ export const UNDER_THREE_LINE = "Under three? Use elastics and clips only while 
 // src/data/safety.ts (wording approved 2026-10-14). The app shows it under a
 // style or routine that suggests sleeping in it (sleepsInIt). The export
 // doesn't carry that flag for styles, so the free styles it applies to are
-// listed here; Bedtime Pineapple is the only free one (1.4.0). A routine's
+// listed here: Bedtime Pineapple (1.4.0), and Chunky Twists and Twist-Out
+// (1.4.2), the free styles whose app records have sleepsInIt. A routine's
 // own flag is in the export (guide.sleepNote).
 export const SLEEP_NOTE = {
   heading: 'Before she sleeps in it.',
   body: 'Under one: nothing on her head and nothing in the cot, so no bonnet and no pillow. Under three: take out every elastic and clip before naps and bed. Small hair things are a choking risk. Older children: check the bed in the morning for anything that has come loose.',
 };
-export const SLEEPS_IN_IT_FREE_STYLES = ['bedtime-pineapple'];
+export const SLEEPS_IN_IT_FREE_STYLES = ['bedtime-pineapple', 'chunky-twists', 'twist-out'];
 
 // The seasonal looks a style is used in, for the lines on its own page:
 // "A Halloween idea: …", "A Christmas idea: …". A look with no `idea` has none.
