@@ -1,8 +1,8 @@
 {
   "locale": "en-US",
-  "contentVersion": "166d8119601bca6d",
+  "contentVersion": "6c6573c33ad03592",
   "appVersion": "1.3.1",
-  "appCommit": "bbec91b",
+  "appCommit": "4ed2d6c",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -5526,7 +5526,7 @@
       "whyItMatters": "Your free hand is the anchor. It rests flat against her head, between the section you're working and her scalp, for the whole time you're gathering or wrapping. The anchor hand is what controls the pull she feels: not the elastic, not how hard you tug the hair.",
       "howToDoIt": [
         "Rest your free hand flat against her head, between the section you're working and her scalp, and keep it there the whole time you're gathering or wrapping.",
-        "Loop the elastic three times for an everyday style, or five or more for sport. Ask her how it feels after the third loop, before you add another."
+        "Loop the elastic three times for an everyday style, or five or more for sports. Ask her how it feels after the third loop, before you add another."
       ],
       "howToCheck": [
         "Two fingers slide underneath the loop without forcing."
@@ -7016,10 +7016,10 @@
         }
       ],
       "notes": [
-        "No clips or pins for contact sport, gymnastics or tumbling: anything hard can dig in during a tackle or a fall. Elastics and a soft headband only.",
+        "No clips or pins for contact sports, gymnastics or tumbling: anything hard can dig in during a tackle or a fall. Elastics and a soft headband only.",
         "Put a spare elastic or two in her gym bag. One often snaps mid-match.",
         "Camogie and hurling players wear helmets for matches and training, and so do cyclists and riders. The helmet's fit is for her coach and the helmet's instructions; this routine is only about the hair underneath it.",
-        "Not so tight it hurts. A ponytail for sport has to stay put, but she should still be able to raise her eyebrows without feeling a pull."
+        "Not so tight it hurts. A ponytail for sports has to stay put, but she should still be able to raise her eyebrows without feeling a pull."
       ],
       "links": [],
       "suggestions": [
@@ -8110,7 +8110,7 @@
       {
         "tier": "nice-to-have",
         "label": "Nice to have",
-        "sub": "Not needed for any style, but they make mornings easier.",
+        "sub": "Most styles don't need these, but they make mornings easier.",
         "items": [
           {
             "id": "satin-bonnet",
@@ -8153,7 +8153,7 @@
             "slug": "medium-claw-clip",
             "name": "Medium claw clip",
             "use": "Holds all her hair twisted up against the back of her head, in one squeeze, for Claw-Clip Twist.",
-            "avoid": "Not for PE, bed or the car: a claw clip is hard, and it sits between her head and whatever she leans on.",
+            "avoid": "Not for gym class, bed or the car: a claw clip is hard, and it sits between her head and whatever she leans on.",
             "buyingNote": "About as wide as your palm, with smooth teeth that meet when it's closed and a firm spring. Thick hair needs a bigger one.",
             "image": {
               "base": "/images/kit/medium-claw-clip",
@@ -9091,7 +9091,7 @@
         "id": "outcome-sports-bun-coil",
         "type": "outcome",
         "title": "Pin the coil before adding the tie over it",
-        "body": "A hair tie over an unpinned bun holds against slow movement but not against running. Redo the bun: twist the ponytail tightly before coiling it, more tightly than feels necessary. Push two bobby pins through the coil into the base elastic, one from each side, crossing through the center of the coil. Add the hair tie over the top last. The pins lock the shape; the tie is a backup, not the structure. Slightly damp or unwashed bobby pins itself better than freshly conditioned hair, which is too slippery for this to hold under movement.",
+        "body": "A hair tie over an unpinned bun holds against slow movement but not against running. Redo the bun: twist the ponytail tightly before coiling it, more tightly than feels necessary. Push two bobby pins through the coil into the base elastic, one from each side, crossing through the center of the coil. Add the hair tie over the top last. The pins lock the shape; the tie is a backup, not the structure. Slightly damp or unwashed hair holds better than freshly conditioned hair, which is too slippery for this to hold under movement.",
         "link": {
           "type": "equipment",
           "id": "bobby-pin",
