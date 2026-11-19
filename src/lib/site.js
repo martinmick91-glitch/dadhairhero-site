@@ -186,7 +186,7 @@ export const HUBS = [
     name: 'Sports hairstyles',
     h1: 'Hairstyles for sport and active days',
     title: 'Sports hairstyles for girls that stay put | Dad Hair Hero',
-    description: 'Hairstyles for sport, swimming and PE that hold: the styles the app lists for sport, free swim day and sport day routines, and the fix for a bun that collapses.',
+    description: 'Hairstyles for sport, swimming and PE that hold: the styles the app lists for sport, free swim and sport day routines, and the fix for a bun that collapses.',
     lede: 'Hair that has to survive a match, a swimming lesson or a whole afternoon outside.',
     intro: 'An active day asks two things of a style: it holds, and it does not hurt. The styles here are the ones the app lists for Sport. For swimming lessons and sport at school, the app also has two free care routines, linked below. The techniques that matter most are holding tension and choosing elastics, and Fix It has a page for a style that falls out and one for a bun that collapses mid-game.',
     select: (styles) => sortByTime(styles.filter((s) => s.occasions.includes('sport'))),

@@ -1,8 +1,8 @@
 {
   "locale": "en-GB",
-  "contentVersion": "166d8119601bca6d",
+  "contentVersion": "6c6573c33ad03592",
   "appVersion": "1.3.1",
-  "appCommit": "bbec91b",
+  "appCommit": "4ed2d6c",
   "labels": {
     "ageBands": {
       "baby": "Baby",
@@ -8110,7 +8110,7 @@
       {
         "tier": "nice-to-have",
         "label": "Nice to have",
-        "sub": "Not needed for any style, but they make mornings easier.",
+        "sub": "Most styles don't need these, but they make mornings easier.",
         "items": [
           {
             "id": "satin-bonnet",
@@ -9091,7 +9091,7 @@
         "id": "outcome-sports-bun-coil",
         "type": "outcome",
         "title": "Pin the coil before adding the tie over it",
-        "body": "A hair tie over an unpinned bun holds against slow movement but not against running. Redo the bun: twist the ponytail tightly before coiling it, more tightly than feels necessary. Push two bobby pins through the coil into the base elastic, one from each side, crossing through the centre of the coil. Add the hair tie over the top last. The pins lock the shape; the tie is a backup, not the structure. Slightly damp or unwashed hair grips itself better than freshly conditioned hair, which is too slippery for this to hold under movement.",
+        "body": "A hair tie over an unpinned bun holds against slow movement but not against running. Redo the bun: twist the ponytail tightly before coiling it, more tightly than feels necessary. Push two bobby pins through the coil into the base elastic, one from each side, crossing through the centre of the coil. Add the hair tie over the top last. The pins lock the shape; the tie is a backup, not the structure. Slightly damp or unwashed hair holds better than freshly conditioned hair, which is too slippery for this to hold under movement.",
         "link": {
           "type": "equipment",
           "id": "bobby-pin",

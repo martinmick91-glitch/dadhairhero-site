@@ -1,5 +1,5 @@
 {
-  "contentVersion": "166d8119601bca6d",
+  "contentVersion": "6c6573c33ad03592",
   "words": {
     "plait": "braid",
     "plaits": "braids",
@@ -53,6 +53,9 @@
     "a fringe": "bangs",
     "coat zip": "coat zipper",
     "out for pe": "out for gym",
+    "not for pe": "not for gym class",
+    "for sport": "for sports",
+    "contact sport": "contact sports",
     "sport, dance, nits": "sports, dance, lice",
     "braids and plaits": "braids",
     "plaits and braids": "braids",
