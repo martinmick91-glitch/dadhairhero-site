@@ -412,6 +412,21 @@ function checkOutboundLinks(page, doc) {
     if (disclosure === -1 || disclosure > firstLink) fail(page, 'the affiliate disclosure must come before the first Buy link');
     if (!/As an Amazon Associate/.test(html)) fail(page, 'the Amazon Associates notice is missing');
   }
+  // Social accounts: plain links to the two accounts and nothing else from
+  // either site. Instagram and TikTok are in every footer, side by side.
+  const SOCIAL = { 'instagram.com': 'https://www.instagram.com/dadhairhero/', 'tiktok.com': 'https://www.tiktok.com/@dad.hair.hero' };
+  const social = { 'instagram.com': 0, 'tiktok.com': 0 };
+  for (const a of doc.querySelectorAll('a')) {
+    const href = a.getAttribute('href') ?? '';
+    const site = Object.keys(SOCIAL).find((host) => new RegExp(`^https?://([a-z0-9-]+\\.)*${host.replace('.', '\\.')}(/|$)`, 'i').test(href));
+    if (!site) continue;
+    social[site] += 1;
+    if (href !== SOCIAL[site]) fail(page, `link to ${site} that isn't the app's account: ${href}`);
+    if (a.getAttribute('target') !== '_blank' || a.getAttribute('rel') !== 'noopener noreferrer') fail(page, `social link without target="_blank" rel="noopener noreferrer": ${href}`);
+  }
+  if (social['instagram.com'] !== social['tiktok.com']) fail(page, `Instagram is linked ${social['instagram.com']} times and TikTok ${social['tiktok.com']}: they go side by side`);
+  if (social['instagram.com'] === 0) fail(page, 'the footer has no Instagram and TikTok links');
+  if (/tiktok\.com|instagram\.com/i.test(doc.querySelectorAll('script:not([type="application/ld+json"]), iframe, embed, object, blockquote, img, link').map((n) => n.toString()).join(''))) fail(page, 'something other than a plain link points at Instagram or TikTok');
   if (doc.querySelector('script[src]')) fail(page, 'a page loads a script file; the only script is the inline app bar');
   for (const script of doc.querySelectorAll('script:not([type="application/ld+json"])')) {
     if (/fetch\(|XMLHttpRequest|sendBeacon|new Image\(|localStorage/.test(script.text)) fail(page, 'an inline script sends or stores something; the site records nothing');
