@@ -9,7 +9,7 @@
 // stripped. Everything else pictured on the site is an illustration.
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
-import { LOCALES, SITE, AUTHOR, EMAIL, INSTAGRAM, langParam, localeFromParam, path, breadcrumbs, campaign, t, say, ORGANIZATION, PERSON } from '../../lib/site.js';
+import { LOCALES, SITE, AUTHOR, EMAIL, INSTAGRAM, TIKTOK, langParam, localeFromParam, path, breadcrumbs, campaign, t, say, ORGANIZATION, PERSON } from '../../lib/site.js';
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { lang: langParam(locale) } }));
@@ -111,6 +111,7 @@ const jsonld = [
   </p>
   <p>
     {t(locale, 'On Instagram:')} <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>{INSTAGRAM.handle}</a>.
+    {' '}{t(locale, 'On TikTok:')} <a href={TIKTOK.url} aria-label={TIKTOK.label}>{TIKTOK.handle}</a>.
   </p>
   <p>
     <a href={path(locale, 'tellUs')}>{t(locale, 'Tell us what to fix')}</a> {t(locale, 'says what helps most in an email. Writing about the app, or telling a group about it?')}

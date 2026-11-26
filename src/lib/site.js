@@ -22,6 +22,11 @@ export const EMAIL = 'hello@dadhairhero.com';
 // embed, widget, pixel or script from Instagram anywhere on the site.
 export const INSTAGRAM = { url: 'https://www.instagram.com/dadhairhero/', handle: '@dadhairhero', label: 'Dad Hair Hero on Instagram' };
 
+// The app's TikTok account (Martin, 2026-11-26). Linked beside Instagram,
+// in the same way: a plain link only, no embed, widget, pixel or script
+// from TikTok anywhere on the site.
+export const TIKTOK = { url: 'https://www.tiktok.com/@dad.hair.hero', handle: '@dad.hair.hero', label: 'Dad Hair Hero on TikTok' };
+
 // How the site says what the app costs: free to download, with the optional
 // one-time pack. Never just "free" for the app as a whole.
 export const FREE_TO_DOWNLOAD = 'Free to download, with an optional one-time pack.';
@@ -861,6 +866,7 @@ export const ORGANIZATION = {
     `https://apps.apple.com/app/id${APP_STORE_ID}`,
     `https://play.google.com/store/apps/details?id=${PLAY_PACKAGE}`,
     INSTAGRAM.url,
+    TIKTOK.url,
   ],
 };
 

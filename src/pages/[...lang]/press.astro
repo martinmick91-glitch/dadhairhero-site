@@ -7,7 +7,7 @@
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import {
-  LOCALES, EMAIL, INSTAGRAM, COUNTS, capitalised, say, langParam, localeFromParam, path, breadcrumbs, campaign, t,
+  LOCALES, EMAIL, INSTAGRAM, TIKTOK, COUNTS, capitalised, say, langParam, localeFromParam, path, breadcrumbs, campaign, t,
 } from '../../lib/site.js';
 
 export function getStaticPaths() {
@@ -72,7 +72,7 @@ const shots = [
 
   <h2>{t(locale, 'Questions and interviews')}</h2>
   <p>
-    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'On Instagram:')} <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>{INSTAGRAM.handle}</a>. {t(locale, 'Every email is read. Ask for a different picture, a quote, or a link with your own name on it, so you can see how many people it sent to the app.')}
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. {t(locale, 'On Instagram:')} <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>{INSTAGRAM.handle}</a>. {t(locale, 'On TikTok:')} <a href={TIKTOK.url} aria-label={TIKTOK.label}>{TIKTOK.handle}</a>. {t(locale, 'Every email is read. Ask for a different picture, a quote, or a link with your own name on it, so you can see how many people it sent to the app.')}
   </p>
 
   <StoreBadges campaignName={campaign(locale, 'press')} />
