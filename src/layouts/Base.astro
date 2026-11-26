@@ -8,7 +8,7 @@ import '../styles/site.css';
 import StoreBadges from '../components/StoreBadges.astro';
 import AppBar from '../components/AppBar.astro';
 import ShareCampaign from '../components/ShareCampaign.astro';
-import { SITE, UK, HUBS, APP_STORE_ID, EMAIL, INSTAGRAM, absolute, alternates, campaign, path, otherLocale, t } from '../lib/site.js';
+import { SITE, UK, HUBS, APP_STORE_ID, EMAIL, INSTAGRAM, TIKTOK, SOCIAL_LINK, absolute, alternates, campaign, path, otherLocale, t } from '../lib/site.js';
 
 const {
   locale = UK,
@@ -127,8 +127,9 @@ const nav = [
           <a href={path(locale, 'tellUs')}>Tell us what to fix</a>
           <a href={path(locale, 'press')}>Press</a>
           <a href="/privacy/">Privacy policy</a>
-          {/* A plain link to the app's Instagram account: no embed, widget or script. */}
-          <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label}>Instagram</a>
+          {/* Plain links to the app's Instagram and TikTok accounts: no embed, widget or script. */}
+          <a href={INSTAGRAM.url} aria-label={INSTAGRAM.label} {...SOCIAL_LINK}>Instagram</a>
+          <a href={TIKTOK.url} aria-label={TIKTOK.label} {...SOCIAL_LINK}>TikTok</a>
         </nav>
         {paired && (
           <p class="language">
